@@ -39,5 +39,30 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.11.0/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBDf0iV4dj6XPracATb2Or9oN6i1lma9hk",
+        authDomain: "travelup-2fcd0.firebaseapp.com",
+        databaseURL: "https://travelup-2fcd0.firebaseio.com",
+        projectId: "travelup-2fcd0",
+        storageBucket: "travelup-2fcd0.appspot.com",
+        messagingSenderId: "678217901276",
+        appId: "1:678217901276:web:586c6cb1ccf06dc9cc0019"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      const db = firebase.firestore();
+      
+    </script>
   </body>
 </html>

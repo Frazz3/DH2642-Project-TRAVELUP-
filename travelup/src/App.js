@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import LoginForm from "./components/LoginForm.js";
+import SignupForm from "./components/SignupForm.js";
 import Start from "./components/Start.js";
 import Planner from "./components/Planner";
 import BrowseFood from "./components/BrowseFood.js";
@@ -24,7 +25,11 @@ class App extends Component {
                   render={props => <LoginForm {...props} />}
                   exact
                 />
-                <Route path="/start" render={props => <Start {...props} />} />
+                <Route path="/signUp"
+                render={props => <SignupForm {...props} />}
+                />
+                <Route path="/start" 
+                render={props => <Start {...props} />} />
                 <Route
                   path="/planner"
                   render={props => <Planner {...props} />}
