@@ -61,4 +61,4 @@ typings/
 .next
 
 # api config
-**/*Config.js*
+**/apiConfig.js*
