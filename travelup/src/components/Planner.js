@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { signOut } from '../actions/authActions'
+import { Redirect } from "react-router-dom";
+
 
 class Planner extends React.Component {
   constructor(props) {
@@ -12,8 +14,10 @@ handleClick = () => {
 }
 
   render() {
-    //lägg in en redirect till log-in ifall vi ej är inloggade (se LoginForm hur man gör)
-    //if (auth.uid) return <Redirect to='/' />
+    // om vi inte är inloggade ska vi inte kunna se planner-sidan
+    const {auth} = this.props;
+    if (!auth.uid) return <Redirect to='/' />
+
 
     return (
     <div className = "container">
@@ -25,6 +29,12 @@ handleClick = () => {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth
+  }
+}
+
 //behövde sign-out här för att kunna se så att redirecten funkar som den ska, ska senare tas bort
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -33,4 +43,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(null, mapDispatchToProps)(Planner);
+export default connect(mapStateToProps, mapDispatchToProps)(Planner);
