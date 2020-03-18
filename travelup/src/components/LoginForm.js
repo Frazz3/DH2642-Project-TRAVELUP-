@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { signIn } from '../actions/authActions'
+import { signIn, signOut } from '../actions/authActions'
+import { Redirect } from "react-router-dom";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -19,12 +20,21 @@ class LoginForm extends React.Component {
 
   handleSubmit = (e)=>{
     e.preventDefault(); //prevent submitting the default values
-    console.log(this.state)
+    
     this.props.signIn(this.state); //this.state is the credentials (email and password) from the state of the class
+  }
+
+  handleClick = () => {
+    this.props.signOut();
   }
 
 
   render() {
+    const { authError, auth } = this.props;
+    
+    //want to redirect to the planner if we are logged in
+    if (auth.uid) return <Redirect to='/planner' />
+
     return (
     <div className = "container"> 
     <form onSubmit={this.handleSubmit} className="white">
@@ -40,16 +50,31 @@ class LoginForm extends React.Component {
       <div className="input-field">
         <button className="ptn pink lighten-1 z-depth-0">Login</button>
       </div>
+      <div>
+        { authError ? <p>{authError}</p> : null}
+      </div>
     </form>
+    <div>
+        <button onClick = {this.handleClick} >Sign out</button>
+    </div>
 
     </div>);
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
+  console.log(state)
   return {
-    signIn: (creds) => dispatch(signIn(creds))
+    authError: state.auth.authError,
+    auth: state.firebase.auth
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signIn: (creds) => dispatch(signIn(creds)),
+    signOut: () => dispatch(signOut())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

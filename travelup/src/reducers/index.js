@@ -13,7 +13,7 @@ import { firebaseReducer } from 'react-redux-firebase';
 export default combineReducers({
   trip: tripReducer,
   auth: authReducer,
-  // npm install react-redux-firebase redux-firestore
+  // npm install react-redux-firebase redux-firestore 
   firestore: firestoreReducer,  //will sync our firestore data with the store state
-  firebase: firebaseReducer
+  firebase: firebaseReducer     //sync authentication status on firebase with our redux app. Will detect if we signin/signout of the auth-servie on firebase and will update this state accordingly
 });

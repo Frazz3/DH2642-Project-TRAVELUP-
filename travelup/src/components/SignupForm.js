@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { signUp } from '../actions/authActions'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -19,7 +21,7 @@ class SignupForm extends React.Component {
 
   handleSubmit = (e)=>{
     e.preventDefault(); //prevent submitting the default values
-    console.log(this.state);
+    this.props.signUp(this.state);
   }
 
 
@@ -53,4 +55,10 @@ class SignupForm extends React.Component {
   }
 }
 
-export default SignupForm;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUp: (newUser) => dispatch(signUp(newUser))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SignupForm);
