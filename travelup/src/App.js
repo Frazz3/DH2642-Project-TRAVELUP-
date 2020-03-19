@@ -10,9 +10,9 @@ import Planner from "./components/Planner";
 import BrowseFood from "./components/BrowseFood.js";
 import BrowseActivities from "./components/BrowseActivities.js";
 
-import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase'
+import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
 
-import store, {rrfProps} from "./store";
+import store, { rrfProps } from "./store";
 
 // start är main-page. Den första sidan man kommer till när appen startas
 // vi behöver ha en ReactReducFirebaseProvider runt vårt projekt för att koppla till firebase (som jag fattat det, ej säker) /Stina
@@ -28,14 +28,15 @@ class App extends Component {
                   <Route
                     path="/logIn"
                     render={props => <LoginForm {...props} />}
-                    
                   />
-                  <Route path="/signUp"
-                  render={props => <SignupForm {...props} />}
+                  <Route
+                    path="/signUp"
+                    render={props => <SignupForm {...props} />}
                   />
-                  <Route path="/" 
-                  render={props => <Start {...props} />} 
-                  exact
+                  <Route
+                    path="/"
+                    render={props => <Start {...props} />}
+                    exact
                   />
                   <Route
                     path="/planner"
