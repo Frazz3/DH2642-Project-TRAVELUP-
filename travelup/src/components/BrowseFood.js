@@ -1,29 +1,14 @@
 import React from "react";
-import {ENDPOINT, API_KEY} from "../apiConfig.js";
-const location_id = "189852"
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchRestaurants } from "../actions/foodActions"
 
 class BrowseFood extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state ={
-      restaurants: []
-    }
+  componentWillMount() {
+    this.props.fetchRestaurants();
   }
-
-  componentWillMount(){
-    fetch(ENDPOINT+"reataurants/list?restaurant_tagcategory_standalone=10591&lunit=km&restaurant_tagcategory=10591&limit=30&prices_restaurants=10953%252C10955&restaurant_mealtype=10598%252C10599&currency=SEK&lang=en_US&location_id="+location_id, {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": API_KEY
-      }
-    })
-  .then(response => response.json())
-  .then(data => this.setState({ restaurants: data.data }))
-  }
-
   render() {
-    const restaurantItems = this.state.restaurants.map(restaurant => (
+    const restaurantItems = this.props.restaurants.map(restaurant => (
       <div key={restaurant.location_id}>
         <h4>{restaurant.name} </h4>
         <h6>Description</h6>
@@ -44,4 +29,13 @@ class BrowseFood extends React.Component {
   }
 }
 
-export default BrowseFood;
+BrowseFood.propTypes = {
+  fetchRestaurants: PropTypes.func.isRequired,
+  restaurants: PropTypes.array.isRequired
+}
+
+const mapStateToProps = state => ({
+  restaurants: state.restaurants.items
+})
+
+export default connect(mapStateToProps, {fetchRestaurants})(BrowseFood);
