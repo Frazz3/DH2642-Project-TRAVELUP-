@@ -16,6 +16,15 @@
 
 import { SET_LOCATION, ADD_ACTIVITY } from "../actions/types";
 
+//dummy data
+const initState = {
+  country: 'Sweden',
+  city: 'Skellefteå',
+  author:'Stina',
+  restaurants : [{id:'1', name:'Mc Donalds', price:'100 sek', description:'Hamburger restaurant'}]
+}
+
+/*
 export default function tripReducer(state = {}, action) {
   switch (action.type) {
     case SET_LOCATION:
@@ -25,4 +34,18 @@ export default function tripReducer(state = {}, action) {
     default:
       return state;
   }
+}*/
+
+const tripReducer = (state = initState, action) => {
+  switch(action.type){
+    case 'CREATE_TRIP':
+      console.log('created trip', action.trip)
+      return state;
+    case 'CRREATE_PROJECT_ERROR':
+      console.log('create project error', action.err);
+      return state;
+    default:
+      return state;
+  }
 }
+export default tripReducer;
