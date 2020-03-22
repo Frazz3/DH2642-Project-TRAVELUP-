@@ -12,6 +12,8 @@ class Planner extends React.Component {
       destination: '',
       location_id: ''
     } 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleChange = (e) => {
@@ -24,6 +26,8 @@ class Planner extends React.Component {
 
 
   handleSearch(e) {
+    e.preventDefault(); //prevent submitting the default values
+    console.log(this.state.destination)
     fetch(ENDPOINT+"locations/search?limit=30&sort=relevance&offset=0&lang=en_US&currency=SEK&units=km&query="+this.state.destination, {
       "method": "GET",
       "headers": {
@@ -33,23 +37,26 @@ class Planner extends React.Component {
     })
   .then(response => response.json())
   .then(data => {
-    const id = data.data[0].result_object.location_id
-    this.setState({location_id: id })})
-  alert(this.state.location_id)
+    this.setState({location_id: data.data[0].result_object.location_id })
+    })
+  .then(
+    console.log('redirect'),
+    <Redirect to='/food' />
+  )
 }
 
   render() {
     // om vi inte är inloggade ska vi inte kunna se planner-sidan
-    const {auth} = this.props;
-    if (!auth.uid) return <Redirect to='/' />
+    // const {auth} = this.props;
+    // if (!auth.uid) return <Redirect to='/' />
 
 
     return (
     <div className = "container">
-      <form onSubmit={this.handleSearch}> 
+      <form onSubmit={this.handleSubmit}> 
         <div className="input-field">
-          <label>Insert Destination:</label>
-          <input type="text" id="destination" onChange={this.handleChange}/>
+          <label htmlFor="destination">Insert Destination:</label>
+          <input type="" id="destination" onChange={this.handleChange}/>
         </div>
         <div className="input-field">
           <button type="submit">Search</button>

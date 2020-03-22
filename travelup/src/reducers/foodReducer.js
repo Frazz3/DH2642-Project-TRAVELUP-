@@ -4,7 +4,7 @@ const intitialState = {
   items: [],
 }
 
-export default function tripReducer(state = intitialState, action) {
+export default function foodReducer(state = intitialState, action) {
   switch (action.type) {
     case FETCH_RESTAURANTS:
       return {
