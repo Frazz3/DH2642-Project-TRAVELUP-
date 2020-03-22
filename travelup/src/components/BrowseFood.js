@@ -5,7 +5,8 @@ import { fetchRestaurants } from "../actions/foodActions"
 
 class BrowseFood extends React.Component {
   componentWillMount() {
-    this.props.fetchRestaurants();
+    console.log('before fetch', this.props.location_id)
+    this.props.fetchRestaurants(this.props.location_id);
   }
   render() {
     const restaurantItems = this.props.restaurants.map(restaurant => (
@@ -34,8 +35,11 @@ BrowseFood.propTypes = {
   restaurants: PropTypes.array.isRequired
 }
 
-const mapStateToProps = state => ({
-  restaurants: state.restaurants.items
+const mapStateToProps = state => (
+  console.log('mapstatetoprops', state.location.id),
+  {
+  restaurants: state.restaurants.items,
+  location_id: state.location.id,
 })
 
 export default connect(mapStateToProps, {fetchRestaurants})(BrowseFood);

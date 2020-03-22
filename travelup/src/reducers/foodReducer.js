@@ -2,6 +2,7 @@ import { FETCH_RESTAURANTS } from "../actions/types";
 
 const intitialState = {
   items: [],
+  item: {}
 }
 
 export default function foodReducer(state = intitialState, action) {

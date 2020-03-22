@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { signOut } from '../actions/authActions'
 import { Redirect } from "react-router-dom";
 import {ENDPOINT, API_KEY} from "../apiConfig.js";
+import { fetchLocation } from "../actions/plannerActions";
 
 
 class Planner extends React.Component {
@@ -13,7 +14,7 @@ class Planner extends React.Component {
       location_id: ''
     } 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = (e) => {
@@ -25,30 +26,16 @@ class Planner extends React.Component {
   }
 
 
-  handleSearch(e) {
+  handleSubmit(e) {
     e.preventDefault(); //prevent submitting the default values
-    console.log(this.state.destination)
-    fetch(ENDPOINT+"locations/search?limit=30&sort=relevance&offset=0&lang=en_US&currency=SEK&units=km&query="+this.state.destination, {
-      "method": "GET",
-      "headers": {
-        "x-rapidapi-host": "tripadvisor1.p.rapidapi.com",
-        "x-rapidapi-key": API_KEY
-      }
-    })
-  .then(response => response.json())
-  .then(data => {
-    this.setState({location_id: data.data[0].result_object.location_id })
-    })
-  .then(
-    console.log('redirect'),
-    <Redirect to='/food' />
-  )
+    this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
+    this.props.history.push('/food');
 }
 
   render() {
-    // om vi inte är inloggade ska vi inte kunna se planner-sidan
-    // const {auth} = this.props;
-    // if (!auth.uid) return <Redirect to='/' />
+    //om vi inte är inloggade ska vi inte kunna se planner-sidan
+    const {auth} = this.props;
+    if (!auth.uid) return <Redirect to='/' />
 
 
     return (
@@ -72,14 +59,16 @@ class Planner extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
   }
 }
 
 //behövde sign-out här för att kunna se så att redirecten funkar som den ska, ska senare tas bort
 const mapDispatchToProps = (dispatch) => {
   return {
-    signOut: () => dispatch(signOut())
+    signOut: () => dispatch(signOut()),
+    fetchLocation: (destination) => dispatch(fetchLocation(destination))
+
   }
 }
 
