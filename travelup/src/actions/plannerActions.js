@@ -10,9 +10,8 @@ export const fetchLocation = (destination) => dispatch => {
     }
   })
 .then(response => response.json())
-.then(data => { console.log('fetch id', data.data[0].result_object.location_id)
-dispatch({ 
+.then(data => dispatch({ 
   type: FETCH_LOCATION,
   payload: data.data[0].result_object.location_id
-})});
+}));
 }

@@ -10,8 +10,7 @@ class Planner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      destination: '',
-      location_id: ''
+      destination: ''
     } 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,7 +28,8 @@ class Planner extends React.Component {
   handleSubmit(e) {
     e.preventDefault(); //prevent submitting the default values
     this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
-    this.props.history.push('/food');
+    setTimeout(() => {  this.props.history.push('/food'); }, 9000); //fullösning ändra till render promise
+    
 }
 
   render() {
