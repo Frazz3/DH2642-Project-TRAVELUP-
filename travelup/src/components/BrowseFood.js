@@ -1,13 +1,29 @@
 import React from "react";
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchRestaurants } from "../actions/foodActions"
 
+const prices_restaurants = [{"$": "10953"},{"$$-$$$": "10955"},{"$$$$": "10954"},{"all": "all"}]
+const restaurant_mealtype = [{"Breakfast": "10597"},{"Lunch": "10598"},{"Dinner": "10599"},{"Brunch": "10606"},{"all": "all"}]
 class BrowseFood extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      priceFilter: "all",
+      mealtypeFilter: "all"
+    }
+  }
   componentWillMount() {
-    console.log('before fetch', this.props.location_id)
     this.props.fetchRestaurants(this.props.location_id);
   }
+
+  handleChange = event => {
+   // this.setState
+  };
+  
   render() {
     const restaurantItems = this.props.restaurants.map(restaurant => (
       <div key={restaurant.location_id}>
@@ -21,6 +37,12 @@ class BrowseFood extends React.Component {
         <br />
       </div>
     ));
+    const priceCheckbox = prices_restaurants.map(obj => (
+      <FormControlLabel
+      control={<Checkbox checked={false} onChange={this.handleChange}/>} label="hej"/>
+    )
+
+    ) 
     return (
       <div>
         <h1>Restaurants</h1>
@@ -36,7 +58,6 @@ BrowseFood.propTypes = {
 }
 
 const mapStateToProps = state => (
-  console.log('mapstatetoprops', state.location.id),
   {
   restaurants: state.restaurants.items,
   location_id: state.location.id,
