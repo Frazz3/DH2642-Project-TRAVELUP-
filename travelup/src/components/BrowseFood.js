@@ -110,7 +110,7 @@ class BrowseFood extends React.Component {
     const priceCheckbox = (
       <FormGroup row>
         {this.createCheckbox("$", "cheap")}
-        {this.createCheckbox("$$-$$", "medium")}
+        {this.createCheckbox("$$-$$$", "medium")}
         {this.createCheckbox("$$$$", "expensive")}
         {this.createCheckbox("All", "allPrice")}
       </FormGroup>
