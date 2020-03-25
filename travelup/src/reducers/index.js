@@ -3,7 +3,10 @@ import { combineReducers } from "redux";
 // Import all reducers
 import tripReducer from "./tripReducer";
 import authReducer from "./authReducer";
+import foodReducer from "./foodReducer";
+import plannerReducer from "./plannerReducer"
 import allTripsReducer from "./allTripsReducer"
+
 
 import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase';
@@ -14,6 +17,8 @@ import { firebaseReducer } from 'react-redux-firebase';
 export default combineReducers({
   trip: tripReducer,
   auth: authReducer,
+  restaurants: foodReducer,
+  location: plannerReducer,
   allTrips: allTripsReducer,
   // npm install react-redux-firebase redux-firestore 
   firestore: firestoreReducer,  //will sync our firestore data with the store state

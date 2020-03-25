@@ -21,8 +21,12 @@ const store = createStore(
     applyMiddleware(
       thunk.withExtraArgument({ getFirebase, getFirestore }) // för att koppla till firebase och firestore
     ),
+<<<<<<< HEAD
     window.__REDUX_DEVTOOLS_EXTENSION__ &&
       window.__REDUX_DEVTOOLS_EXTENSION__(),
+=======
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+>>>>>>> 164c4eb7a34442d443f6cdfb93cebb682083245b
     reduxFirestore(firebase, fbConfig)
   )
 );
