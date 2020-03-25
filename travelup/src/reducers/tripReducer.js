@@ -14,38 +14,34 @@
 // Kom ihåg att varje action har en .type och en .payload. Vad payloaden/datat är beror på typen. I fallet SET_LOCATION är vår payload en plats,
 // därför kallar vi den payloaden för location. I fallet ADD_ACTIVITY är payloaden ett activity-objekt, varför vi kallar payloaden för activity.
 
-import { SET_LOCATION, ADD_ACTIVITY } from "../actions/types";
+import { CREATE_TRIP, CREATE_TRIP_ERROR } from "../actions/types";
 
 //dummy data
 const initState = {
-  country: 'Sweden',
-  city: 'Skellefteå',
-  author:'Stina',
-  restaurants : [{id:'1', name:'Mc Donalds', price:'100 sek', description:'Hamburger restaurant'}]
-}
-
-/*
-export default function tripReducer(state = {}, action) {
-  switch (action.type) {
-    case SET_LOCATION:
-      return action.location;
-    case ADD_ACTIVITY:
-      return [action.activity, ...state];
-    default:
-      return state;
-  }
-}*/
+  country: "Sweden",
+  city: "Skellefteå",
+  author: "Stina",
+  restaurants: [
+    {
+      id: "1",
+      name: "Mc Donalds",
+      price: "100 sek",
+      description: "Hamburger restaurant"
+    }
+  ]
+};
 
 const tripReducer = (state = initState, action) => {
-  switch(action.type){
-    case 'CREATE_TRIP':
-      console.log('created trip', action.trip)
+  switch (action.type) {
+    case CREATE_TRIP:
+      // Här ska vi göra en entry i databasen.
+      console.log("created trip", action.trip);
       return state;
-    case 'CRREATE_PROJECT_ERROR':
-      console.log('create project error', action.err);
+    case CREATE_TRIP_ERROR:
+      console.log("create trip error", action.err);
       return state;
     default:
       return state;
   }
-}
+};
 export default tripReducer;
