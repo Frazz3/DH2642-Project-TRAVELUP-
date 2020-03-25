@@ -10,7 +10,8 @@ export default function plannerReducer(state = intitialState, action) {
     case FETCH_LOCATION:
       return {
         ...state,
-        id: action.payload // id som fetchen returnerar
+        id: action.payload, // id som fetchen returnerar
+        name: action.locationName   // location som användaren söker på
       };
     default:
       return state;

@@ -20,7 +20,6 @@ export const createTrip = (trip, userID) => {
     const firebase = getFirebase();
     firestore.collection('trips').add({
       ...trip
-      //lägg in author senare (baserat på den som är inloggad dvs.)
       // createdAt: new Date()    ifall vi vill ha när trip:en skapades
     }).then((response) => {
       console.log('response id', response.id);
@@ -35,10 +34,17 @@ export const createTrip = (trip, userID) => {
     }).catch((err) => {
       dispatch({ type: 'CREATE_TRIP_ERROR', err});
     })
-    //ska lägg till så att ID:et som skapas när vi lägger till trip:en ska läggas in i listan för användaren som skapat trip:en
+   
 
     
   }
+};
+
+export const addRestaurant = (restaurant) => {
+  return ( (dispatch) => {
+    dispatch( {type: 'ADD_RESTAURANT', restaurant: restaurant})
+  })
+
 };
 
 

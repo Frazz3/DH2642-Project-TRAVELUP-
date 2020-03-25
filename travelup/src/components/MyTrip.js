@@ -9,8 +9,9 @@ class MyTrip extends React.Component {
 
     // osäker om jag kan connecta från mapStateToProps till denna med?
     this.state = {
-      country: this.props.country,
-      city: this.props.city,
+      country:"",   // måste ha pga databasen, kanske ändra sen
+      city:"",      // måste ha pga databasen, kanske ändra sen
+      location: this.props.location,
       author: this.props.author,
       restaurants:this.props.restaurants
       /*
@@ -42,13 +43,21 @@ class MyTrip extends React.Component {
   // ex. https://www.youtube.com/watch?v=sh6hZKt-jh0&list=PL4cUxeGkcC9iWstfXntcj8f-dFZ4UtlN3&index=12
   render() {
     console.log('the props',this.props)
-    const {restaurants} = this.props;
+    const restaurants = this.props.restaurants;
+    console.log('restaurants', restaurants)
+    let rest = this.props.restaurants?this.props.restaurants.map((r) => 
+    <div key={r.location_id}>
+      {r.name} - {r.description}
+    </div>
+    ):null
     return (<div> 
           <div><b>My trip</b></div>
           <div>Country: {this.props.country}</div>
           <div>City: {this.props.city}</div>
+          <div> Location: {this.props.location}</div>
           <div>Author of trip: {this.props.author}</div>
-          <div>Restaurants: {restaurants[0].name} - {restaurants[0].description}</div>
+          <div>Restaurants: </div>
+          <div> {rest} </div>
           <button onClick={this.handleClick}>Add trip</button>
        </div>);
   }
@@ -61,10 +70,14 @@ const mapStateToProps = state => {
     activities: state.activities
 }}*/
 const mapStateToProps = (state) => {
+  
   return {
+    /*
     country: state.trip.country,
     city: state.trip.city,
-    author: state.trip.author,
+    */
+    location: state.location.name,
+    author: state.firebase.auth.uid,  // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid
   }

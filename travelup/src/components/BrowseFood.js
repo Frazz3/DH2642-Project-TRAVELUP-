@@ -8,10 +8,15 @@ import Button from '@material-ui/core/Button';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchRestaurants } from "../actions/foodActions"
+import { addRestaurant } from "../actions/tripActions"
 
 // om man vill göra snyggare lösning kan dessa användas. Görs ej i nuläget eftersom jag ej fick det att funka /Stina
 const prices_restaurants = [{"$": "10953"},{"$$-$$$": "10955"},{"$$$$": "10954"},{"all": "all"}]
 const restaurant_mealtype = [{"Breakfast": "10597"},{"Lunch": "10598"},{"Dinner": "10599"},{"Brunch": "10606"},{"all": "all"}]
+
+const restaurants_list = [{location_id: "1381784", name: "Don Camilo", description: "a restaurant", price: "free", address: "some street", photo: {images: {small: {url: "https://media-cdn.tripadvisor.com/media/photo-l/05/ea/91/ff/don-camilo.jpg"}}}}];
+const locationID = "187147";
+
 
 class BrowseFood extends React.Component {
   constructor(props){
@@ -36,6 +41,7 @@ class BrowseFood extends React.Component {
   }
   componentWillMount() {
     // fetches restaurants from the location. No filtering.
+    //console.log(this.props.location_id)
     this.props.fetchRestaurants(this.props.location_id);
   }
 
@@ -89,13 +95,36 @@ class BrowseFood extends React.Component {
           label={label}/>
     )
   }
+
+  addRestaurant = (restaurant) => {
+    if (window.confirm("Would you want to add " +restaurant.name+ " to your trip?")){
+      let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id}
+      this.props.addRestaurant(rest);
+    }else{
+      console.log('do not add');
+    }
+  }
   
   render() {
+    console.log(this.props.restaurants)
     const restaurantItems = this.props.restaurants.map(restaurant => 
+    //const restaurantItems = restaurants_list.map(restaurant => 
       restaurant.name ? 
       (
+        <div key={restaurant.location_id}>
+          <button className={restaurant.location_id} onClick={()=> this.addRestaurant(restaurant)}>
+            <h4>{restaurant.name} </h4>
+            <img src={restaurant.photo.images.small.url}/>
+            <h6>Description</h6>
+            <p>{restaurant.description}</p>
+            <h5>Price Range: {restaurant.price} </h5>
+            <p>Address: {restaurant.address} </p>
+          </button>
+        </div>
+        /*
       <div key={restaurant.location_id}>
         <h4>{restaurant.name} </h4>
+        <img src={restaurant.photo.images.small.url}/>
         <h6>Description</h6>
         <p>{restaurant.description}</p>
         <h5>Price Range: {restaurant.price} </h5>
@@ -104,6 +133,7 @@ class BrowseFood extends React.Component {
         <p>Address: {restaurant.address} </p>
         <br />
       </div>
+      */
     ): null);
    
 
@@ -129,11 +159,14 @@ class BrowseFood extends React.Component {
     return (
       <div>
         <div>
+          <button onClick = {() => this.props.history.push("/myTrip")}>See my trip</button>
+        </div>
+        <div>
             <FormLabel component="legend">Price</FormLabel>
-              {priceCheckbox}
+              <div>{priceCheckbox}</div>
             <br/>
             <FormLabel component="legend">Meal type</FormLabel>
-              {mealTypesCheckbox}
+              <div>{mealTypesCheckbox}</div>
         </div>
         
         <div>
@@ -154,7 +187,8 @@ class BrowseFood extends React.Component {
 
 BrowseFood.propTypes = {
   fetchRestaurants: PropTypes.func.isRequired,
-  restaurants: PropTypes.array.isRequired
+  restaurants: PropTypes.array.isRequired,
+  addRestaurant: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => (
@@ -163,4 +197,11 @@ const mapStateToProps = state => (
   location_id: state.location.id,
 })
 
-export default connect(mapStateToProps, {fetchRestaurants})(BrowseFood);
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    //createTrip: (trip, userID) => dispatch(createTrip(trip, userID))  //createTrip is an action-creator
+  }
+}
+
+export default connect(mapStateToProps, {fetchRestaurants, addRestaurant})(BrowseFood);

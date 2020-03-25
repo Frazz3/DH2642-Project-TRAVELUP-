@@ -11,6 +11,7 @@ import BrowseFood from "./components/BrowseFood.js";
 import BrowseActivities from "./components/BrowseActivities.js";
 import MyTrip from './components/MyTrip'
 import AllTrips from './components/AllTrips'
+import SearchSelections from './components/SearchSelections'
 
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase'
 
@@ -58,6 +59,10 @@ class App extends Component {
                   <Route
                     path="/allTrips"
                     render={props => <AllTrips {...props} />}
+                  />
+                  <Route
+                    path="/select"
+                    render={props => <SearchSelections {...props} />}
                   />
                 </Switch>
               </main>
