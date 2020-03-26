@@ -22,6 +22,13 @@ class MyTrip extends React.Component {
 
   }
 
+  replaceUndefined = (value) => {
+    if( typeof(value) === "undefined" ){
+      return "";
+    }
+    return value;
+  }
+
   handleClick = () => {
     // set the state with the current values
     /* Verkar gå för långsamt, behöver kanske inte detta
@@ -34,8 +41,23 @@ class MyTrip extends React.Component {
     })
     */
 
+    // need to make sure that no undefined fields are present
+    let trip = this.state;
+    trip.restaurants.map( rest => {
+      Object.keys(rest).map(function(key, index) {
+        console.log(key)
+        console.log(rest[key])
+        if( typeof(rest[key]) === "undefined" ){
+          rest[key] = "";
+        }
+     
+       });
+    })
+    
+
+    console.log(trip)
     // create a new trip with the values in the state
-    this.props.createTrip(this.state, this.props.userID)
+    this.props.createTrip(trip, this.props.userID)
     
   }
 
