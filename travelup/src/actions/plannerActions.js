@@ -12,6 +12,7 @@ export const fetchLocation = (destination) => dispatch => {
 .then(response => response.json())
 .then(data => dispatch({ 
   type: FETCH_LOCATION,
-  payload: data.data[0].result_object.location_id
+  payload: data.data[0].result_object.location_id,
+  locationName: destination
 }));
 }

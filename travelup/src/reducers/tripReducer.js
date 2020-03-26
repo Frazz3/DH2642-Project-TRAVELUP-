@@ -16,20 +16,16 @@
 
 import { CREATE_TRIP, CREATE_TRIP_ERROR } from "../actions/types";
 
-//dummy data
+
 const initState = {
-  country: "Sweden",
-  city: "Skellefteå",
-  author: "Stina",
-  restaurants: [
-    {
-      id: "1",
-      name: "Mc Donalds",
-      price: "100 sek",
-      description: "Hamburger restaurant"
-    }
-  ]
-};
+  country:"",   // måste ha pga databasen, kanske ändra sen
+  city:"",      // måste ha pga databasen, kanske ändra sen
+  location: "",
+  author: "",
+  restaurants: []
+}
+
+
 
 const tripReducer = (state = initState, action) => {
   switch (action.type) {
@@ -40,6 +36,14 @@ const tripReducer = (state = initState, action) => {
     case CREATE_TRIP_ERROR:
       console.log("create trip error", action.err);
       return state;
+    case 'ADD_RESTAURANT':
+      console.log('added restaurant')
+      console.log(state.restaurants)
+      console.log(action.restaurant)
+      return {
+          ...state,
+          restaurants: [...state.restaurants, action.restaurant]
+        }
     default:
       return state;
   }

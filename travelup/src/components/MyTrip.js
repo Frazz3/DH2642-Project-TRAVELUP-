@@ -9,12 +9,20 @@ class MyTrip extends React.Component {
 
     // osäker om jag kan connecta från mapStateToProps till denna med?
     this.state = {
-      country: this.props.country,
-      city: this.props.city,
+      country:"",   // måste ha pga databasen, kanske ändra sen
+      city:"",      // måste ha pga databasen, kanske ändra sen
+      location: this.props.location,
       author: this.props.author,
       restaurants: this.props.restaurants
       //activities: this.props.activities
     };
+  }
+
+  replaceUndefined = (value) => {
+    if( typeof(value) === "undefined" ){
+      return "";
+    }
+    return value;
   }
 
   handleClick = () => {
@@ -29,37 +37,60 @@ class MyTrip extends React.Component {
     })
     */
 
+    // need to make sure that no undefined fields are present
+    let trip = this.state;
+    trip.restaurants.map( rest => {
+      Object.keys(rest).map(function(key, index) {
+        console.log(key)
+        console.log(rest[key])
+        if( typeof(rest[key]) === "undefined" ){
+          rest[key] = "";
+        }
+     
+       });
+    })
+    
+
+    console.log(trip)
     // create a new trip with the values in the state
+
     this.props.createTrip(this.state, this.props.userID);
   };
 
   // hårdkodat till bara en restaurang, man får lösa det med en view eller något sen
   // ex. https://www.youtube.com/watch?v=sh6hZKt-jh0&list=PL4cUxeGkcC9iWstfXntcj8f-dFZ4UtlN3&index=12
   render() {
-    console.log("the props", this.props);
-    const { restaurants } = this.props;
-    return (
-      <div>
-        <div>
-          <b>My trip</b>
-        </div>
-        <div>Country: {this.props.country}</div>
-        <div>City: {this.props.city}</div>
-        <div>Author of trip: {this.props.author}</div>
-        <div>
-          Restaurants: {restaurants[0].name} - {restaurants[0].description}
-        </div>
-        <button onClick={this.handleClick}>Add trip</button>
-      </div>
-    );
+
+    console.log('the props',this.props)
+    const restaurants = this.props.restaurants;
+    console.log('restaurants', restaurants)
+    let rest = this.props.restaurants?this.props.restaurants.map((r) => 
+    <div key={r.location_id}>
+      {r.name} - {r.description}
+    </div>
+    ):null
+    return (<div> 
+          <div><b>My trip</b></div>
+          <div>Country: {this.props.country}</div>
+          <div>City: {this.props.city}</div>
+          <div> Location: {this.props.location}</div>
+          <div>Author of trip: {this.props.author}</div>
+          <div>Restaurants: </div>
+          <div> {rest} </div>
+          <button onClick={this.handleClick}>Add trip</button>
+       </div>);
   }
 }
 
-const mapStateToProps = state => {
+
+const mapStateToProps = (state) => {
   return {
+    /*
     country: state.trip.country,
     city: state.trip.city,
-    author: state.trip.author,
+    */
+    location: state.location.name,
+    author: state.firebase.auth.uid,  // should probably change to name later
     restaurants: state.trip.restaurants,
     //activities: state.activities
     userID: state.firebase.auth.uid

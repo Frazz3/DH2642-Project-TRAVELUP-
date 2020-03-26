@@ -11,6 +11,7 @@ export const createTrip = (trip, userID) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
+
     firestore
       .collection("trips")
       .add({
@@ -39,3 +40,13 @@ export const createTrip = (trip, userID) => {
     //ska lägg till så att ID:et som skapas när vi lägger till trip:en ska läggas in i listan för användaren som skapat trip:en
   };
 };
+
+export const addRestaurant = (restaurant) => {
+  return ( (dispatch) => {
+    dispatch( {type: 'ADD_RESTAURANT', restaurant: restaurant})
+  })
+
+};
+
+
+

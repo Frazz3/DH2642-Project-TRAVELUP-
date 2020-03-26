@@ -28,7 +28,8 @@ class Planner extends React.Component {
   handleSubmit(e) {
     e.preventDefault(); //prevent submitting the default values
     this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
-    setTimeout(() => {  this.props.history.push('/food'); }, 9000); //fullösning ändra till render promise
+    this.props.history.push('/select');
+    //setTimeout(() => {  this.props.history.push('/food'); }, 9000); //fullösning ändra till render promise
     
 }
 
