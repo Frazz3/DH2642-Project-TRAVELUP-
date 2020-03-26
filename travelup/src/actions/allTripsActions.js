@@ -1,29 +1,52 @@
+import { GET_USER_TRIPS, GET_TRIPS_ERROR } from "./types";
 
-export const getAllTrips = (userID) => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-        console.log('in the action')
-        const firestore = getFirestore();
-        
-        // hämta trips-listan för användaren
-        firestore.collection('users').doc(userID).get().then((response) => {
-            const allTrips = response.data().trips;
-            // hämtar all information om varje trip
-            // vill lägga alla nya objekt i samma lista och lägga in den i allTrips-state:et, vet ej hur...
-            allTrips.map( (trip) => {
-                console.log('trip', trip)
-                if (trip===''){
-                    console.log('wrong format')
-                }else{
-                firestore.collection('trips').doc(trip).get().then((t) => {
-                    console.log('a trip', t.data())
-                    // dispatch({type: 'ADD_ONE_TRIP_TO_ALL_TRIPS', trip: t.data()})
-                })}
-            })
+// -- ACTIONS --
+export const getAllTrips = userID => {
+  return function(dispatch, getState, { getFirebase, getFirestore }) {
+    return firebaseGetUserTrips(userID, getFirestore)
+      .then(trips => {
+        dispatch({ type: GET_USER_TRIPS, payload: trips });
+      })
+      .catch(err => {
+        dispatch({ type: GET_TRIPS_ERROR, err });
+      });
+  };
+};
 
-            console.log('response', response.data().trips)
-        }).catch((err) => {
-            dispatch({type: 'GET_TRIPS_ERROR', err});
-        })
-    }
+// -- THUNKS --
+export const firebaseGetUserTrips = (userID, getFirestore) => {
+  // INPUT: DB userID
+  // OUTPUT: Promise containing user's trips in DB
+  const firestore = getFirestore();
+  console.log("Getting trips from DB with uID: ", userID);
 
-}
+  let userTrips = firestore
+    .collection("users") // Ta fram användaren baserat på userID
+    .doc(userID)
+    .get()
+    .then(response => {
+      let tripPromises = [];
+      let tripIDs = response.data().trips; // Array med användarens alla trip-IDn
+      tripIDs.map(tripID => {
+        if (tripID === "") {
+          console.log("Wrong format.");
+        } else {
+          tripPromises.push(
+            firestore
+              .collection("trips")
+              .doc(tripID)
+              .get()
+              .then(tripResponse => {
+                let tripObject = tripResponse.data();
+                tripObject.id = tripID;
+                return tripObject;
+              })
+          );
+        }
+      });
+      return Promise.all(tripPromises); // Return single promise object upon resolving all trip promises
+    });
+  return userTrips;
+};
+
+// -- LISTENERS --
