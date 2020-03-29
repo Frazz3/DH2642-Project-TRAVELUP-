@@ -35,7 +35,6 @@ class App extends Component {
                   <Route
                     path="/logIn"
                     render={props => <LoginForm {...props} className="auth"/>}
-                    
                   />
                   <Route path="/signUp"
                   render={props => <SignupForm {...props} className="auth"/>}
@@ -71,7 +70,8 @@ class App extends Component {
                 </Switch>
               </main>
             </div>
-            <div className="myTrip"><MyTrip/></div>
+            <div className="myTrip">
+            <MyTrip/></div>
             </div>
           </ReactReduxFirebaseProvider>
         </Provider>

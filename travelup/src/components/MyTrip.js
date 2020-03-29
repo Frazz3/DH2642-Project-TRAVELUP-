@@ -1,5 +1,5 @@
 import React from "react";
-//import PropTypes from k
+import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 import { createTrip } from "../actions/tripActions";
 import Button from '@material-ui/core/Button';
@@ -69,7 +69,7 @@ class MyTrip extends React.Component {
       ):null
       return (<div style={myTripContainer}> 
         <Button variant="outlined" onClick={this.handleClick}>
-          Add trip
+          <Link to="/planner" style={lnkStyle} activeStyle={lnkStyle} >Add trip</Link>
         </Button>
         <br/>
         <div><b>My trip to {this.props.location}</b></div>
@@ -79,6 +79,12 @@ class MyTrip extends React.Component {
         </div>);
   }
   }
+}
+
+const lnkStyle = {
+  color: 'black',
+  textDecoration: 'none',
+  position:'left'
 }
 
 const myTripContainer= {

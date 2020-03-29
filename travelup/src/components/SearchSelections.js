@@ -57,19 +57,16 @@ class SearchSelections extends React.Component {
             {
               url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
               title: 'Restaurants',
-              width: '40%',
               disable: false,
             },
             {
                 url: 'https://images.unsplash.com/photo-1445991842772-097fea258e7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
                 title: 'Accommodation',
-                width: '40%',
                 disable: true,
             },
             {
                 url: 'https://images.unsplash.com/photo-1506426235353-205ad887bb38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
                 title: 'Activities',
-                width: '40%',
                 disable: true,
             }
         ]
