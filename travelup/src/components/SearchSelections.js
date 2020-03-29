@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
+import { Redirect } from "react-router-dom";
+import { makeStyles, ButtonBase, Typography } from '@material-ui/core';
+// import ButtonBase from '@material-ui/core/ButtonBase';
+// import Typography from '@material-ui/core/Typography';
 
 
 class SearchSelections extends React.Component {
@@ -40,6 +41,13 @@ class SearchSelections extends React.Component {
     }
 
     render(){
+
+        //om vi inte är inloggade ska vi inte kunna se planner-sidan
+        const {auth} = this.props;
+        if (!auth.uid) return <Redirect to='/' />
+
+        // const {location}  = this.props;
+        // if (!location.location)  return <Redirect to='/planner' />
 
         // OBS! alla bilder är snodda från google, troligtvis upphovsrättsskyddade. Byt ut dem
         const images = [
@@ -104,6 +112,7 @@ const mapStateToProps = (state) => {
     // skulle vilja lägga in location innan man går vidare... nu tar fetchen tid så location kommer inte upp när man rendrar
     console.log(state.location.name)
     return {
+      auth: state.firebase.auth,
       location: state.location.name,
     }
   }

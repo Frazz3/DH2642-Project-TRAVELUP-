@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from 'react-redux';
 import { signIn, signOut } from '../actions/authActions'
 import { Redirect } from "react-router-dom";
-import { TextField } from '@material-ui/core'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -25,9 +24,9 @@ class LoginForm extends React.Component {
     this.props.signIn(this.state); //this.state is the credentials (email and password) from the state of the class
   }
 
-  handleClick = () => {
-    this.props.signOut();
-  }
+  // handleClick = () => {
+  //   this.props.signOut();
+  // }
 
 
   render() {
@@ -41,20 +40,12 @@ class LoginForm extends React.Component {
     <form onSubmit={this.handleSubmit} className="white">
       <h5 className="grey-test test-darken-3">Sign in</h5>
       <div className="input-field">
-      <TextField 
-        id="standard-basic" 
-        label="Email" 
-        onChange={(e) => { this.handleChange(e); }}
-      />
+        <label htmlFor="email">Email</label>
+        <input type="email" id="email" onChange={this.handleChange}/>
       </div>
       <div className="input-field">
-      <TextField
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          onChange={(e) => { this.handleChange(e); }}
-        />
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password" onChange={this.handleChange}/>
       </div>
       <div className="input-field">
         <button className="ptn pink lighten-1 z-depth-0">Login</button>
@@ -63,9 +54,6 @@ class LoginForm extends React.Component {
         { authError ? <p>{authError}</p> : null}
       </div>
     </form>
-    <div>
-        <button onClick = {this.handleClick} >Sign out</button>
-    </div>
 
     </div>);
   }
@@ -82,7 +70,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (creds) => dispatch(signIn(creds)),
-    signOut: () => dispatch(signOut())
   }
 }
 
