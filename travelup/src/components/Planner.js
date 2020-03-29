@@ -51,9 +51,6 @@ class Planner extends React.Component {
         </div>
         <br />
       </form>
-      <div>
-        <button onClick = {this.handleClick} >Sign out (ska tas bort sen)</button>
-      </div>
     </div>);
   }
 }
@@ -67,7 +64,6 @@ const mapStateToProps = (state) => {
 //behövde sign-out här för att kunna se så att redirecten funkar som den ska, ska senare tas bort
 const mapDispatchToProps = (dispatch) => {
   return {
-    signOut: () => dispatch(signOut()),
     fetchLocation: (destination) => dispatch(fetchLocation(destination))
 
   }

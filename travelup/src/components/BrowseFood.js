@@ -1,12 +1,8 @@
 import React from "react";
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-import Button from '@material-ui/core/Button';
+import { Checkbox, FormGroup, FormControl, FormControlLabel, FormLabel, Button, } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { fetchRestaurants } from "../actions/foodActions"
 import { addRestaurant } from "../actions/tripActions"
 
@@ -106,6 +102,9 @@ class BrowseFood extends React.Component {
   }
   
   render() {
+    const {auth} = this.props;
+    if (!auth.uid) return <Redirect to='/' />
+
     console.log('restaurants to render',this.props.restaurants)
     const restaurantItems = this.props.restaurants.map(restaurant => {
     //const restaurantItems = restaurants_list.map(restaurant => {
@@ -220,6 +219,7 @@ BrowseFood.propTypes = {
 
 const mapStateToProps = state => (
   {
+  auth: state.firebase.auth,
   restaurants: state.restaurants.items,
   location_id: state.location.id,
 })

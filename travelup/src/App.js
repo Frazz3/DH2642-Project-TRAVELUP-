@@ -12,6 +12,7 @@ import BrowseActivities from "./components/BrowseActivities.js";
 import MyTrip from './components/MyTrip'
 import AllTrips from './components/AllTrips'
 import SearchSelections from './components/SearchSelections'
+import Navbar from './components/Navbar'
 
 import { ReactReduxFirebaseProvider, getFirebase } from 'react-redux-firebase'
 
@@ -29,6 +30,7 @@ class App extends Component {
             
             <div className="App">
               <main>
+                <Navbar/>
                 <Switch>
                   <Route
                     path="/logIn"
