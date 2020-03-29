@@ -89,9 +89,13 @@ class SearchSelections extends React.Component {
 
         if(!this.props.location){
             console.log(this.props.location)
-            return <div>No location</div>
+            return (
+            <div className="spinner">
+                <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
+            </div>)
         }else{
             return(
+            
             <div>
                 <div>
                     <h1 style={styleText}>Let's plan your trip to {this.props.location}</h1>
@@ -104,7 +108,10 @@ class SearchSelections extends React.Component {
                 {this.createButton(images[2], "/select")}
                 </div>
             </div>
+            
+            
             )
+            // <div className="myTrip"><this.props.myTrip/></div>
             //the last two does not have any search method
         }
         

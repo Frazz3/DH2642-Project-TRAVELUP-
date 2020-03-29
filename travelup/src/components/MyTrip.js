@@ -2,6 +2,7 @@ import React from "react";
 //import PropTypes from k
 import { connect } from "react-redux";
 import { createTrip } from "../actions/tripActions";
+import Button from '@material-ui/core/Button';
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -26,20 +27,9 @@ class MyTrip extends React.Component {
   }
 
   handleClick = () => {
-    // set the state with the current values
-    /* Verkar gå för långsamt, behöver kanske inte detta
-    
-    this.setState({
-      country: this.props.country,
-      city: this.props.city,
-      author: this.props.author,
-      restaurants: this.props.restaurants
-    })
-    */
 
-    // need to make sure that no undefined fields are present
-    let trip = this.state;
-    trip.restaurants.map( rest => {
+    // need to make sure that no undefined fields are present (only works for restaurants right now)
+    this.props.restaurants.map( rest => {
       Object.keys(rest).map(function(key, index) {
         console.log(key)
         console.log(rest[key])
@@ -50,50 +40,73 @@ class MyTrip extends React.Component {
        });
     })
     
+  
+    // create a new trip with the values in the props
+    let tripToCreate = {
+      country: this.props.country,
+      city: this.props.city,
+      location: this.props.location,
+      author: this.props.author,
+      restaurants: this.props.restaurants
+    }
 
-    console.log(trip)
-    // create a new trip with the values in the state
 
-    this.props.createTrip(this.state, this.props.userID);
+    // ska nollställa alla states med trips, vi börjar på nytt
+
+    this.props.createTrip(tripToCreate, this.props.userID);
+    //this.props.createTrip(this.state, this.props.userID);
   };
 
-  // hårdkodat till bara en restaurang, man får lösa det med en view eller något sen
-  // ex. https://www.youtube.com/watch?v=sh6hZKt-jh0&list=PL4cUxeGkcC9iWstfXntcj8f-dFZ4UtlN3&index=12
+  
   render() {
-
-    console.log('the props',this.props)
-    const restaurants = this.props.restaurants;
-    console.log('restaurants', restaurants)
-    let rest = this.props.restaurants?this.props.restaurants.map((r) => 
-    <div key={r.location_id}>
-      {r.name} - {r.description}
-    </div>
-    ):null
-    return (<div> 
-          <div><b>My trip</b></div>
-          <div>Country: {this.props.country}</div>
-          <div>City: {this.props.city}</div>
-          <div> Location: {this.props.location}</div>
-          <div>Author of trip: {this.props.author}</div>
-          <div>Restaurants: </div>
-          <div> {rest} </div>
-          <button onClick={this.handleClick}>Add trip</button>
-       </div>);
+    if(!this.props.location){ 
+      return null   // show nothing if we do not have any trip
+    }else{
+      let rest = this.props.restaurants?this.props.restaurants.map((r) => 
+      <div key={r.location_id}>
+        - {r.name}
+      </div>
+      ):null
+      return (<div style={myTripContainer}> 
+        <Button variant="outlined" onClick={this.handleClick}>
+          Add trip
+        </Button>
+        <br/>
+        <div><b>My trip to {this.props.location}</b></div>
+        <div>Restaurants: </div>
+        <div> {rest} </div>
+                
+        </div>);
   }
+  }
+}
+
+const myTripContainer= {
+  width: 300,
+  display: "flex",
+  flexDirection: "column",
+  borderRadius: 8,
+  border: "" + 2 + "px solid " + "#239160",
+  boxShadow: "1px 1px 5px #888888",
+  overflow: "hidden",
+  backgroundColor: "#FFFFFF",
+}
+
+const addTripButton = {
+
 }
 
 
 const mapStateToProps = (state) => {
+  console.log("map state")
   return {
-    /*
-    country: state.trip.country,
-    city: state.trip.city,
-    */
+    country: "",
+    city: "",
     location: state.location.name,
     author: state.firebase.auth.uid,  // should probably change to name later
     restaurants: state.trip.restaurants,
-    //activities: state.activities
-    userID: state.firebase.auth.uid
+    userID: state.firebase.auth.uid,
+  
   };
 };
 
@@ -103,15 +116,5 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-/*
-const mapDispatchToProps = dispatch => ({
-    setLocation: location => {
-        dispatch(setLocation(location))
-    },
-    addActivity: activity => {
-        dispatch(addActivity(activity))
-    }
-})
-*/
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTrip);

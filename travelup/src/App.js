@@ -26,20 +26,22 @@ class App extends Component {
       <BrowserRouter>
         <Provider store={store}>
           <ReactReduxFirebaseProvider {...rrfProps}>
+            <div className= "flexParent">
+            
             <div className="App">
               <main>
                 <Navbar/>
                 <Switch>
                   <Route
                     path="/logIn"
-                    render={props => <LoginForm {...props} />}
+                    render={props => <LoginForm {...props} className="auth"/>}
                     
                   />
                   <Route path="/signUp"
-                  render={props => <SignupForm {...props} />}
+                  render={props => <SignupForm {...props} className="auth"/>}
                   />
                   <Route path="/" 
-                  render={props => <Start {...props} />} 
+                  render={props => <Start {...props} className="auth"/>} 
                   exact
                   />
                   <Route
@@ -64,10 +66,12 @@ class App extends Component {
                   />
                   <Route
                     path="/select"
-                    render={props => <SearchSelections {...props} />}
+                    render={props => <SearchSelections {...props} myTrip={MyTrip}/>}
                   />
                 </Switch>
               </main>
+            </div>
+            <div className="myTrip"><MyTrip/></div>
             </div>
           </ReactReduxFirebaseProvider>
         </Provider>
