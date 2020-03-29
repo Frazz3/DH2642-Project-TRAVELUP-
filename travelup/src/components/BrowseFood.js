@@ -97,7 +97,7 @@ class BrowseFood extends React.Component {
   }
 
   addRestaurant = (restaurant) => {
-    if (window.confirm("Would you want to add " +restaurant.name+ " to your trip?")){
+    if (window.confirm(restaurant.description +"\n\nWould you want to add " +restaurant.name+ " to your trip?")){
       let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id}
       this.props.addRestaurant(rest);
     }else{
@@ -106,36 +106,23 @@ class BrowseFood extends React.Component {
   }
   
   render() {
-    console.log(this.props.restaurants)
-    const restaurantItems = this.props.restaurants.map(restaurant => 
-    //const restaurantItems = restaurants_list.map(restaurant => 
-      restaurant.name ? 
+    console.log('restaurants to render',this.props.restaurants)
+    const restaurantItems = this.props.restaurants.map(restaurant => {
+    //const restaurantItems = restaurants_list.map(restaurant => {
+    console.log('name', restaurant.name)
+     return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
       (
-        <div key={restaurant.location_id}>
-          <button className={restaurant.location_id} onClick={()=> this.addRestaurant(restaurant)}>
+        <span key={restaurant.location_id}>
+          <button className={restaurant.location_id} onClick={()=> this.addRestaurant(restaurant)} style={restaurantButtonStyle}>
             <h4>{restaurant.name} </h4>
             <img src={restaurant.photo.images.small.url}/>
-            <h6>Description</h6>
-            <p>{restaurant.description}</p>
             <h5>Price Range: {restaurant.price} </h5>
             <p>Address: {restaurant.address} </p>
           </button>
-        </div>
-        /*
-      <div key={restaurant.location_id}>
-        <h4>{restaurant.name} </h4>
-        <img src={restaurant.photo.images.small.url}/>
-        <h6>Description</h6>
-        <p>{restaurant.description}</p>
-        <h5>Price Range: {restaurant.price} </h5>
-        {restaurant.is_closed ? <h5>Closed</h5> : 
-          <h5>{restaurant.open_now_text}</h5>}
-        <p>Address: {restaurant.address} </p>
-        <br />
-      </div>
-      */
-    ): null);
-   
+        </span>
+      
+    ):null)});
+
 
     const priceCheckbox = (
       <FormGroup row>
@@ -155,34 +142,74 @@ class BrowseFood extends React.Component {
         {this.createCheckbox("All", "allMealtype")}
       </FormGroup>
     );
+    console.log('items', restaurantItems)
     
     return (
-      <div>
-        <div>
-          <button onClick = {() => this.props.history.push("/myTrip")}>See my trip</button>
-        </div>
-        <div>
-            <FormLabel component="legend">Price</FormLabel>
-              <div>{priceCheckbox}</div>
-            <br/>
-            <FormLabel component="legend">Meal type</FormLabel>
-              <div>{mealTypesCheckbox}</div>
-        </div>
+      <section style={containerSection}>
         
-        <div>
-          <Button variant="outlined" color="secondary" onClick={this.handleClick}>
-            Filter
-          </Button>
+        <div className="filters" style={filterDiv}>
+          <div>
+              <FormLabel component="legend">Price</FormLabel>
+                <div>{priceCheckbox}</div>
+              <br/>
+              <FormLabel component="legend">Meal type</FormLabel>
+                <div>{mealTypesCheckbox}</div>
+          </div>
           
+          <div>
+            <Button variant="outlined" onClick={this.handleClick}>
+              Filter
+            </Button>
+            
+          </div>
         </div>
-        <div>
-          <h1>Restaurants</h1>
-          {restaurantItems}
+        <div className="restaurants" style={restaurantDiv}>
+          <h1 style={styleText}>Restaurants</h1>
+          {restaurantItems === [] ? (       // får ej till detta! vill ha en spinner om restaurangerna tar lång tid att ladda...
+          <div className="spinner" key="spinner">
+            <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
+          </div>) : restaurantItems}
         </div>
-      </div>
+      </section>
       
     );
   }
+}
+
+const styleText = {
+  color: "#239160",
+  padding: "10px",
+  fontFamily: "Arial",
+  textAlign: "center"
+}
+
+const containerSection ={
+  width:"100%"
+}
+
+
+const filterDiv = {
+  width:"150px",
+  float:"left",
+  border: "" + 2 + "px solid " + "#239160",
+  boxShadow: "1px 1px 5px #888888",
+  display: "flex",
+  flexDirection: "column",
+  display: "flex",
+  borderRadius: 8,
+}
+
+const restaurantDiv = {
+  width:"100%",
+}
+
+const restaurantButtonStyle = {
+  width: "300px",
+  height: "300px",
+  backgroundColor: "white",
+  border: "none",
+  textAlign: "center",
+
 }
 
 BrowseFood.propTypes = {
