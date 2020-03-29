@@ -24,9 +24,9 @@ class LoginForm extends React.Component {
     this.props.signIn(this.state); //this.state is the credentials (email and password) from the state of the class
   }
 
-  handleClick = () => {
-    this.props.signOut();
-  }
+  // handleClick = () => {
+  //   this.props.signOut();
+  // }
 
 
   render() {
@@ -54,9 +54,6 @@ class LoginForm extends React.Component {
         { authError ? <p>{authError}</p> : null}
       </div>
     </form>
-    <div>
-        <button onClick = {this.handleClick} >Sign out</button>
-    </div>
 
     </div>);
   }
@@ -73,7 +70,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signIn: (creds) => dispatch(signIn(creds)),
-    signOut: () => dispatch(signOut())
   }
 }
 

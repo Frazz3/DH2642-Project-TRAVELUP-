@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
+import { Redirect } from "react-router-dom";
+import { makeStyles, ButtonBase, Typography } from '@material-ui/core';
+// import ButtonBase from '@material-ui/core/ButtonBase';
+// import Typography from '@material-ui/core/Typography';
 
 
 class SearchSelections extends React.Component {
@@ -26,7 +27,7 @@ class SearchSelections extends React.Component {
             borderRadius: "5px",
         }
         const imgStyle = {
-            width: "200px",
+            width: "225px",
             height: "150px"
         }
         return (
@@ -41,22 +42,32 @@ class SearchSelections extends React.Component {
 
     render(){
 
-        // OBS! alla bilder är snodda från google, troligtvis upphovsrättsskyddade. Byt ut dem
+        //om vi inte är inloggade ska vi inte kunna se planner-sidan
+        const {auth} = this.props;
+        if (!auth.uid) return <Redirect to='/' />
+
+        // const {location}  = this.props;
+        // if (!location.location)  return <Redirect to='/planner' />
+
+        // Images taken from  Unsplash
+        // Restaurants: https://unsplash.com/@jaywennington
+        // Accommodation: https://unsplash.com/@niklanus
+        // Activities: https://unsplash.com/@septdoigt
         const images = [
             {
-              url: 'https://www.riverton.se/d/rivertonredesign/media/Restaurants/View_Skybar_Restaurant/__thumbs_1082_640_crop/IMG_2135.jpg',
+              url: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
               title: 'Restaurants',
               width: '40%',
               disable: false,
             },
             {
-                url: 'https://a.cdn-hotels.com/images/common/pages/lpa/homepage/propertytypes/mobile/hotels.jpg',
+                url: 'https://images.unsplash.com/photo-1445991842772-097fea258e7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
                 title: 'Accommodation',
                 width: '40%',
                 disable: true,
             },
             {
-                url: 'https://cdn.thecrazytourist.com/wp-content/uploads/2017/10/ccimage-shutterstock_117014839.jpg',
+                url: 'https://images.unsplash.com/photo-1506426235353-205ad887bb38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
                 title: 'Activities',
                 width: '40%',
                 disable: true,
@@ -104,6 +115,7 @@ const mapStateToProps = (state) => {
     // skulle vilja lägga in location innan man går vidare... nu tar fetchen tid så location kommer inte upp när man rendrar
     console.log(state.location.name)
     return {
+      auth: state.firebase.auth,
       location: state.location.name,
     }
   }
