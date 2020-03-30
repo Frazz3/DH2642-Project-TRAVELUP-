@@ -50,7 +50,11 @@ A navigation bar at the top of the application. Depending of the state of the ap
 
 ## Future work
 
--what to do next-
+* Implement functionality to add activities and accomodation to your trip
+* Improvments of the UI
+* Feedback when a trip is created
+* Automated log out after a specified time
+* ...
 
 ## Project file structure
 <pre>
