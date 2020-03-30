@@ -9,7 +9,7 @@
 * Sebastian Franzén (sfranze@kth.se)
 * Stina Långström (stinalan@kth.se)
 
-## Description about the project
+## Description of the project
 TRAVELUP is a web application with features such as planning an upcoming trip, review your custom trips and view previous trips you have done. The application uses the TripAdvisor API and is developed in React-Redux with connection to Firebase and cloud Firestore. The application requires the user to sign up for an account in order to be able to use it and to create new trips which could be add to your personal trip collection. All you have to do is to specify a city where you are going on a trip, choose whether you want browse through different restaurants, accommodations or activities and thereafter add the desired restaurant/hotel/activity to your custom-made trip. You are able to add as many restaurants/hotels/activities as you like and to filter them by price, ratings etc. in order to match your specific requirements and preferences. We are here to help you plan the best trip you can imagine!
 
 ## What we have done
@@ -51,11 +51,19 @@ A navigation bar at the top of the application. Depending of the state of the ap
 
 ## Future work
 
-* Implement functionality to add activities and accomodation to your trip
-* Improvments of the UI
+* Implement functionality to add activities and accommodation to your trip
+* Improvements of the UI (Use Material-UI)
 * Feedback when a trip is created
 * Automated log out after a specified time
-* ...
+* Be able to delete trips
+* Be able to delete a specific restaurant/activity/accommodation in the "my trip" sidebar
+* Be able to rate a trip
+* Implement a "setting view" for the account
+* Implement a "previous trips view"
+* Show "popular trips" (for all users)
+* Button on each restaurant etc. to add it to my trip
+* Button to show details about the restaurant etc. 
+
 
 ## Project file structure
 <pre>
