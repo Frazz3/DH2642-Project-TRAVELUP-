@@ -62,7 +62,8 @@ A navigation bar at the top of the application. Depending of the state of the ap
 * Implement a "previous trips view"
 * Show "popular trips" (for all users)
 * Button on each restaurant etc. to add it to my trip
-* Button to show details about the restaurant etc. 
+* Button to show details about the restaurant etc.
+* Search for a specific restaurant, accommodation or activity
 
 
 ## Project file structure
