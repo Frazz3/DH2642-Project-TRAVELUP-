@@ -20,6 +20,7 @@ const SignedInLinks = (props) => {
       <ul className='relative'>
         <Button color="inherit"><Link to="/planner" style={lnkStyle} activeStyle={lnkStyle}>Planner</Link></Button>
         <Button color="inherit"><Link to="/select" style={lnkStyle} activeStyle={lnkStyle}>Select</Link></Button>
+        <Button color="inherit"><Link to="/allTrips" style={lnkStyle} activeStyle={lnkStyle}>All Trips</Link></Button>
         <Button color="inherit" style={{ position:'right' }} onClick={() => { props.signOut(); }}>Sign Out</Button>
       </ul>
     </div>
