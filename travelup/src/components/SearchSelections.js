@@ -61,12 +61,12 @@ class SearchSelections extends React.Component {
             },
             {
                 url: 'https://images.unsplash.com/photo-1445991842772-097fea258e7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
-                title: 'Accommodation',
+                title: 'Accommodation (do not exist yet)',
                 disable: true,
             },
             {
                 url: 'https://images.unsplash.com/photo-1506426235353-205ad887bb38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
-                title: 'Activities',
+                title: 'Activities (do not exist yet)',
                 disable: true,
             }
         ]
@@ -87,13 +87,13 @@ class SearchSelections extends React.Component {
         if(!this.props.location){
             console.log(this.props.location)
             return (
-            <div className="spinner">
+            <div className="container">
                 <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
             </div>)
         }else{
             return(
             
-            <div>
+            <div className="container">
                 <div>
                     <h1 style={styleText}>Let's plan your trip to {this.props.location}</h1>
                 </div>
