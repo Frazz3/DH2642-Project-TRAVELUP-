@@ -56,7 +56,21 @@ A navigation bar at the top of the application. Depending of the state of the ap
 ```
 travelup
 ├─src
-├──┼─actions - *folder for redux-actions*
+├──┼─actions - folder for redux-actions
+├──┼──┼─allTripsActions.js – actions to get all trips of a user from Cloud Firestore
+├──┼──┼─authActions.js – actions to sign up, sign in and sign out for a user
+├──┼──┼─foodActions.js – action to make a fetch from the API to get restaurants
+├──┼──┼─plannerActions.js - action to make a fetch from the API to get location id from the wanted location
+├──┼──┼─tripActions.js – actions to add restaurants to the trip and action to add the entire trip the database. When the entire trip is added, the current trip is reset.  
+├──┼──┼─types.js – declaration of types of actions
+├──┼─components - folder for all the components of the project
+├──┼─config - folder for configuration
+├──┼─reducers - folder for reducers 
+├──┼─apiConfig.js	- configuration of the API. Includes the API-key
+├──┼─App.css – style for the application
+├──┼─App.js – the main page of the application. Here is where the routing occurs 
+├──┼─index.css - 
+├──┼─store.js – the redux store
 ```
 
 
