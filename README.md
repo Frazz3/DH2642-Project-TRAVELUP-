@@ -94,7 +94,6 @@ A navigation bar at the top of the application. Depending of the state of the ap
 ├──┼──┼─ plannerReducer.js – <i>reducer to fetch and reset a location</i>
 ├──┼──┴─ tripReducer.js – <i>reducer to create and reset a trip</i>
 |  |
-├──┼─apiConfig.js - <i>configuration of the API. Includes the API-key</i>
 ├──┼─App.css – <i>style for the application</i>
 ├──┼─App.js – <i>the main page of the application. Here is where the routing occurs</i> 
 ├──┼─index.css 
