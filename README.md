@@ -2,14 +2,15 @@
 
 ## DH2642-Project
 
-### Contributors: 
+### Contributors:
 
 * Carl Johan Freme (freme@kth.se)
 * Cecilia Mikiver (cmikiver@kth.se)
 * Sebastian Franzén (sfranze@kth.se)
 * Stina Långström (stinalan@kth.se)
 
--description about the project-
+## Description about the project
+TRAVELUP is a web application with features such as planning an upcoming trip, review your custom trips and view previous trips you have done. The application uses the TripAdvisor API and is developed in React-Redux with connection to Firebase and cloud Firestore. The application requires the user to sign up for an account in order to be able to use it and to create new trips which could be add to your personal trip collection. All you have to do is to specify a city where you are going on a trip, choose whether you want browse through different restaurants, accommodations or activities and thereafter add the desired restaurant/hotel/activity to your custom-made trip. You are able to add as many restaurants/hotels/activities as you like and to filter them by price, ratings etc. in order to match your specific requirements and preferences. We are here to help you plan the best trip you can imagine!
 
 ## What we have done
 
@@ -66,7 +67,7 @@ A navigation bar at the top of the application. Depending of the state of the ap
 ├──┼──┼─ authActions.js – <i>actions to sign up, sign in and sign out for a user</i>
 ├──┼──┼─ foodActions.js – <i>action to make a fetch from the API to get restaurants</i>
 ├──┼──┼─ plannerActions.js - <i>action to make a fetch from the API to get location id from the wanted location</i>
-├──┼──┼─ tripActions.js – <i>actions to add restaurants to the trip and action to add the entire trip the database. When the entire trip is added, the current trip is reset</i> 
+├──┼──┼─ tripActions.js – <i>actions to add restaurants to the trip and action to add the entire trip the database. When the entire trip is added, the current trip is reset</i>
 ├──┼──┴─ types.js – <i>declaration of types of actions</i>
 |  |
 ├──┼─ <b>components</b> - <i>folder for all the components of the project</i>
@@ -95,9 +96,7 @@ A navigation bar at the top of the application. Depending of the state of the ap
 ├──┼──┴─ tripReducer.js – <i>reducer to create and reset a trip</i>
 |  |
 ├──┼─App.css – <i>style for the application</i>
-├──┼─App.js – <i>the main page of the application. Here is where the routing occurs</i> 
-├──┼─index.css 
+├──┼─App.js – <i>the main page of the application. Here is where the routing occurs</i>
+├──┼─index.css
 └──┴─store.js – <i>the redux store</i>
 </pre>
-
-
