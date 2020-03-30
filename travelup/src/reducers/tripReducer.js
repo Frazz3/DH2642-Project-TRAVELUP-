@@ -16,34 +16,30 @@
 
 import { CREATE_TRIP, CREATE_TRIP_ERROR } from "../actions/types";
 
-
 const initState = {
-  country:"",   // måste ha pga databasen, kanske ändra sen
-  city:"",      // måste ha pga databasen, kanske ändra sen
+  country: "", // måste ha pga databasen, kanske ändra sen
+  city: "", // måste ha pga databasen, kanske ändra sen
   location: "",
   author: "",
   restaurants: []
-}
-
-
+};
 
 const tripReducer = (state = initState, action) => {
   switch (action.type) {
     case CREATE_TRIP:
       // Här ska vi göra en entry i databasen.
-      console.log("created trip", action.trip);
       return state;
     case CREATE_TRIP_ERROR:
       console.log("create trip error", action.err);
       return state;
-    case 'ADD_RESTAURANT':
-      console.log('added restaurant')
-      console.log(state.restaurants)
-      console.log(action.restaurant)
+    case "ADD_RESTAURANT":
+      console.log("added restaurant");
+      console.log(state.restaurants);
+      console.log(action.restaurant);
       return {
-          ...state,
-          restaurants: [...state.restaurants, action.restaurant]
-        }
+        ...state,
+        restaurants: [...state.restaurants, action.restaurant]
+      };
     default:
       return state;
   }
