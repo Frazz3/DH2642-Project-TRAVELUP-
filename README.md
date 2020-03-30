@@ -2,7 +2,12 @@
 
 ## DH2642-Project
 
-### Contributors: Carl-Johan Freme, Cecilia Mikiver, Sebastian Franzén & Stina Långström
+### Contributors: 
+
+* Carl Johan Freme (freme@kth.se)
+* Cecilia Mikiver (cmikiver@kth.se)
+* Sebastian Franzén (sfranze@kth.se)
+* Stina Långström (stinalan@kth.se)
 
 -description about the project-
 
