@@ -55,22 +55,41 @@ A navigation bar at the top of the application. Depending of the state of the ap
 ## Project file structure
 ```
 travelup
-├─src
-├──┼─actions - folder for redux-actions
-├──┼──┼─allTripsActions.js – actions to get all trips of a user from Cloud Firestore
-├──┼──┼─authActions.js – actions to sign up, sign in and sign out for a user
-├──┼──┼─foodActions.js – action to make a fetch from the API to get restaurants
-├──┼──┼─plannerActions.js - action to make a fetch from the API to get location id from the wanted location
-├──┼──┼─tripActions.js – actions to add restaurants to the trip and action to add the entire trip the database. When the entire trip is added, the current trip is reset.  
-├──┼──┼─types.js – declaration of types of actions
-├──┼─components - folder for all the components of the project
+├─ src
+├──┼─ actions - folder for redux-actions
+├──┼──┼─ allTripsActions.js – actions to get all trips of a user from Cloud Firestore
+├──┼──┼─ authActions.js – actions to sign up, sign in and sign out for a user
+├──┼──┼─ foodActions.js – action to make a fetch from the API to get restaurants
+├──┼──┼─ plannerActions.js - action to make a fetch from the API to get location id from the wanted location
+├──┼──┼─ tripActions.js – actions to add restaurants to the trip and action to add the entire trip the database. When the entire trip is added, the current trip is reset.  
+├──┼──┴─ types.js – declaration of types of actions
+├──┼─ components - folder for all the components of the project
+├──┼──┼─ AllTrips.js – show all trips the user has created
+├──┼──┼─ BrowseActivities.js – not implemented yet
+├──┼──┼─ BrowseFood.js – shows all the restaurants from the fetch. Enables filtering of restaurants as well.
+├──┼──┼─ LoginForm.js – a form that enables login to the application
+├──┼──┼─ MyTrip.js – displays the current trip. Enables the creation of the trip if a button is clicked
+├──┼──┼─ Navbar.js – navigation bar
+├──┼──┼─ Planner.js – user can choose a location
+├──┼──┼─ SearchSelection.js – enables selection of restaurants, accommodation (not implemented yet) and activities (not implemented yet)
+├──┼──┼─ SignedInLinks.js – links to be displayed when user is sign in
+├──┼──┼─ SignedOutLinks.js – links to be displayed when user is signed out
+├──┼──┼─ SignupForm.js – a form that enables sign up to the application
+├──┼──┴─ Start.js – start page of the application. Enables log in or sign up. Users is redirected immediately if already signed in.
 ├──┼─config - folder for configuration
+├──┼──┴─ fbConfig.js – configuration for firebase
 ├──┼─reducers - folder for reducers 
+├──┼──┼─ allTripsReducer.js – reducer for display of all trips of a user
+├──┼──┼─ authReducer.js – reducer for log in, log out and sign up
+├──┼──┼─ foodReducer.js – reducer for fetching restaurants
+├──┼──┼─ index.js – combine all reducers of the application
+├──┼──┼─ plannerReducer.js – reducer to fetch and reset a location
+├──┼──┴─ tripReducer.js – reducer to create and reset a trip
 ├──┼─apiConfig.js	- configuration of the API. Includes the API-key
 ├──┼─App.css – style for the application
 ├──┼─App.js – the main page of the application. Here is where the routing occurs 
 ├──┼─index.css - 
-├──┼─store.js – the redux store
+└──┴─store.js – the redux store
 ```
 
 
