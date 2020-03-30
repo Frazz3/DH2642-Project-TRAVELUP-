@@ -54,7 +54,7 @@ A navigation bar at the top of the application. Depending of the state of the ap
 
 ## Project file structure
 
-. travelup
+.
 +-- _src
 
 
