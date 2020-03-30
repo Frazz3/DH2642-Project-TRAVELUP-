@@ -53,9 +53,8 @@ A navigation bar at the top of the application. Depending of the state of the ap
 -what to do next-
 
 ## Project file structure
-
-|-- src
-|--
-|--
+travelup
+├─src
+├──┼─actions - *folder for redux-actions*
 
 
