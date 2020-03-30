@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { makeStyles, ButtonBase, Typography } from '@material-ui/core';
-// import ButtonBase from '@material-ui/core/ButtonBase';
-// import Typography from '@material-ui/core/Typography';
+
 
 
 class SearchSelections extends React.Component {
