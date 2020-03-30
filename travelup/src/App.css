@@ -2,9 +2,11 @@
   text-align: center;
   display: flex;
   flex-direction: row;
-  width: 100%;
   height: 800px;
   overflow: scroll;
+  background-color: "red";
+  width:100%;
+  
 }
 
 
@@ -40,12 +42,24 @@
   }
 }
 
+.container {
+  min-width: 1000px;
+  width:100%;
+  
+}
 
 
 @media (min-width:250px){
-  .flexParent{ display:flex; flex-direction:row; height:800px; overflow: scroll; text-align: center}
+  .flexParent{ 
+    display:flex; 
+    flex-direction:row; 
+    height:800px; 
+    overflow: scroll; 
+    text-align: center;
+    
+  }
 
-  .myTrip{ display: flex; flex-direction: row;  width:300px; height:800px; overflow: scroll; text-align: center}
+  .myTrip{ display: flex; flex-direction: row;  width:300px; height:800px; overflow: scroll; text-align: center;}
 
   .auth{display: flex; flex: 1; flex-direction: row; width:100%}
 
