@@ -35,7 +35,7 @@ export const createTrip = (trip, userID) => {
         
         // reset after the trip is created
         dispatch({ type: RESET_LOCATION });
-        dispatch({ type: RESET_TRIP, trip: trip});
+        dispatch({ type: RESET_TRIP });
         
       })
       .catch(err => {
@@ -43,6 +43,12 @@ export const createTrip = (trip, userID) => {
       });
   };
 };
+
+export const resetTrip = () => {
+  return ( (dispatch) => {
+    dispatch({ type: RESET_TRIP });
+  })
+}
 
 export const addRestaurant = (restaurant) => {
   return ( (dispatch) => {
