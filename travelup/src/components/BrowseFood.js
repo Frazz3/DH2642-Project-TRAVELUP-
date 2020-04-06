@@ -117,12 +117,27 @@ class BrowseFood extends React.Component {
       console.log('do not add');
     }
   }
+
+  spinner = () => {
+    return (
+      <div className="spinner" key="spinner">
+        <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
+      </div>
+    )
+  }
   
   render() {
     const {auth} = this.props;
     if (!auth.uid) return <Redirect to='/' />
 
-    console.log('restaurants to render',this.props.restaurants)
+    if(typeof this.props.restaurants === "undefined"){
+      // tills vidare, vill kanske returnera mer
+      return(
+        <div>
+          {this.spinner()}
+        </div>
+      )
+    }
     const restaurantItems = this.props.restaurants.map(restaurant => {
     //const restaurantItems = restaurants_list.map(restaurant => {
      return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
@@ -180,10 +195,9 @@ class BrowseFood extends React.Component {
         </div>
         <div className="restaurants" style={restaurantDiv}>
           <h1 style={styleText}>Restaurants</h1>
-          {restaurantItems === [] ? (       // får ej till detta! vill ha en spinner om restaurangerna tar lång tid att ladda...
-          <div className="spinner" key="spinner">
-            <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-          </div>) : restaurantItems}
+          { (this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+            <div>{this.spinner()}</div>
+          ) : restaurantItems}
         </div>
       </section>
       
