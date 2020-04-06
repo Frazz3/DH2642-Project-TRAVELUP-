@@ -14,10 +14,11 @@ const initState = {
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case LOGIN_ERROR:
+      console.log('action ', action)
       console.log("login error");
       return {
         ...state, // så att vi inte overwrite något i state
-        authError: "Login failed" // overwrite:ar det som var i authError
+        authError: "Login failed - " + action.err.message // overwrite:ar det som var i authError
       };
     case LOGIN_SUCCESS:
       console.log("login success");
@@ -43,7 +44,7 @@ const authReducer = (state = initState, action) => {
       console.log("signup error");
       return {
         ...state,
-        authError: action.err.message
+        authError: "Sign up failed - " + action.err.message
       };
 
     default:
