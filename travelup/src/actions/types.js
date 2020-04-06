@@ -17,3 +17,5 @@ export const FETCH_LOCATION = "FETCH_LOCATION";
 
 export const RESET_LOCATION = "RESET_LOCATION";
 export const RESET_TRIP = "RESET_TRIP";
+
+export const ADD_RESTAURANT ='ADD_RESTAURANT';
