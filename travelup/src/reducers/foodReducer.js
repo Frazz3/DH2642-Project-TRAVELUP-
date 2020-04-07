@@ -1,8 +1,8 @@
-import { FETCH_RESTAURANTS } from "../actions/types";
+import { FETCH_RESTAURANTS, RESET_RESTAURANTS } from "../actions/types";
 
 const intitialState = {
   items: [],
-  item: {}
+  item: {}    // till vad har vi detta?
 }
 
 export default function foodReducer(state = intitialState, action) {
@@ -13,6 +13,13 @@ export default function foodReducer(state = intitialState, action) {
         ...state,
         items: action.payload
       };
+    case RESET_RESTAURANTS:
+      console.log("reset restaurants before new fetch")
+      return{
+        items: [],
+        item: {}
+      }
+
    
     default:
       return state;

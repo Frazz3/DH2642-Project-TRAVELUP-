@@ -57,6 +57,9 @@ class SignupForm extends React.Component {
       <div className="input-field">
         <button className="ptn pink lighten-1 z-depth-0">Sign up</button>
       </div>
+      <div>
+        { this.props.authError ? <p>{this.props.authError}</p> : null}
+      </div>
     </form>
 
     </div>);
@@ -65,7 +68,8 @@ class SignupForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    authError: state.auth.authError,
   }
 }
 

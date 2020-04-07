@@ -1,4 +1,4 @@
-import { FETCH_LOCATION } from "./types";
+import { FETCH_LOCATION, RESET_LOCATION } from "./types";
 import {ENDPOINT, API_KEY} from "../apiConfig";
 
 export const fetchLocation = (destination) => dispatch => { 
@@ -15,4 +15,10 @@ export const fetchLocation = (destination) => dispatch => {
   payload: data.data[0].result_object.location_id,
   locationName: destination
 }));
+}
+
+export const resetLocation = () => {
+  return ( (dispatch) => {
+    dispatch({ type: RESET_LOCATION });
+  })
 }

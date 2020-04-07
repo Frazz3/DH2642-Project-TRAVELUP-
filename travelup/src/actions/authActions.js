@@ -1,3 +1,5 @@
+import { LOGIN_SUCCESS, LOGIN_ERROR, SIGNOUT_SUCCESS, SIGNOUT_ERROR, SIGNUP_SUCCESS, SIGNUP_ERROR} from "./types"
+
 // alla actions för authentication. Dessa är för att logga in, logga ut samt registrera ny användare
 
 export const signIn = (credentials) => {
@@ -8,9 +10,10 @@ export const signIn = (credentials) => {
             credentials.email,
             credentials.password
         ).then(() => {
-            dispatch({ type: 'LOGIN_SUCCESS'});
+            dispatch({ type: LOGIN_SUCCESS});
         }).catch((err) => {
-            dispatch({ type: 'LOGIN_ERROR', err})
+            console.log('error ', err )
+            dispatch({ type: LOGIN_ERROR, err})
         });
     }
 }
@@ -20,9 +23,9 @@ export const signOut = () => {
         const firebase = getFirebase();
 
         firebase.auth().signOut().then( ()=> {
-            dispatch({type: 'SIGNOUT_SUCCESS' });
+            dispatch({type: SIGNOUT_SUCCESS });
         }).catch((err) => {
-            dispatch({ type: 'SIGNOUT_ERROR', err})
+            dispatch({ type: SIGNOUT_ERROR, err})
         });
     }
 }
@@ -46,9 +49,9 @@ export const signUp = (newUser) => {
                 trips: []
             })
         }).then(() => {
-            dispatch({ type: 'SIGNUP_SUCCESS' })
+            dispatch({ type: SIGNUP_SUCCESS })
         }).catch(err=> {
-            dispatch({ type: 'SIGNUP_ERROR', err})
+            dispatch({ type: SIGNUP_ERROR, err})
         })
     }
 }

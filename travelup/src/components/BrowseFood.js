@@ -22,16 +22,17 @@ class BrowseFood extends React.Component {
       priceFilter: "all",
       mealtypeFilter: "all"
       */
-     cheap:false,
-     medium:false,
-     expensive:false,
-     allPrice:false,
 
-     breakfast:false,
-     brunch:false,
-     lunch:false,
-     dinner:false,
-     allMealtype:false,
+      cheap:false,
+      medium:false,
+      expensive:false,
+      allPrice:false,
+
+      breakfast:false,
+      brunch:false,
+      lunch:false,
+      dinner:false,
+      allMealtype:false,
 
     }
   }
@@ -95,20 +96,50 @@ class BrowseFood extends React.Component {
   addRestaurant = (restaurant) => {
     if (window.confirm(restaurant.description +"\n\nWould you want to add " +restaurant.name+ " to your trip?")){
       let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id}
-      this.props.addRestaurant(rest);
+
+      // don't want to add duplicates (not sure where to put this, here or in the reducer?)
+      let duplicate = false;
+      let x;
+      for( x of this.props.tripRestaurants){
+        // we have already added that restaurant
+        if(x.id === restaurant.location_id){
+          console.log("ALREADY ADDED")
+          duplicate = true;
+          alert("You have already added this restaurant to your trip, choose another one please");
+        }
+      }
+      //only add if it's not already added
+      if(!duplicate){
+        this.props.addRestaurant(rest);
+      }
+      
     }else{
       console.log('do not add');
     }
+  }
+
+  spinner = () => {
+    return (
+      <div className="spinner" key="spinner">
+        <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
+      </div>
+    )
   }
   
   render() {
     const {auth} = this.props;
     if (!auth.uid) return <Redirect to='/' />
 
-    console.log('restaurants to render',this.props.restaurants)
+    if(typeof this.props.restaurants === "undefined"){
+      // tills vidare, vill kanske returnera mer
+      return(
+        <div>
+          {this.spinner()}
+        </div>
+      )
+    }
     const restaurantItems = this.props.restaurants.map(restaurant => {
     //const restaurantItems = restaurants_list.map(restaurant => {
-    console.log('name', restaurant.name)
      return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
       (
         <span key={restaurant.location_id}>
@@ -164,10 +195,9 @@ class BrowseFood extends React.Component {
         </div>
         <div className="restaurants" style={restaurantDiv}>
           <h1 style={styleText}>Restaurants</h1>
-          {restaurantItems === [] ? (       // får ej till detta! vill ha en spinner om restaurangerna tar lång tid att ladda...
-          <div className="spinner" key="spinner">
-            <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-          </div>) : restaurantItems}
+          { (this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+            <div>{this.spinner()}</div>
+          ) : restaurantItems}
         </div>
       </section>
       
@@ -222,6 +252,7 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   restaurants: state.restaurants.items,
   location_id: state.location.id,
+  tripRestaurants: state.trip.restaurants
 })
 
 
