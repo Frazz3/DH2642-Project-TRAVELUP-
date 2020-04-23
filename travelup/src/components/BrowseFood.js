@@ -175,6 +175,7 @@ class BrowseFood extends React.Component {
     console.log('items', restaurantItems)
     
     return (
+      <div className="container">
       <section style={containerSection}>
         
         <div className="filters" style={filterDiv}>
@@ -200,6 +201,7 @@ class BrowseFood extends React.Component {
           ) : restaurantItems}
         </div>
       </section>
+      </div>
       
     );
   }
