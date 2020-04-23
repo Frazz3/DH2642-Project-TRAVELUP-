@@ -43,9 +43,14 @@
 }
 
 .container {
-  min-width: 1000px;
-  width:100%;
+  min-width: 500px;
+  max-width: 1000px;
+  float: left;
   
+}
+
+.navBar {
+  width:100vw; /* full width */
 }
 
 
@@ -59,9 +64,21 @@
     
   }
 
-  .myTrip{ display: flex; flex-direction: row;  width:300px; height:800px; overflow: scroll; text-align: center;}
+  .myTrip{ 
+    display: flex; 
+    flex-direction: row;  
+    width:300px; 
+    height:800px; 
+    overflow: scroll; 
+    text-align: center; 
+    float: right; 
+  }
 
-  .auth{display: flex; flex: 1; flex-direction: row; width:100%}
+  .auth{display: flex; 
+    flex: 1; 
+    flex-direction: row; 
+    width:100%; 
+   }
 
 }
 

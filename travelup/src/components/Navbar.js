@@ -16,6 +16,7 @@ const Navbar = (props) => {
   console.log(auth);
   const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
   return (
+  <div className="navBar">
   <AppBar position="static">
     <Toolbar>
       <Typography variant="h6" >
@@ -24,6 +25,7 @@ const Navbar = (props) => {
       {links}
     </Toolbar>
   </AppBar>
+  </div>
   )
 }
 

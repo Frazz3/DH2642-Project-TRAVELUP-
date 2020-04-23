@@ -68,10 +68,11 @@ class App extends Component {
                     render={props => <SearchSelections {...props} myTrip={MyTrip}/>}
                   />
                 </Switch>
+                <div className="myTrip">
+                  <MyTrip/>
+                </div>
               </main>
             </div>
-            <div className="myTrip">
-            <MyTrip/></div>
             </div>
           </ReactReduxFirebaseProvider>
         </Provider>

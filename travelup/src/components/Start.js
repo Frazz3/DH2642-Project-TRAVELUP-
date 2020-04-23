@@ -45,7 +45,7 @@ class Start extends React.Component {
     // <Button variant="outlined" color="secondary" id = 'login' onClick={this.handleClickLogin}>Log in</Button>
     // <Button variant="outlined" color="secondary" id= 'signup' onClick={this.handleClickSignUp}>Sign Up</Button>
     return (
-    <div> 
+    <div className = "container"> 
       <b> Welcome to TravelUp </b>
       <br/>
       <i>you personal trip planner</i>
