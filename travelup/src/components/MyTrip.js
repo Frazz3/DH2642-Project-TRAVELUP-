@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 import { createTrip } from "../actions/tripActions";
 import Button from '@material-ui/core/Button';
+import { small_btn, lnk_style, myTrip_container } from '../assets/style'
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -67,9 +68,9 @@ class MyTrip extends React.Component {
         - {r.name}
       </div>
       ):null
-      return (<div style={myTripContainer}> 
-        <Button variant="outlined" onClick={this.handleClick}>
-          <Link to="/planner" style={lnkStyle} activeStyle={lnkStyle} >Add trip</Link>
+      return (<div style={myTrip_container}> 
+        <Button variant="outlined" style={small_btn} onClick={this.handleClick}>
+          <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>
         </Button>
         <br/>
         <div><b>My trip to {this.props.location}</b></div>
@@ -79,27 +80,6 @@ class MyTrip extends React.Component {
         </div>);
   }
   }
-}
-
-const lnkStyle = {
-  color: 'black',
-  textDecoration: 'none',
-  position:'left'
-}
-
-const myTripContainer= {
-  width: 300,
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: 8,
-  border: "" + 2 + "px solid " + "#239160",
-  boxShadow: "1px 1px 5px #888888",
-  overflow: "hidden",
-  backgroundColor: "#FFFFFF",
-}
-
-const addTripButton = {
-
 }
 
 
