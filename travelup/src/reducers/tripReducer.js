@@ -14,7 +14,7 @@
 // Kom ihåg att varje action har en .type och en .payload. Vad payloaden/datat är beror på typen. I fallet SET_LOCATION är vår payload en plats,
 // därför kallar vi den payloaden för location. I fallet ADD_ACTIVITY är payloaden ett activity-objekt, varför vi kallar payloaden för activity.
 
-import { CREATE_TRIP, CREATE_TRIP_ERROR, ADD_RESTAURANT, RESET_TRIP } from "../actions/types";
+import { CREATE_TRIP, CREATE_TRIP_ERROR, ADD_RESTAURANT, RESET_TRIP, ADD_ACTIVITY } from "../actions/types";
 
 
 const initState = {
@@ -22,7 +22,8 @@ const initState = {
   city:"",      // måste ha pga databasen, kanske ändra sen
   location: "",
   author: "",
-  restaurants: []
+  restaurants: [],
+  activities: []
 }
 
 
@@ -42,12 +43,17 @@ const tripReducer = (state = initState, action) => {
           ...state,
           restaurants: [...state.restaurants, action.restaurant]
         }
-      
+    case ADD_ACTIVITY:
+      console.log('added activity')
+      return {
+          ...state,
+          activities: [...state.activities, action.activity]
+      }
     case RESET_TRIP:  // reset the trip
       console.log("reset trip");
       return initState
-      
-    
+
+
     default:
       return state;
   }

@@ -12,6 +12,7 @@ class SearchSelections extends React.Component {
       this.state = {
           location: this.props.location
       }
+
     }
 
     createButton = (image, link) => {
@@ -50,11 +51,10 @@ class SearchSelections extends React.Component {
             },
             {
                 url: 'https://images.unsplash.com/photo-1506426235353-205ad887bb38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
-                title: 'Activities (do not exist yet)',
-                disable: true,
+                title: 'Activities',
+                disable: false,
             }
         ]
-        
 
         if(!this.props.location){
             console.log(this.props.location)
@@ -64,7 +64,7 @@ class SearchSelections extends React.Component {
             </div>)
         }else{
             return(
-            
+
             <div className="container">
                 <div>
                     <h1 style={title_text}>Let's plan your trip to {this.props.location}</h1>
@@ -74,16 +74,16 @@ class SearchSelections extends React.Component {
                 <br/><br/>
                 {this.createButton(images[1], "/select")}
                 <br/><br/>
-                {this.createButton(images[2], "/select")}
+                {this.createButton(images[2], "/activities")}
                 </div>
             </div>
-            
-            
+
+
             )
             // <div className="myTrip"><this.props.myTrip/></div>
             //the last two does not have any search method
         }
-        
+
     }
 }
 

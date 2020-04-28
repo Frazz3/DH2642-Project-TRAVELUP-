@@ -15,8 +15,8 @@ class MyTrip extends React.Component {
       city:"",      // måste ha pga databasen, kanske ändra sen
       location: this.props.location,
       author: this.props.author,
-      restaurants: this.props.restaurants
-      //activities: this.props.activities
+      restaurants: this.props.restaurants,
+      activities: this.props.activities
     };
   }
 
@@ -37,18 +37,30 @@ class MyTrip extends React.Component {
         if( typeof(rest[key]) === "undefined" ){
           rest[key] = "";
         }
-     
+
        });
     })
-    
-  
+
+    this.props.activities.map( act => {
+      Object.keys(act).map(function(key, index) {
+        console.log(key)
+        console.log(act[key])
+        if( typeof(act[key]) === "undefined" ){
+          act[key] = "";
+        }
+
+       });
+    })
+
+
     // create a new trip with the values in the props
     let tripToCreate = {
       country: this.props.country,
       city: this.props.city,
       location: this.props.location,
       author: this.props.author,
-      restaurants: this.props.restaurants
+      restaurants: this.props.restaurants,
+      activities: this.props.activities
     }
 
 
@@ -58,16 +70,23 @@ class MyTrip extends React.Component {
     //this.props.createTrip(this.state, this.props.userID);
   };
 
-  
+
   render() {
-    if(!this.props.location){ 
+    if(!this.props.location){
       return null   // show nothing if we do not have any trip
     }else{
-      let rest = this.props.restaurants?this.props.restaurants.map((r) => 
+      let rest = this.props.restaurants?this.props.restaurants.map((r) =>
       <div key={r.location_id}>
         - {r.name}
       </div>
       ):null
+
+      let act = this.props.activities?this.props.activities.map((a) =>
+      <div key={a.location_id}>
+        - {a.name}
+      </div>
+      ):null
+
       return (<div style={myTrip_container}> 
         <Button variant="outlined" style={small_btn} onClick={this.handleClick}>
           <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>
@@ -76,7 +95,9 @@ class MyTrip extends React.Component {
         <div><b>My trip to {this.props.location}</b></div>
         <div>Restaurants: </div>
         <div> {rest} </div>
-                
+        <div>Activities: </div>
+        <div>{act} </div>
+
         </div>);
   }
   }
@@ -92,7 +113,8 @@ const mapStateToProps = (state) => {
     author: state.firebase.auth.uid,  // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
-  
+    activities: state.trip.activities
+
   };
 };
 
