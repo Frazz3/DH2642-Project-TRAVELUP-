@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { makeStyles, ButtonBase, Typography } from '@material-ui/core';
+import { title_text, select_btn, select_img } from '../assets/style';
 
 
 
@@ -15,28 +16,13 @@ class SearchSelections extends React.Component {
     }
 
     createButton = (image, link) => {
-        const btnStyle = {
-            top: "30%",
-            backgroundColor: "#239160",
-            color: "white",
-            fontSize: "16px",
-            padding: "10px 20px",
-            border: "none",
-            cursor: "pointer",
-            borderRadius: "5px",
-        }
-        const imgStyle = {
-            width: "225px",
-            height: "150px"
-        }
         return (
-            <button className="btn" disabled={image.disable} style={btnStyle} onClick ={() => this.props.history.push(link)}>
+            <button className="btn" disabled={image.disable} style={select_btn} onClick ={() => this.props.history.push(link)}>
                 {image.title}
                 <br/>
-                <img src={image.url} style={imgStyle}/>
+                <img src={image.url} style={select_img}/>
             </button>
         )
-
     }
 
     render(){
@@ -70,19 +56,6 @@ class SearchSelections extends React.Component {
             }
         ]
 
-
-
-
-
-
-
-        const styleText = {
-            color: "#239160",
-            padding: "10px",
-            fontFamily: "Arial",
-            textAlign: "center"
-        }
-
         if(!this.props.location){
             console.log(this.props.location)
             return (
@@ -94,7 +67,7 @@ class SearchSelections extends React.Component {
 
             <div className="container">
                 <div>
-                    <h1 style={styleText}>Let's plan your trip to {this.props.location}</h1>
+                    <h1 style={title_text}>Let's plan your trip to {this.props.location}</h1>
                 </div>
                 <div>
                 {this.createButton(images[0], "/food")}

@@ -5,11 +5,7 @@ import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import 'typeface-roboto';
 import { connect } from "react-redux";
-
-const lnkStyle = {
-  color: 'white',
-  textDecoration: 'none',
-}
+import { lnk_style } from '../assets/style'
 
 const Navbar = (props) => {
   const {auth} = props;
@@ -20,7 +16,7 @@ const Navbar = (props) => {
   <AppBar position="static">
     <Toolbar>
       <Typography variant="h6" >
-        <Link to="/" style={lnkStyle} activeStyle={lnkStyle}>TravelUp</Link>
+        <Link to="/" style={lnk_style} activeStyle={lnk_style}>TravelUp</Link>
       </Typography>
       {links}
     </Toolbar>
