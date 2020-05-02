@@ -58,6 +58,7 @@ class MyTrip extends React.Component {
       country: this.props.country,
       city: this.props.city,
       location: this.props.location,
+      locationPhoto: this.props.locationPhoto,
       author: this.props.author,
       restaurants: this.props.restaurants,
       activities: this.props.activities
@@ -110,6 +111,7 @@ const mapStateToProps = (state) => {
     country: "",
     city: "",
     location: state.location.name,
+    locationPhoto: state.location.locationPhoto,
     author: state.firebase.auth.uid,  // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,

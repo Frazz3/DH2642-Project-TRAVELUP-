@@ -33,23 +33,47 @@ class AllTrips extends React.Component {
     this.props.getAllTrips(this.props.userID);
   };
 
+
+  // Create our own alert later, preferrably with a photo in it
+  showRestaurant = (rest) => {
+    let all_cuisine =  "";
+    if(rest.cuisine){
+      rest.cuisine.map( c => all_cuisine += c.name + ", ");
+    }
+    alert(rest.name + "\n" + rest.description + "\n" + "Price: " + rest.price + "\nWebsite: " + rest.website +"\nCuisine: " + all_cuisine)
+  }
+
+  showActivity = (act) => {
+    alert(act.name + "\n" + act.description + "\n" + "Price: " + act.price + "\nWebsite: " + act.website) 
+  }
+
   render() {
     console.log("props in render: ", this.props.allTrips);
-    const trips = this.props.allTrips;
+    const trips = this.props.allTrips.reverse();  // The newest trip comes first
     let i = 0;
     const userTripItems = trips.map(trip => (
-      <div key={trip.id}>
-        <h2>
-          {++i}. {trip.city}
+      <div key={trip.id} className="all_trips">
+        <h2 className="large_text">
+          {++i}. {trip.location}
         </h2>
-        <h6>Author: {trip.author}</h6>
+        <img className="all_trips_img" src={trip.locationPhoto}/>
+        <h5 className="medium_text">Restaurants</h5>
+        {trip.restaurants?(
+          trip.restaurants.map(rest => (
+          <h6 key={rest.id} className="small_text" onClick={ () => this.showRestaurant(rest) }> {rest.name} </h6>
+        ))):null}
+        <h5 className="medium_text">Activities</h5>
+        {trip.activities?(
+          trip.activities.map(act => (
+          <h6 key={act.id} className="small_text" onClick={ () => this.showActivity(act) }> {act.name} </h6>
+        ))):null}
         <h6>-------------</h6>
       </div>
     ));
 
     return (
       <div>
-        <h1>My trips</h1>
+        <h1 className="title_text">My trips</h1>
         {userTripItems}
       </div>
     );

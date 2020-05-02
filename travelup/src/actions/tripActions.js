@@ -15,8 +15,8 @@ export const createTrip = (trip, userID) => {
     firestore
       .collection("trips")
       .add({
-        ...trip
-        // createdAt: new Date()    ifall vi vill ha när trip:en skapades
+        ...trip,
+        createdAt: new Date()    //ifall vi vill ha när trip:en skapades
       })
       .then(response => {
         console.log("response id", response.id);

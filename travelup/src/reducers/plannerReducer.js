@@ -11,7 +11,8 @@ export default function plannerReducer(state = intitialState, action) {
       return {
         ...state,
         id: action.payload, // id som fetchen returnerar
-        name: action.locationName   // location som användaren söker på
+        name: action.locationName,   // location som användaren söker på
+        locationPhoto: action.locationPhoto,
       };
     
     case RESET_LOCATION:  // reset the location
