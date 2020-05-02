@@ -19,7 +19,8 @@ export default function plannerReducer(state = intitialState, action) {
       console.log("reset the location");
       return {
         id: null,
-        name: null
+        name: null,
+        locationPhoto: null,
       }
     
     default:
