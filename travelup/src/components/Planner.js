@@ -6,7 +6,6 @@ import {ENDPOINT, API_KEY} from "../apiConfig.js";
 import { fetchLocation } from "../actions/plannerActions";
 import { resetTrip } from "../actions/tripActions";
 import { resetLocation} from "../actions/plannerActions"
-import { small_btn } from '../assets/style'
 
 
 class Planner extends React.Component {
@@ -69,7 +68,7 @@ class Planner extends React.Component {
           <input type="" id="destination" onChange={this.handleChange}/>
         </div>
         <div className="input-field">
-          <button type="submit" style={small_btn}>Search</button>
+          <button className="small_btn" type="submit" >Search</button>
         </div>
         <br />
       </form>

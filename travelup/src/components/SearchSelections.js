@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { makeStyles, ButtonBase, Typography } from '@material-ui/core';
-import { title_text, select_btn, select_img } from '../assets/style';
 
 
 
@@ -17,10 +16,10 @@ class SearchSelections extends React.Component {
 
     createButton = (image, link) => {
         return (
-            <button className="btn" disabled={image.disable} style={select_btn} onClick ={() => this.props.history.push(link)}>
+            <button className="select_btn" disabled={image.disable} onClick ={() => this.props.history.push(link)}>
                 {image.title}
                 <br/>
-                <img src={image.url} style={select_img}/>
+                <img className="select_img" src={image.url}/>
             </button>
         )
     }
@@ -67,7 +66,7 @@ class SearchSelections extends React.Component {
 
             <div className="container">
                 <div>
-                    <h1 style={title_text}>Let's plan your trip to {this.props.location}</h1>
+                    <h1 className="title_text" >Let's plan your trip to {this.props.location}</h1>
                 </div>
                 <div>
                 {this.createButton(images[0], "/food")}

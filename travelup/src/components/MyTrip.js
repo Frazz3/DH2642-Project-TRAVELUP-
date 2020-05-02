@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 import { createTrip } from "../actions/tripActions";
 import Button from '@material-ui/core/Button';
-import { small_btn, lnk_style, myTrip_container } from '../assets/style'
+import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -87,10 +87,10 @@ class MyTrip extends React.Component {
       </div>
       ):null
 
-      return (<div style={myTrip_container}> 
-        <Button variant="outlined" style={small_btn} onClick={this.handleClick}>
-          <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>
-        </Button>
+      return (<div className="myTrip_container"> 
+        <button className="small_btn" variant="outlined" onClick={this.handleClick}>
+          <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>  
+        </button>
         <br/>
         <div><b>My trip to {this.props.location}</b></div>
         <div>Restaurants: </div>

@@ -55,7 +55,7 @@ class SignupForm extends React.Component {
         <input type="text" id="lastName" onChange={this.handleChange}/>
       </div>
       <div className="input-field">
-        <button className="ptn pink lighten-1 z-depth-0">Sign up</button>
+        <button className="small_btn">Sign up</button>
       </div>
       <div>
         { this.props.authError ? <p>{this.props.authError}</p> : null}
