@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchRestaurants } from "../actions/foodActions"
 import { addRestaurant } from "../actions/tripActions"
-import { result_btn, title_text, filter_div, small_btn, containerSection, restaurantDiv } from '../assets/style'
 
 // om man vill göra snyggare lösning kan dessa användas. Görs ej i nuläget eftersom jag ej fick det att funka /Stina
 const prices_restaurants = [{"$": "10953"},{"$$-$$$": "10955"},{"$$$$": "10954"},{"all": "all"}]
@@ -144,7 +143,7 @@ class BrowseFood extends React.Component {
      return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
       (
         <span key={restaurant.location_id}>
-          <button className={restaurant.location_id} onClick={()=> this.addRestaurant(restaurant)} style={result_btn}>
+          <button className= "result_btn" onClick={()=> this.addRestaurant(restaurant)} >
             <h4>{restaurant.name} </h4>
             <img src={restaurant.photo.images.small.url}/>
             <h5>Price Range: {restaurant.price} </h5>
@@ -177,9 +176,9 @@ class BrowseFood extends React.Component {
     
     return (
       <div className="container">
-      <section style={containerSection}>
+      <section className="containerSection" >
         
-        <div className="filters" style={filter_div}>
+        <div className="filter_div" >
           <div>
               <FormLabel component="legend">Price</FormLabel>
                 <div>{priceCheckbox}</div>
@@ -189,14 +188,14 @@ class BrowseFood extends React.Component {
           </div>
           
           <div>
-            <Button variant="outlined" style={small_btn} onClick={this.handleClick}>
+            <button className="small_btn" variant="outlined"  onClick={this.handleClick}>
               Filter
-            </Button>
+            </button>
             
           </div>
         </div>
-        <div className="restaurants" style={restaurantDiv}>
-          <h1 style={title_text}>Restaurants</h1>
+        <div className="restaurantDiv" >
+          <h1 className="title_text" >Restaurants</h1>
           { (this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
           ) : restaurantItems}

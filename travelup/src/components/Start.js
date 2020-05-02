@@ -50,8 +50,9 @@ class Start extends React.Component {
       <br/>
       <i>you personal trip planner</i>
       <br/>
-      <button id = 'login' onClick={this.handleClickLogin}>Log in</button>
-      <button id= 'signup' onClick={this.handleClickSignUp}>Sign Up</button>
+      <button className="small_btn" id = 'login' onClick={this.handleClickLogin}>Log in</button>
+      <button className="small_btn" id= 'signup' onClick={this.handleClickSignUp}>Sign Up</button>
+      <br/>
     </div>);
   }
 }

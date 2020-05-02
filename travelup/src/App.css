@@ -47,6 +47,7 @@
   max-width: 1000px;
   float: left;
   overflow: scroll; 
+  min-height: 100px;
   
 }
 
@@ -81,6 +82,117 @@
     width:100%; 
    }
 
+}
+
+/* Colors 
+cons PRIMARY_TEXT_COLOR = "#239160";
+const PRIMARY_BACKGROUND_COLOR = "#239160";
+const SECONDARY_BACKGROUND_COLOR = "#52BE80";
+const BUTTON_BORDER_COLOR = "#239160";
+
+//Fonts
+const FONT_FAMILY = "Arial"
+const BUTTON_FONT_COLOR = "white"
+*/
+.primary_background_color {
+  background-color: #239160;
+}
+
+
+/* Buttons */
+.select_btn{
+    top: 30%;
+    background-color: #239160;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.result_btn{
+    width: 350px;
+    min-height: 300px;
+    max-height: 400px;
+    background-color: white;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    display: inlineBlock;
+    margin: 10px 10px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+  }
+
+.small_btn{
+    width: 100px;
+    height: 50px;
+    background-color: #52BE80;
+    border: solid;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 25px;
+    border-color: #239160;
+    box-shadow: 5px 5px 5px grey;
+    font-size: 12px;
+    text-align: center;
+    font-family: Arial;
+    color: white;
+}
+
+/* Texts */
+.title_text {
+    color: #239160;
+    padding: 10px;
+    font-family: Arial;
+    text-align: center;
+    font-size: 40px;
+}
+
+/* Images */
+.select_img{
+    width: 225px;
+    height: 150px;
+}
+
+/* Div */
+.filter_div {
+    width: 150px;
+    float: left;
+    border: 2px solid #239160;
+    box-shadow: 1px 1px 5px #888888;
+    display: flex;
+    flex-direction: column;
+    display: "flex";
+    border-radius: 8px;
+}
+
+.restaurantDiv {
+    width: 100%;
+}
+
+/* Link */
+.lnk_style {
+    color: white;
+    text-decoration: none;
+    position: left;
+  }
+
+/* Containers */
+.myTrip_container {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    border: 2px solid #239160;
+    box-shadow: 1px 1px 5px #888888;
+    overflow: hidden;
+    background-color: #FFFFFF;
+  }
+
+.containerSection {
+    width:100%;
 }
 
 

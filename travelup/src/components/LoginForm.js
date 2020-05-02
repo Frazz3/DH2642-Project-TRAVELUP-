@@ -48,7 +48,7 @@ class LoginForm extends React.Component {
         <input type="password" id="password" onChange={this.handleChange}/>
       </div>
       <div className="input-field">
-        <button className="ptn pink lighten-1 z-depth-0">Login</button>
+        <button className="small_btn">Login</button>
       </div>
       <div>
         { authError ? <p>{authError}</p> : null}

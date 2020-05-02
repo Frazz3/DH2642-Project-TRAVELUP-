@@ -1,5 +1,9 @@
 import { light } from "@material-ui/core/styles/createPalette";
 
+
+//  ANVÄNDS BARA FÖR LINK
+
+
 // A file with all styling.
 
 //Colors
