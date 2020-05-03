@@ -22,3 +22,6 @@ export const RESET_LOCATION = "RESET_LOCATION";
 export const RESET_TRIP = "RESET_TRIP";
 
 export const ADD_RESTAURANT ='ADD_RESTAURANT';
+
+export const REMOVE_TRIP = 'REMOVE_TRIP';
+export const REMOVE_TRIP_ERROR = 'REMOVE_TRIP_ERROR';

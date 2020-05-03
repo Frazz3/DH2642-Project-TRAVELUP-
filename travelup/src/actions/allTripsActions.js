@@ -1,4 +1,4 @@
-import { GET_USER_TRIPS, GET_TRIPS_ERROR } from "./types";
+import { GET_USER_TRIPS, GET_TRIPS_ERROR, REMOVE_TRIP, REMOVE_TRIP_ERROR } from "./types";
 
 // -- ACTIONS --
 export const getAllTrips = userID => {
@@ -47,6 +47,33 @@ export const firebaseGetUserTrips = (userID, getFirestore) => {
       return Promise.all(tripPromises); // Return single promise object upon resolving all trip promises
     });
   return userTrips;
+};
+
+
+export const deleteTrip = (tripID, userID) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    const firebase = getFirebase();
+
+    firestore
+      .collection("trips")
+      .doc(tripID)
+      .delete()
+      .then(response => {
+        return firestore
+        .collection("users")
+        .doc(userID)
+        .update({
+          trips: firebase.firestore.FieldValue.arrayRemove(tripID)   // remove the trip from the array of the user
+        });
+      })
+      .then(() => {
+        dispatch({ type: REMOVE_TRIP})
+      })
+      .catch( err => {
+        dispatch({ type: REMOVE_TRIP_ERROR, err})
+      });
+  };
 };
 
 // -- LISTENERS --

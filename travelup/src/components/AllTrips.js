@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-import { getAllTrips } from "../actions/allTripsActions";
+import { getAllTrips, deleteTrip } from "../actions/allTripsActions";
 import { display } from "@material-ui/system";
 
 class AllTrips extends React.Component {
@@ -47,12 +47,31 @@ class AllTrips extends React.Component {
     alert(act.name + "\n" + act.description + "\n" + "Price: " + act.price + "\nWebsite: " + act.website) 
   }
 
+  deleteTheTrip = (tripID) => {
+    if(window.confirm("Do you want to delete this trip?")){
+      this.props.deleteTrip(tripID, this.props.userID);
+      
+      console.log("the trip is deleted, id: ", tripID);
+    }
+    console.log("did not want to delet to the trip");
+
+  }
+
+  editTheTrip = (tripID) => {
+    if(this.props.locationID !== null){
+      alert("You have already started on a trip, you need to finish that one before you can edit this.");
+    }
+
+  }
+
   render() {
     console.log("props in render: ", this.props.allTrips);
     const trips = this.props.allTrips.reverse();  // The newest trip comes first
     let i = 0;
     const userTripItems = trips.map(trip => (
       <div key={trip.id} className="all_trips">
+        <button className="delete_btn" onClick={() => this.deleteTheTrip(trip.id)}>X</button>
+        <button className="delete_btn" onClick={() => this.editTheTrip(trip.id)}>...</button>
         <h2 className="large_text">
           {++i}. {trip.location}
         </h2>
@@ -86,13 +105,15 @@ const mapStateToProps = state => {
   // stateMember: state.stateMember (as mapped in rootreducer).reducerProperty
   return {
     userID: state.firebase.auth.uid,
-    allTrips: state.allTrips
+    allTrips: state.allTrips,
+    locationID: state.location.id
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAllTrips: userID => dispatch(getAllTrips(userID))
+    getAllTrips: userID => dispatch(getAllTrips(userID)),
+    deleteTrip: (tripID, userID) => dispatch(deleteTrip(tripID, userID))
   };
 };
 
