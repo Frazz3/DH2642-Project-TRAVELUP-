@@ -30,46 +30,51 @@ class App extends Component {
             
             <div className="App">
               <main>
-                <Navbar/>
-                <Switch>
-                  <Route
-                    path="/logIn"
-                    render={props => <LoginForm {...props} className="auth"/>}
-                  />
-                  <Route path="/signUp"
-                  render={props => <SignupForm {...props} className="auth"/>}
-                  />
-                  <Route path="/" 
-                  render={props => <Start {...props} className="auth"/>} 
-                  exact
-                  />
-                  <Route
-                    path="/planner"
-                    render={props => <Planner {...props} />}
-                  />
-                  <Route
-                    path="/food"
-                    render={props => <BrowseFood {...props} />}
-                  />
-                  <Route
-                    path="/activities"
-                    render={props => <BrowseActivities {...props} />}
-                  />
-                  <Route
-                    path="/myTrip"
-                    render={props => <MyTrip {...props} />}
-                  />
-                  <Route
-                    path="/allTrips"
-                    render={props => <AllTrips {...props} />}
-                  />
-                  <Route
-                    path="/select"
-                    render={props => <SearchSelections {...props} myTrip={MyTrip}/>}
-                  />
-                </Switch>
-                <div className="myTrip">
-                  <MyTrip/>
+
+                <div class="container">
+                  <div class="row">
+                    <div class="col col-xl-12">
+                      <Navbar/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div className="mainCont" class="col col-xl-8">
+                      <Switch>
+                      <Route path="/logIn"
+                        render={props => <LoginForm {...props} className="auth"/>}
+                      />
+                      <Route path="/signUp"
+                      render={props => <SignupForm {...props} className="auth"/>}
+                      />
+                      <Route path="/" 
+                        render={props => <Start {...props} className="auth"/>} 
+                        exact
+                      />
+                      <Route path="/planner"
+                        render={props => <Planner {...props} />}
+                      />
+                      <Route path="/food"
+                        render={props => <BrowseFood {...props} />}
+                      />
+                      <Route path="/activities"
+                        render={props => <BrowseActivities {...props} />}
+                      />
+                      <Route path="/myTrip"
+                        render={props => <MyTrip {...props} />}
+                      />
+                      <Route path="/allTrips"
+                        render={props => <AllTrips {...props} />}
+                      />
+                      <Route path="/select"
+                        render={props => <SearchSelections {...props} myTrip={MyTrip}/>}
+                      />
+                      </Switch>
+                    </div>
+                    <div className="myTrip" class="col col-xl-4">
+                      <MyTrip/>
+                    </div>
+                  </div>
+                  
                 </div>
               </main>
             </div>

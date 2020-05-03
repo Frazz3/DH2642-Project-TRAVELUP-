@@ -38,6 +38,7 @@ class Planner extends React.Component {
         this.props.resetTrip();
         //fetch new location
         this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
+        alert(this.props.location.id)
         this.props.history.push('/select');
 
       }else{
