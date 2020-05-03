@@ -88,7 +88,7 @@ const lnkStyle = {
 }
 
 const myTripContainer= {
-  width: 300,
+  //width: 300,
   display: "flex",
   flexDirection: "column",
   borderRadius: 8,

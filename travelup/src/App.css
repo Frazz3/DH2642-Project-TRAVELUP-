@@ -43,10 +43,14 @@
 }
 
 .container {
-  min-width: 500px;
+  /* min-width: 500px; */
   /* max-width: 1000px; */
   float: left;
-  
+  padding: 5px; 
+}
+
+.div {
+  padding: 5px;
 }
 
 .navBar {
@@ -65,9 +69,9 @@
   }
 
   .myTrip{ 
-    display: flex; 
-    flex-direction: row;  
-    width:300px; 
+    /* display: flex;  */
+    /* flex-direction: row;   */
+    /* width:300px;  */
     height:800px; 
     overflow: scroll; 
     text-align: center; 

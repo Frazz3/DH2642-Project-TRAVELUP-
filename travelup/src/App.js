@@ -33,12 +33,10 @@ class App extends Component {
 
                 <div class="container">
                   <div class="row">
-                    <div class="col col-xl-12">
-                      <Navbar/>
-                    </div>
+                    <Navbar/>
                   </div>
                   <div class="row">
-                    <div className="mainCont" class="col col-xl-8">
+                    <div className="mainCont" class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                       <Switch>
                       <Route path="/logIn"
                         render={props => <LoginForm {...props} className="auth"/>}
@@ -70,7 +68,7 @@ class App extends Component {
                       />
                       </Switch>
                     </div>
-                    <div className="myTrip" class="col col-xl-4">
+                    <div className="myTrip" class="col col-xl-3 col-lg-3">
                       <MyTrip/>
                     </div>
                   </div>
