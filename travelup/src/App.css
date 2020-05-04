@@ -155,6 +155,22 @@ const BUTTON_FONT_COLOR = "white"
 }
 .delete_btn:hover {background-color: #155136}
 
+.element_delete_btn{
+  width: 15px;
+  height: 15px;
+  float: right;
+  border-radius: 50%;
+  padding: 2px;
+  background-color: white;
+  border-color: rgb(113, 110, 110);
+  color: rgb(113, 110, 110);
+  cursor: pointer;
+  font-family: Arial;
+  font-weight: bolder;
+  text-align: center;
+  margin-right: 5px;
+}
+.element_delete_btn:hover {background-color: #f55656;}
 
 /* Texts */
 .title_text {

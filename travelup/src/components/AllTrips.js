@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
-import { getAllTrips, deleteTrip } from "../actions/allTripsActions";
+import { getAllTrips, deleteTrip, editTrip } from "../actions/allTripsActions";
+import { Redirect } from "react-router-dom";
 import { display } from "@material-ui/system";
 
 class AllTrips extends React.Component {
@@ -24,6 +25,9 @@ class AllTrips extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log("PREV: ", prevProps.userID);
+    this.makeAllTrips();
+
+    // vill vi fortfarande ha detta?
     if (this.props.userID !== prevProps.userID) {
       this.makeAllTrips();
     }
@@ -53,18 +57,25 @@ class AllTrips extends React.Component {
       
       console.log("the trip is deleted, id: ", tripID);
     }
-    console.log("did not want to delet to the trip");
-
   }
 
   editTheTrip = (tripID) => {
     if(this.props.locationID !== null){
       alert("You have already started on a trip, you need to finish that one before you can edit this.");
+    }else{
+      if(window.confirm("Do you really want to edit this trip?")){
+        console.log("editing the trip");
+        this.props.editTrip(tripID, this.props.userID);
+        //this.props.deleteTrip(tripID, this.props.userID);
+      }
     }
 
   }
 
   render() {
+    const {auth} = this.props;
+    if (!auth.uid) return <Redirect to='/' />
+
     console.log("props in render: ", this.props.allTrips);
     const trips = this.props.allTrips.reverse();  // The newest trip comes first
     let i = 0;
@@ -104,6 +115,7 @@ const mapStateToProps = state => {
   // returns a prop object
   // stateMember: state.stateMember (as mapped in rootreducer).reducerProperty
   return {
+    auth: state.firebase.auth,
     userID: state.firebase.auth.uid,
     allTrips: state.allTrips,
     locationID: state.location.id
@@ -113,7 +125,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getAllTrips: userID => dispatch(getAllTrips(userID)),
-    deleteTrip: (tripID, userID) => dispatch(deleteTrip(tripID, userID))
+    deleteTrip: (tripID, userID) => dispatch(deleteTrip(tripID, userID)),
+    editTrip: tripID => dispatch(editTrip(tripID))
   };
 };
 

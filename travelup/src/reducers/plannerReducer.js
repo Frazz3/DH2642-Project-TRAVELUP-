@@ -1,4 +1,4 @@
-import { FETCH_LOCATION, RESET_LOCATION } from "../actions/types";
+import { FETCH_LOCATION, RESET_LOCATION, EDIT_LOCATION } from "../actions/types";
 
 const intitialState = { 
   id: null // Inte hundra på detta, vi ska endast hämta en sträng med siffror
@@ -22,7 +22,15 @@ export default function plannerReducer(state = intitialState, action) {
         name: null,
         locationPhoto: null,
       }
-    
+
+    case EDIT_LOCATION:
+      console.log("edit location")
+      return {
+        id: action.id,
+        name: action.name,
+        locationPhoto: action.photo,
+      }
+      
     default:
       return state;
   }
