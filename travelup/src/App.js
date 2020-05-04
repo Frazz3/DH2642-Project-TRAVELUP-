@@ -9,6 +9,7 @@ import Start from "./components/Start.js";
 import Planner from "./components/Planner";
 import BrowseFood from "./components/BrowseFood.js";
 import BrowseActivities from "./components/BrowseActivities.js";
+import BrowseAcc from "./components/BrowseAcc.js";
 import MyTrip from './components/MyTrip'
 import AllTrips from './components/AllTrips'
 import SearchSelections from './components/SearchSelections'
@@ -54,6 +55,10 @@ class App extends Component {
                   <Route
                     path="/activities"
                     render={props => <BrowseActivities {...props} />}
+                  />
+                  <Route
+                    path="/accommodations"
+                    render={props => <BrowseAcc {...props} />}
                   />
                   <Route
                     path="/myTrip"

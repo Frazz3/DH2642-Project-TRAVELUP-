@@ -45,8 +45,8 @@ class SearchSelections extends React.Component {
             },
             {
                 url: 'https://images.unsplash.com/photo-1445991842772-097fea258e7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
-                title: 'Accommodation (do not exist yet)',
-                disable: true,
+                title: 'Accommodation',
+                disable: false,
             },
             {
                 url: 'https://images.unsplash.com/photo-1506426235353-205ad887bb38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
@@ -71,7 +71,7 @@ class SearchSelections extends React.Component {
                 <div>
                 {this.createButton(images[0], "/food")}
                 <br/><br/>
-                {this.createButton(images[1], "/select")}
+                {this.createButton(images[1], "/accommodations")}
                 <br/><br/>
                 {this.createButton(images[2], "/activities")}
                 </div>

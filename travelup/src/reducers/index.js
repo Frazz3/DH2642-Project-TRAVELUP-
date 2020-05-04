@@ -7,6 +7,7 @@ import foodReducer from "./foodReducer";
 import plannerReducer from "./plannerReducer"
 import allTripsReducer from "./allTripsReducer"
 import activityReducer from "./activityReducer"
+import accReducer from "./accReducer.js"
 
 
 import { firestoreReducer } from 'redux-firestore';
@@ -22,6 +23,7 @@ export default combineReducers({
   location: plannerReducer,
   allTrips: allTripsReducer,
   activities: activityReducer,
+  accommodations: accReducer,
   // npm install react-redux-firebase redux-firestore
   firestore: firestoreReducer,  //will sync our firestore data with the store state
   firebase: firebaseReducer     //sync authentication status on firebase with our redux app. Will detect if we signin/signout of the auth-servie on firebase and will update this state accordingly
