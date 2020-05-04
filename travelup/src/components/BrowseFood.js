@@ -95,7 +95,7 @@ class BrowseFood extends React.Component {
 
   addRestaurant = (restaurant) => {
     if (window.confirm(restaurant.description +"\n\nWould you want to add " +restaurant.name+ " to your trip?")){
-      let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id}
+      let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id, cuisine:restaurant.cuisine, website:restaurant.website, photo:restaurant.photo.images.small.url}
 
       // don't want to add duplicates (not sure where to put this, here or in the reducer?)
       let duplicate = false;

@@ -10,11 +10,14 @@ export const fetchLocation = (destination) => dispatch => {
     }
   })
 .then(response => response.json())
-.then(data => dispatch({ 
+.then(data => {
+  console.log(data)
+  dispatch({ 
   type: FETCH_LOCATION,
   payload: data.data[0].result_object.location_id,
-  locationName: destination
-}));
+  locationName: destination,
+  locationPhoto: data.data[0].result_object.photo.images.original.url
+})});
 }
 
 export const resetLocation = () => {
