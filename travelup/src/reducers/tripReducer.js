@@ -63,6 +63,7 @@ const tripReducer = (state = initState, action) => {
       return {
         ...state,
         activities: actList
+      }
     case ADD_ACCOMMODATION:
       console.log('added accommodation')
       return {
