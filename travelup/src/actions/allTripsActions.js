@@ -68,7 +68,7 @@ export const deleteTrip = (tripID, userID) => {
         });
       })
       .then(() => {
-        dispatch({ type: REMOVE_TRIP})
+        dispatch({ type: REMOVE_TRIP, payload: tripID})
       })
       .catch( err => {
         dispatch({ type: REMOVE_TRIP_ERROR, err})
