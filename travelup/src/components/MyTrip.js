@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { createTrip } from "../actions/tripActions";
+import {
+  createTrip,
+  removeRestaurant,
+  removeActivity
+} from "../actions/tripActions";
 import Button from "@material-ui/core/Button";
 import { small_btn, lnk_style, myTrip_container } from "../assets/style"; // lyckas inte style Link med css
 
@@ -25,6 +29,14 @@ class MyTrip extends React.Component {
       return "";
     }
     return value;
+  };
+
+  removeRestaurantFromList = restaurant => {
+    this.props.removeRestaurant(restaurant);
+  };
+
+  removeActivityFromList = activity => {
+    this.props.removeActivity(activity);
   };
 
   handleClick = () => {
@@ -53,7 +65,9 @@ class MyTrip extends React.Component {
     let tripToCreate = {
       country: this.props.country,
       city: this.props.city,
+      locationID: this.props.locationID,
       location: this.props.location,
+      locationPhoto: this.props.locationPhoto,
       author: this.props.author,
       restaurants: this.props.restaurants,
       activities: this.props.activities
@@ -71,13 +85,29 @@ class MyTrip extends React.Component {
     } else {
       let rest = this.props.restaurants
         ? this.props.restaurants.map(r => (
-            <div key={r.location_id}>- {r.name}</div>
+            <div key={r.location_id}>
+              - {r.name}
+              <button
+                className="element_delete_btn"
+                onClick={() => this.removeRestaurantFromList(r)}
+              >
+                x
+              </button>
+            </div>
           ))
         : null;
 
       let act = this.props.activities
         ? this.props.activities.map(a => (
-            <div key={a.location_id}>- {a.name}</div>
+            <div key={a.location_id}>
+              - {a.name}
+              <button
+                className="element_delete_btn"
+                onClick={() => this.removeActivityFromList(a)}
+              >
+                x
+              </button>
+            </div>
           ))
         : null;
 
@@ -111,7 +141,9 @@ const mapStateToProps = state => {
   return {
     country: "",
     city: "",
+    locationID: state.location.id,
     location: state.location.name,
+    locationPhoto: state.location.locationPhoto,
     author: state.firebase.auth.uid, // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
@@ -121,7 +153,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createTrip: (trip, userID) => dispatch(createTrip(trip, userID)) //createTrip is an action-creator
+    createTrip: (trip, userID) => dispatch(createTrip(trip, userID)), //createTrip is an action-creator
+    removeRestaurant: restaurant => dispatch(removeRestaurant(restaurant)),
+    removeActivity: activity => dispatch(removeActivity(activity))
   };
 };
 

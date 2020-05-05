@@ -10,7 +10,10 @@ import {
   RESET_RESTAURANTS,
   RESET_TRIP,
   ADD_RESTAURANT,
-  ADD_ACTIVITY
+  ADD_ACTIVITY,
+  ADD_ACCOMMODATION,
+  REMOVE_RESTAURANT,
+  REMOVE_ACTIVITY
 } from "../actions/types";
 
 export const createTrip = (trip, userID) => {
@@ -23,8 +26,8 @@ export const createTrip = (trip, userID) => {
     firestore
       .collection("trips")
       .add({
-        ...trip
-        // createdAt: new Date()    ifall vi vill ha när trip:en skapades
+        ...trip,
+        createdAt: new Date() //ifall vi vill ha när trip:en skapades
       })
       .then(response => {
         //lägg in trip i användaren som skapat den
@@ -61,9 +64,27 @@ export const addRestaurant = restaurant => {
   };
 };
 
+export const removeRestaurant = restaurant => {
+  return dispatch => {
+    dispatch({ type: REMOVE_RESTAURANT, restaurant: restaurant });
+  };
+};
+
 //Vet inte hur denna ska se ut?
 export const addActivity = activity => {
   return dispatch => {
     dispatch({ type: ADD_ACTIVITY, activity: activity });
+  };
+};
+
+export const removeActivity = activity => {
+  return dispatch => {
+    dispatch({ type: REMOVE_ACTIVITY, activity: activity });
+  };
+};
+
+export const addAcc = accommodation => {
+  return dispatch => {
+    dispatch({ type: ADD_ACCOMMODATION, accommodation: accommodation });
   };
 };
