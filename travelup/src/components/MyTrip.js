@@ -102,17 +102,20 @@ class MyTrip extends React.Component {
       return null   // show nothing if we do not have any trip
     }else{
       let rest = this.props.restaurants?this.props.restaurants.map((r) =>
-      <div key={r.location_id} onClick={() => this.getModal(r)}>
-        - {r.name}
-        <button className="element_delete_btn" onClick={() => this.removeRestaurantFromList(r)}>x</button>
+      <div>
+        <div key={r.location_id} className="myTrip_text" onClick={() => this.getModal(r)}>
+        - {r.name}</div>
+        <div className="myTrip_text">
+          <button className="element_delete_btn" onClick={() => this.removeRestaurantFromList(r)}>x</button>
+      </div>
       </div>
       ):null
 
       let act = this.props.activities?this.props.activities.map((a) =>
-      <div key={a.location_id} onClick={() => this.getModal(a)}>
-        - {a.name}
-        <button className="element_delete_btn" onClick={() => this.removeActivityFromList(a)}>x</button>
-      </div>
+      <div><div key={a.location_id} className="myTrip_text" onClick={() => this.getModal(a)}>
+        - {a.name}</div>
+        <div className="myTrip_text"><button className="element_delete_btn" onClick={() => this.removeActivityFromList(a)}>x</button>
+      </div></div>
       ):null
 
       return (<div className="myTrip_container"> 
