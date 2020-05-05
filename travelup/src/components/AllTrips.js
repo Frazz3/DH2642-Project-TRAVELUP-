@@ -14,17 +14,10 @@ class AllTrips extends React.Component {
     };
   }
 
-  componentDidMount() {
-    console.log("MOUNTING on ID: ", this.state.userID);
-    if (this.props.userID) {
-      console.log("ID EXISTS");
-      this.makeAllTrips();
-    }
-  }
-
   componentDidUpdate(prevProps) {
-    console.log("PREV: ", prevProps.userID);
+    // Behövs då userID inte ännu hämtats vid första render-tillfället.
     if (this.props.userID !== prevProps.userID) {
+      console.log("making trips");
       this.makeAllTrips();
     }
   }
@@ -34,7 +27,6 @@ class AllTrips extends React.Component {
   };
 
   render() {
-    console.log("props in render: ", this.props.allTrips);
     const trips = this.props.allTrips;
     let i = 0;
     const userTripItems = trips.map(trip => (
@@ -56,23 +48,23 @@ class AllTrips extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log("STATE IN MAP: ", state.allTrips);
-  // returns a prop object
-  // stateMember: state.stateMember (as mapped in rootreducer).reducerProperty
-  return {
-    userID: state.firebase.auth.uid,
-    allTrips: state.allTrips
-  };
-};
+export default AllTrips;
+// const mapStateToProps = state => {
+//   // returns a prop object
+//   // stateMember: state.stateMember (as mapped in rootreducer).reducerProperty
+//   return {
+//     userID: state.firebase.auth.uid,
+//     allTrips: state.allTrips
+//   };
+// };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getAllTrips: userID => dispatch(getAllTrips(userID))
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     getAllTrips: userID => dispatch(getAllTrips(userID))
+//   };
+// };
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([{ collection: "trips" }]) // Listening to changes in trips collection
-)(AllTrips);
+// export default compose(
+//   connect(mapStateToProps, mapDispatchToProps),
+//   firestoreConnect([{ collection: "trips" }]) // Listening to changes in trips collection
+// )(AllTrips);

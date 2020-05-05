@@ -3,7 +3,15 @@
 // returnera ett action-object, med ett type-attribut (t.ex. SET_LOCATION), och en payload (location i detta fall).
 // type-attributet anger alltså TYPEN av action. "payloaden" anger datat vi vill göra nånting med. location är kanske strängen "Stockholm".
 
-import { CREATE_TRIP, CREATE_TRIP_ERROR, RESET_LOCATION, RESET_RESTAURANTS, RESET_TRIP, ADD_RESTAURANT, ADD_ACTIVITY} from "../actions/types";
+import {
+  CREATE_TRIP,
+  CREATE_TRIP_ERROR,
+  RESET_LOCATION,
+  RESET_RESTAURANTS,
+  RESET_TRIP,
+  ADD_RESTAURANT,
+  ADD_ACTIVITY
+} from "../actions/types";
 
 export const createTrip = (trip, userID) => {
   console.log("Created trip: ", trip);
@@ -19,7 +27,6 @@ export const createTrip = (trip, userID) => {
         // createdAt: new Date()    ifall vi vill ha när trip:en skapades
       })
       .then(response => {
-        console.log("response id", response.id);
         //lägg in trip i användaren som skapat den
 
         return firestore
@@ -30,13 +37,11 @@ export const createTrip = (trip, userID) => {
           });
       })
       .then(() => {
-        console.log("have created the trip!!");
         dispatch({ type: CREATE_TRIP, trip: trip });
 
         // reset after the trip is created
         dispatch({ type: RESET_LOCATION });
         dispatch({ type: RESET_TRIP });
-
       })
       .catch(err => {
         dispatch({ type: CREATE_TRIP_ERROR, err });
@@ -45,21 +50,20 @@ export const createTrip = (trip, userID) => {
 };
 
 export const resetTrip = () => {
-  return ( (dispatch) => {
+  return dispatch => {
     dispatch({ type: RESET_TRIP });
-  })
-}
+  };
+};
 
-export const addRestaurant = (restaurant) => {
-  return ( (dispatch) => {
-    dispatch( {type: ADD_RESTAURANT, restaurant: restaurant})
-  })
-
+export const addRestaurant = restaurant => {
+  return dispatch => {
+    dispatch({ type: ADD_RESTAURANT, restaurant: restaurant });
+  };
 };
 
 //Vet inte hur denna ska se ut?
-export const addActivity = (activity) => {
-  return ( (dispatch) => {
-    dispatch( {type: ADD_ACTIVITY, activity: activity})
-  })
+export const addActivity = activity => {
+  return dispatch => {
+    dispatch({ type: ADD_ACTIVITY, activity: activity });
+  };
 };

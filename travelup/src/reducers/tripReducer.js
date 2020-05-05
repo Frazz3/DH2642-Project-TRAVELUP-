@@ -14,45 +14,42 @@
 // Kom ihåg att varje action har en .type och en .payload. Vad payloaden/datat är beror på typen. I fallet SET_LOCATION är vår payload en plats,
 // därför kallar vi den payloaden för location. I fallet ADD_ACTIVITY är payloaden ett activity-objekt, varför vi kallar payloaden för activity.
 
-import { CREATE_TRIP, CREATE_TRIP_ERROR, ADD_RESTAURANT, RESET_TRIP, ADD_ACTIVITY } from "../actions/types";
-
+import {
+  CREATE_TRIP,
+  CREATE_TRIP_ERROR,
+  ADD_RESTAURANT,
+  RESET_TRIP,
+  ADD_ACTIVITY
+} from "../actions/types";
 
 const initState = {
-  country:"",   // måste ha pga databasen, kanske ändra sen
-  city:"",      // måste ha pga databasen, kanske ändra sen
+  country: "", // måste ha pga databasen, kanske ändra sen
+  city: "", // måste ha pga databasen, kanske ändra sen
   location: "",
   author: "",
   restaurants: [],
   activities: []
-}
-
-
+};
 
 const tripReducer = (state = initState, action) => {
   switch (action.type) {
     case CREATE_TRIP:
       // Här ska vi göra en entry i databasen.
-      console.log("created trip", action.trip);
       return state;
     case CREATE_TRIP_ERROR:
-      console.log("create trip error", action.err);
       return state;
     case ADD_RESTAURANT:
-      console.log('added restaurant')
       return {
-          ...state,
-          restaurants: [...state.restaurants, action.restaurant]
-        }
+        ...state,
+        restaurants: [...state.restaurants, action.restaurant]
+      };
     case ADD_ACTIVITY:
-      console.log('added activity')
       return {
-          ...state,
-          activities: [...state.activities, action.activity]
-      }
-    case RESET_TRIP:  // reset the trip
-      console.log("reset trip");
-      return initState
-
+        ...state,
+        activities: [...state.activities, action.activity]
+      };
+    case RESET_TRIP: // reset the trip
+      return initState;
 
     default:
       return state;

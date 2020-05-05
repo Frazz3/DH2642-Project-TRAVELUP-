@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createTrip } from "../actions/tripActions";
-import Button from '@material-ui/core/Button';
-import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
+import Button from "@material-ui/core/Button";
+import { small_btn, lnk_style, myTrip_container } from "../assets/style"; // lyckas inte style Link med css
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -11,8 +11,8 @@ class MyTrip extends React.Component {
 
     // osäker om jag kan connecta från mapStateToProps till denna med?
     this.state = {
-      country:"",   // måste ha pga databasen, kanske ändra sen
-      city:"",      // måste ha pga databasen, kanske ändra sen
+      country: "", // måste ha pga databasen, kanske ändra sen
+      city: "", // måste ha pga databasen, kanske ändra sen
       location: this.props.location,
       author: this.props.author,
       restaurants: this.props.restaurants,
@@ -20,38 +20,34 @@ class MyTrip extends React.Component {
     };
   }
 
-  replaceUndefined = (value) => {
-    if( typeof(value) === "undefined" ){
+  replaceUndefined = value => {
+    if (typeof value === "undefined") {
       return "";
     }
     return value;
-  }
+  };
 
   handleClick = () => {
-
     // need to make sure that no undefined fields are present (only works for restaurants right now)
-    this.props.restaurants.map( rest => {
+    this.props.restaurants.map(rest => {
       Object.keys(rest).map(function(key, index) {
-        console.log(key)
-        console.log(rest[key])
-        if( typeof(rest[key]) === "undefined" ){
+        console.log(key);
+        console.log(rest[key]);
+        if (typeof rest[key] === "undefined") {
           rest[key] = "";
         }
+      });
+    });
 
-       });
-    })
-
-    this.props.activities.map( act => {
+    this.props.activities.map(act => {
       Object.keys(act).map(function(key, index) {
-        console.log(key)
-        console.log(act[key])
-        if( typeof(act[key]) === "undefined" ){
+        console.log(key);
+        console.log(act[key]);
+        if (typeof act[key] === "undefined") {
           act[key] = "";
         }
-
-       });
-    })
-
+      });
+    });
 
     // create a new trip with the values in the props
     let tripToCreate = {
@@ -61,8 +57,7 @@ class MyTrip extends React.Component {
       author: this.props.author,
       restaurants: this.props.restaurants,
       activities: this.props.activities
-    }
-
+    };
 
     // ska nollställa alla states med trips, vi börjar på nytt
 
@@ -70,51 +65,57 @@ class MyTrip extends React.Component {
     //this.props.createTrip(this.state, this.props.userID);
   };
 
-
   render() {
-    if(!this.props.location){
-      return null   // show nothing if we do not have any trip
-    }else{
-      let rest = this.props.restaurants?this.props.restaurants.map((r) =>
-      <div key={r.location_id}>
-        - {r.name}
-      </div>
-      ):null
+    if (!this.props.location) {
+      return null; // show nothing if we do not have any trip
+    } else {
+      let rest = this.props.restaurants
+        ? this.props.restaurants.map(r => (
+            <div key={r.location_id}>- {r.name}</div>
+          ))
+        : null;
 
-      let act = this.props.activities?this.props.activities.map((a) =>
-      <div key={a.location_id}>
-        - {a.name}
-      </div>
-      ):null
+      let act = this.props.activities
+        ? this.props.activities.map(a => (
+            <div key={a.location_id}>- {a.name}</div>
+          ))
+        : null;
 
-      return (<div className="myTrip_container"> 
-        <button className="small_btn" variant="outlined" onClick={this.handleClick}>
-          <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>  
-        </button>
-        <br/>
-        <div><b>My trip to {this.props.location}</b></div>
-        <div>Restaurants: </div>
-        <div> {rest} </div>
-        <div>Activities: </div>
-        <div>{act} </div>
-
-        </div>);
-  }
+      return (
+        <div className="myTrip_container">
+          <button
+            className="small_btn"
+            variant="outlined"
+            onClick={this.handleClick}
+          >
+            <Link to="/planner" style={lnk_style} activeStyle={lnk_style}>
+              Add trip
+            </Link>
+          </button>
+          <br />
+          <div>
+            <b>My trip to {this.props.location}</b>
+          </div>
+          <div>Restaurants: </div>
+          <div> {rest} </div>
+          <div>Activities: </div>
+          <div>{act} </div>
+        </div>
+      );
+    }
   }
 }
 
-
-const mapStateToProps = (state) => {
-  console.log("map state")
+const mapStateToProps = state => {
+  console.log("map state");
   return {
     country: "",
     city: "",
     location: state.location.name,
-    author: state.firebase.auth.uid,  // should probably change to name later
+    author: state.firebase.auth.uid, // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
     activities: state.trip.activities
-
   };
 };
 
@@ -123,6 +124,5 @@ const mapDispatchToProps = dispatch => {
     createTrip: (trip, userID) => dispatch(createTrip(trip, userID)) //createTrip is an action-creator
   };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTrip);
