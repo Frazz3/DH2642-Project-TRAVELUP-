@@ -1,6 +1,4 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import 'typeface-roboto';
@@ -12,16 +10,14 @@ const Navbar = (props) => {
   console.log(auth);
   const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
   return (
-  <div className="navBar">
-  <AppBar position="static">
-    <Toolbar>
-      <Typography variant="h6" >
-        <Link to="/" style={lnk_style} activeStyle={lnk_style}>TravelUp</Link>
-      </Typography>
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark teal darken-2">
+      <a class="navbar-brand" href="/">TravelUp</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+        aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       {links}
-    </Toolbar>
-  </AppBar>
-  </div>
+    </nav>
   )
 }
 
@@ -32,5 +28,6 @@ const mapStateToProps = (state) => {
   }
     
 }
+
 
 export default connect(mapStateToProps)(Navbar);

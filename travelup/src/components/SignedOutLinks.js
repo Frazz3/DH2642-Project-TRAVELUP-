@@ -10,11 +10,12 @@ const lnkStyle = {
 
 const SignedOutLinks = () => {
   return (
-    <ul className="right">
-      <Button color="inherit"><Link to="/logIn" style={lnkStyle} activeStyle={lnkStyle}>Login</Link></Button>
-      <Button color="inherit"><Link to="/signUp" style={lnkStyle} activeStyle={lnkStyle}>Sign Up</Link></Button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link" href="/logIn">Login</a></li>
+      <li class="nav-item"><a class="nav-link" href="/signUp">Sign Up</a></li>
     </ul>
-
+  </div>
   )
 }
 

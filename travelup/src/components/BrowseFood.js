@@ -176,9 +176,10 @@ class BrowseFood extends React.Component {
     
     return (
       <div className="container">
-      <section className="containerSection" >
+      <section className="containerSection" > //behövs detta? 
+      <div class="row">
         
-        <div className="filter_div" >
+        <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12" style={filterDiv}>
           <div>
               <FormLabel component="legend">Price</FormLabel>
                 <div>{priceCheckbox}</div>
@@ -190,23 +191,23 @@ class BrowseFood extends React.Component {
           <div>
             <button className="small_btn" variant="outlined"  onClick={this.handleClick}>
               Filter
-            </button>
-            
+            </button> 
           </div>
         </div>
-        <div className="restaurantDiv" >
+        <div className="restaurantDiv" class="col col-xl-10 col-lg-10" style={restaurantDiv}>
           <h1 className="title_text" >Restaurants</h1>
+
           { (this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
           ) : restaurantItems}
         </div>
+      </div>
       </section>
       </div>
       
     );
   }
 }
-
 
 
 
