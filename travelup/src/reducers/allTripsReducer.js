@@ -31,7 +31,11 @@ const allTripsReducer = (state = [], action) => {
       console.log("get trips error ", action.err);
       return state;
     case REMOVE_TRIP:
-      return state;
+      console.log("remove trip, id: ", action.payload)
+      let tripList = state.filter( trip => trip.id !== action.payload)
+      console.log('triplist :', tripList)
+      return tripList;
+      
     case REMOVE_TRIP_ERROR:
       console.log("removetrip error ", action.err);
       return state;

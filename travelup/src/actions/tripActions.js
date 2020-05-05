@@ -3,7 +3,7 @@
 // returnera ett action-object, med ett type-attribut (t.ex. SET_LOCATION), och en payload (location i detta fall).
 // type-attributet anger alltså TYPEN av action. "payloaden" anger datat vi vill göra nånting med. location är kanske strängen "Stockholm".
 
-import { CREATE_TRIP, CREATE_TRIP_ERROR, RESET_LOCATION, RESET_RESTAURANTS, RESET_TRIP, ADD_RESTAURANT, ADD_ACTIVITY, ADD_ACCOMMODATION, REMOVE_RESTAURANT, REMOVE_ACTIVITY} from "../actions/types";
+import { CREATE_TRIP, CREATE_TRIP_ERROR, RESET_LOCATION, RESET_RESTAURANTS, RESET_TRIP, ADD_RESTAURANT, ADD_ACTIVITY, ADD_ACCOMMODATION, REMOVE_RESTAURANT, REMOVE_ACTIVITY, REMOVE_ACCOMMODATION } from "../actions/types";
 
 
 export const createTrip = (trip, userID) => {
@@ -78,8 +78,14 @@ export const removeActivity = (activity) => {
   })
 }
 
-export const addAcc = (accommodation) => {
+export const addAccommodation = (accommodation) => {
   return ( (dispatch) => {
     dispatch( {type: ADD_ACCOMMODATION, accommodation: accommodation})
   })
 };
+
+export const removeAccommodation = (accommodation) => {
+  return ( (dispatch) => {
+    dispatch( {type: REMOVE_ACCOMMODATION, accommodation: accommodation})
+  })
+}
