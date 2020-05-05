@@ -30,7 +30,7 @@ class App extends Component {
           <Navbar/>
 
             <div className="App">
-                <div class="container">
+                <div class="container-fluid">
                   <div class="row">
                     <div className="mainCont" class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                       <Switch>
