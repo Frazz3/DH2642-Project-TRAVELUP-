@@ -71,7 +71,7 @@ handleClick = () => {
 
 addActivity = (activity) => {
   if (window.confirm(activity.description +"\n\nWould you want to add " +activity.name+ " to your trip?")){
-    let act = {id:activity.location_id, name:activity.name, price:activity.price, description:activity.description, location_id:activity.location_id}
+    let act = {id:activity.location_id, name:activity.name, price:activity.price, description:activity.description, location_id:activity.location_id, photo:activity.photo.images.small.url, website:activity.website}
 
     // don't want to add duplicates (not sure where to put this, here or in the reducer?)
     let duplicate = false;
