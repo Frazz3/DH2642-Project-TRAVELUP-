@@ -26,15 +26,11 @@ class App extends Component {
       <BrowserRouter>
         <Provider store={store}>
           <ReactReduxFirebaseProvider {...rrfProps}>
-            <div className= "flexParent">
-            
-            <div className="App">
-              <main>
+          
+          <Navbar/>
 
+            <div className="App">
                 <div class="container">
-                  <div class="row">
-                    <Navbar/>
-                  </div>
                   <div class="row">
                     <div className="mainCont" class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                       <Switch>
@@ -72,10 +68,7 @@ class App extends Component {
                       <MyTrip/>
                     </div>
                   </div>
-                  
                 </div>
-              </main>
-            </div>
             </div>
           </ReactReduxFirebaseProvider>
         </Provider>

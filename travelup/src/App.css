@@ -45,8 +45,9 @@
 .container {
   /* min-width: 500px; */
   /* max-width: 1000px; */
-  float: left;
+  /* float: left; */
   padding: 5px; 
+  margin: 5px;
 }
 
 .div {
