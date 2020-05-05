@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { createTrip } from "../actions/tripActions";
 import Button from '@material-ui/core/Button';
 import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
+import Modal from './Modal'
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -16,10 +17,25 @@ class MyTrip extends React.Component {
       location: this.props.location,
       author: this.props.author,
       restaurants: this.props.restaurants,
-      activities: this.props.activities
+      activities: this.props.activities,
+      show:false,
+      dataModal:{}
     };
   }
 
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+
+  getModal = (data) => {
+    this.setState({
+      show:true,
+      dataModal:data
+    })
+  }
+ 
   replaceUndefined = (value) => {
     if( typeof(value) === "undefined" ){
       return "";
@@ -76,13 +92,13 @@ class MyTrip extends React.Component {
       return null   // show nothing if we do not have any trip
     }else{
       let rest = this.props.restaurants?this.props.restaurants.map((r) =>
-      <div key={r.location_id}>
+      <div key={r.location_id} onClick={() => this.getModal(r)}>
         - {r.name}
       </div>
       ):null
 
       let act = this.props.activities?this.props.activities.map((a) =>
-      <div key={a.location_id}>
+      <div key={a.location_id} onClick={() => this.getModal(a)}>
         - {a.name}
       </div>
       ):null
@@ -97,7 +113,7 @@ class MyTrip extends React.Component {
         <div> {rest} </div>
         <div>Activities: </div>
         <div>{act} </div>
-
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal}></Modal>
         </div>);
   }
   }
