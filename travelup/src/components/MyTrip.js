@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom"
 import { connect } from "react-redux";
-import { createTrip, removeRestaurant, removeActivity } from "../actions/tripActions";
+import { createTrip, removeRestaurant, removeActivity, removeAccommodation } from "../actions/tripActions";
 import Button from '@material-ui/core/Button';
 import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
 
@@ -33,6 +33,10 @@ class MyTrip extends React.Component {
 
   removeActivityFromList = (activity) => {
     this.props.removeActivity(activity);
+  }
+
+  removeAccommodationFromList = (accommodation) => {
+    this.props.removeAccommodation(accommodation);
   }
 
   handleClick = () => {
@@ -70,7 +74,8 @@ class MyTrip extends React.Component {
       locationPhoto: this.props.locationPhoto,
       author: this.props.author,
       restaurants: this.props.restaurants,
-      activities: this.props.activities
+      activities: this.props.activities,
+      accommodations: this.props.accommodations
     }
 
 
@@ -99,6 +104,13 @@ class MyTrip extends React.Component {
       </div>
       ):null
 
+      let acc = this.props.accommodations?this.props.accommodations.map((a) =>
+      <div key={a.location_id}>
+        - {a.name}
+        <button className="element_delete_btn" onClick={() => this.removeAccommodationFromList(a)}>x</button>
+      </div>
+      ):null
+
       return (<div className="myTrip_container"> 
         <button className="small_btn" variant="outlined" onClick={this.handleClick}>
           <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>  
@@ -109,6 +121,8 @@ class MyTrip extends React.Component {
         <div> {rest} </div>
         <div>Activities: </div>
         <div>{act} </div>
+        <div>Accommodations: </div>
+        <div>{acc} </div>
 
         </div>);
   }
@@ -127,7 +141,8 @@ const mapStateToProps = (state) => {
     author: state.firebase.auth.uid,  // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
-    activities: state.trip.activities
+    activities: state.trip.activities,
+    accommodations: state.trip.accommodations
 
   };
 };
@@ -136,7 +151,8 @@ const mapDispatchToProps = dispatch => {
   return {
     createTrip: (trip, userID) => dispatch(createTrip(trip, userID)), //createTrip is an action-creator
     removeRestaurant: restaurant => dispatch(removeRestaurant(restaurant)),
-    removeActivity: activity => dispatch(removeActivity(activity))
+    removeActivity: activity => dispatch(removeActivity(activity)),
+    removeAccommodation: accommodation => dispatch(removeAccommodation(accommodation))
   };
 };
 

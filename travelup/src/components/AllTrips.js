@@ -25,7 +25,7 @@ class AllTrips extends React.Component {
 
   componentDidUpdate(prevProps) {
     console.log("PREV: ", prevProps.userID);
-    this.makeAllTrips();
+    //this.makeAllTrips();
 
     // vill vi fortfarande ha detta?
     if (this.props.userID !== prevProps.userID) {
@@ -49,6 +49,10 @@ class AllTrips extends React.Component {
 
   showActivity = (act) => {
     alert(act.name + "\n" + act.description + "\n" + "Price: " + act.price + "\nWebsite: " + act.website) 
+  }
+
+  showAccommodation = (acc) => {
+    alert(acc.name) 
   }
 
   deleteTheTrip = (tripID) => {
@@ -96,6 +100,11 @@ class AllTrips extends React.Component {
         {trip.activities?(
           trip.activities.map(act => (
           <h6 key={act.id} className="small_text" onClick={ () => this.showActivity(act) }> {act.name} </h6>
+        ))):null}
+        <h5 className="medium_text">Accommodation</h5>
+        {trip.accommodations?(
+          trip.accommodations.map(acc => (
+          <h6 key={acc.id} className="small_text" onClick={ () => this.showAccommodation(acc) }> {acc.name} </h6>
         ))):null}
         <h6>-------------</h6>
       </div>

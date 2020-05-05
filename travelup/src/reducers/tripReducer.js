@@ -15,7 +15,7 @@
 // därför kallar vi den payloaden för location. I fallet ADD_ACTIVITY är payloaden ett activity-objekt, varför vi kallar payloaden för activity.
 
 
-import { CREATE_TRIP, CREATE_TRIP_ERROR, ADD_RESTAURANT, RESET_TRIP, ADD_ACTIVITY, ADD_ACCOMMODATION, ADD_RESTAURANTS, ADD_ACTIVITIES, REMOVE_RESTAURANT, REMOVE_ACTIVITY } from "../actions/types";
+import { CREATE_TRIP, CREATE_TRIP_ERROR, ADD_RESTAURANT, RESET_TRIP, ADD_ACTIVITY, ADD_ACCOMMODATION, ADD_RESTAURANTS, ADD_ACTIVITIES, REMOVE_RESTAURANT, REMOVE_ACTIVITY, REMOVE_ACCOMMODATION, ADD_ACCOMMODATIONS } from "../actions/types";
 
 
 const initState = {
@@ -24,7 +24,8 @@ const initState = {
   location: "",
   author: "",
   restaurants: [],
-  activities: []
+  activities: [],
+  accommodations: []
 }
 
 
@@ -70,6 +71,13 @@ const tripReducer = (state = initState, action) => {
           ...state,
           accommodations: [...state.accommodations, action.accommodation]
       }
+    case REMOVE_ACCOMMODATION:
+      console.log('accommodation removed')
+      let accList = state.accommodations.filter(a => a.id !== action.accommodation.id)
+      return {
+        ...state,
+        accommodations: accList
+      }
     case RESET_TRIP:  // reset the trip
       console.log("reset trip");
       return initState
@@ -86,6 +94,12 @@ const tripReducer = (state = initState, action) => {
       return {
         ...state,
         activities: action.payload
+      }
+    case ADD_ACCOMMODATIONS:
+      console.log('accommodations added');
+      return {
+        ...state,
+        accommodations: action.payload
       }
 
     default:

@@ -125,7 +125,7 @@ createRadio = (label, stateName, code) => {
      return ((activity.name && activity.photo )?  // kan behöva fler att filtrera på
       (
         <span key={activity.location_id}>
-          <button className={activity.location_id} onClick={()=> this.addActivity(activity)} style={activityButtonStyle}>
+          <button className="result_btn" onClick={()=> this.addActivity(activity)} >
             <h4>{activity.name} </h4>
             <img src={activity.photo.images.small.url}/>
             //<h5>Price Range: {activity.price} </h5>
@@ -144,66 +144,33 @@ createRadio = (label, stateName, code) => {
     );
 
     return (
-      <section style={containerSection}>
+      <div className="container">
+      <section className="containerSection">
 
-        <div className="filters" style={filterDiv}>
+        <div className="filter_div" >
           <div>
               <FormControl>
               <FormLabel component="legend">Category</FormLabel>
                 <div>{categoryRadio}</div>
   
-          <Button variant="outlined" onClick={this.handleClick}>
+          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
             Filter
-          </Button>
+          </button>
               </FormControl>
         </div>
         </div>
-        <div className="activities" style={activityDiv}>
-          <h1 style={styleText}>Activities</h1>
+        <div className="activityDiv" >
+          <h1 className="title_text" >Activities</h1>
           { (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
           ) : activityItems}
         </div>
       </section>
-
+      </div>
     );
   }
 }
 
-const styleText = {
-  color: "#239160",
-  padding: "10px",
-  fontFamily: "Arial",
-  textAlign: "center"
-}
-
-const containerSection ={
-  width:"100%"
-}
-
-const activityDiv = {
-  width:"100%",
-}
-
-const filterDiv = {
-  width:"150px",
-  float:"left",
-  border: "" + 2 + "px solid " + "#239160",
-  boxShadow: "1px 1px 5px #888888",
-  display: "flex",
-  flexDirection: "column",
-  display: "flex",
-  borderRadius: 8,
-}
-
-const activityButtonStyle = {
-  width: "300px",
-  height: "300px",
-  backgroundColor: "white",
-  border: "none",
-  textAlign: "center",
-
-}
 
 BrowseActivities.propTypes = {
   fetchActivities: PropTypes.func.isRequired,
