@@ -11,32 +11,17 @@ class SearchSelections extends React.Component {
       this.state = {
           location: this.props.location
       }
-     
+
     }
 
     createButton = (image, link) => {
-        const btnStyle = {
-            top: "30%",
-            backgroundColor: "#239160",
-            color: "white",
-            fontSize: "16px",
-            padding: "10px 20px",
-            border: "none",
-            cursor: "pointer",
-            borderRadius: "5px",
-        }
-        const imgStyle = {
-            width: "225px",
-            height: "150px"
-        }
         return (
-            <button className="btn" disabled={image.disable} style={btnStyle} onClick ={() => this.props.history.push(link)}>
+            <button className="select_btn" disabled={image.disable} onClick ={() => this.props.history.push(link)}>
                 {image.title}
                 <br/>
-                <img src={image.url} style={imgStyle}/>
+                <img className="select_img" src={image.url}/>
             </button>
         )
-
     }
 
     render(){
@@ -60,28 +45,15 @@ class SearchSelections extends React.Component {
             },
             {
                 url: 'https://images.unsplash.com/photo-1445991842772-097fea258e7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
-                title: 'Accommodation (do not exist yet)',
-                disable: true,
+                title: 'Accommodation',
+                disable: false,
             },
             {
                 url: 'https://images.unsplash.com/photo-1506426235353-205ad887bb38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
-                title: 'Activities (do not exist yet)',
-                disable: true,
+                title: 'Activities',
+                disable: false,
             }
         ]
-        
-        
-
-        
-        
-        
-        
-        const styleText = {
-            color: "#239160",
-            padding: "10px",
-            fontFamily: "Arial",
-            textAlign: "center"
-        }
 
         if(!this.props.location){
             console.log(this.props.location)
@@ -91,26 +63,26 @@ class SearchSelections extends React.Component {
             </div>)
         }else{
             return(
-            
+
             <div className="container">
                 <div>
-                    <h1 style={styleText}>Let's plan your trip to {this.props.location}</h1>
+                    <h1 className="title_text" >Let's plan your trip to {this.props.location}</h1>
                 </div>
                 <div>
                 {this.createButton(images[0], "/food")}
                 <br/><br/>
-                {this.createButton(images[1], "/select")}
+                {this.createButton(images[1], "/accommodations")}
                 <br/><br/>
-                {this.createButton(images[2], "/select")}
+                {this.createButton(images[2], "/activities")}
                 </div>
             </div>
-            
-            
+
+
             )
             // <div className="myTrip"><this.props.myTrip/></div>
             //the last two does not have any search method
         }
-        
+
     }
 }
 

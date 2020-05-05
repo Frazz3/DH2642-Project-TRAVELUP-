@@ -3,11 +3,7 @@ import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import 'typeface-roboto';
 import { connect } from "react-redux";
-
-const lnkStyle = {
-  color: 'white',
-  textDecoration: 'none',
-}
+import { lnk_style } from '../assets/style'
 
 const Navbar = (props) => {
   const {auth} = props;

@@ -95,7 +95,7 @@ class BrowseFood extends React.Component {
 
   addRestaurant = (restaurant) => {
     if (window.confirm(restaurant.description +"\n\nWould you want to add " +restaurant.name+ " to your trip?")){
-      let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id}
+      let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id, cuisine:restaurant.cuisine, website:restaurant.website, photo:restaurant.photo.images.small.url}
 
       // don't want to add duplicates (not sure where to put this, here or in the reducer?)
       let duplicate = false;
@@ -143,7 +143,7 @@ class BrowseFood extends React.Component {
      return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
       (
         <span key={restaurant.location_id}>
-          <button className={restaurant.location_id} onClick={()=> this.addRestaurant(restaurant)} style={restaurantButtonStyle}>
+          <button className= "result_btn" onClick={()=> this.addRestaurant(restaurant)} >
             <h4>{restaurant.name} </h4>
             <img src={restaurant.photo.images.small.url}/>
             <h5>Price Range: {restaurant.price} </h5>
@@ -176,9 +176,10 @@ class BrowseFood extends React.Component {
     
     return (
       <div className="container">
+      <section className="containerSection" > //behövs detta? 
       <div class="row">
         
-        <div className="filters" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12" style={filterDiv}>
+        <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12" style={filterDiv}>
           <div>
               <FormLabel component="legend">Price</FormLabel>
                 <div>{priceCheckbox}</div>
@@ -188,59 +189,28 @@ class BrowseFood extends React.Component {
           </div>
           
           <div>
-            <Button variant="outlined" onClick={this.handleClick}>
+            <button className="small_btn" variant="outlined"  onClick={this.handleClick}>
               Filter
-            </Button> 
+            </button> 
           </div>
         </div>
-        <div className="restaurants" class="col col-xl-10 col-lg-10" style={restaurantDiv}>
-          <h1 style={styleText}>Restaurants</h1>
+        <div className="restaurantDiv" class="col col-xl-10 col-lg-10" style={restaurantDiv}>
+          <h1 className="title_text" >Restaurants</h1>
+
           { (this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
           ) : restaurantItems}
         </div>
       </div>
+      </section>
       </div>
       
     );
   }
 }
 
-const styleText = {
-  color: "#239160",
-  padding: "10px",
-  fontFamily: "Arial",
-  //textAlign: "center"
-}
-
-const containerSection ={
-  width:"100%"
-}
 
 
-const filterDiv = {
-  //width:"150px",
-  float:"left",
-  border: "" + 2 + "px solid " + "#239160",
-  boxShadow: "1px 1px 5px #888888",
-  //display: "flex",
-  //flexDirection: "column",
-  //display: "flex",
-  borderRadius: 8,
-}
-
-const restaurantDiv = {
-  //width:"100%",
-}
-
-const restaurantButtonStyle = {
-  //width: "300px",
-  height: "300px",
-  backgroundColor: "white",
-  border: "none",
-  //textAlign: "center",
-
-}
 
 BrowseFood.propTypes = {
   fetchRestaurants: PropTypes.func.isRequired,

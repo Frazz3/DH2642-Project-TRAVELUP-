@@ -1,4 +1,4 @@
-import { GET_USER_TRIPS, GET_TRIPS_ERROR } from "../actions/types";
+import { GET_USER_TRIPS, GET_TRIPS_ERROR, REMOVE_TRIP, REMOVE_TRIP_ERROR } from "../actions/types";
 
 // const initState = {
 //   allTrips: [
@@ -29,6 +29,15 @@ const allTripsReducer = (state = [], action) => {
       return action.payload;
     case GET_TRIPS_ERROR:
       console.log("get trips error ", action.err);
+      return state;
+    case REMOVE_TRIP:
+      console.log("remove trip, id: ", action.payload)
+      let tripList = state.filter( trip => trip.id !== action.payload)
+      console.log('triplist :', tripList)
+      return tripList;
+      
+    case REMOVE_TRIP_ERROR:
+      console.log("removetrip error ", action.err);
       return state;
     default:
       return state;

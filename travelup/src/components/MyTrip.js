@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom"
 import { connect } from "react-redux";
-import { createTrip } from "../actions/tripActions";
+import { createTrip, removeRestaurant, removeActivity, removeAccommodation } from "../actions/tripActions";
 import Button from '@material-ui/core/Button';
+import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -14,8 +15,8 @@ class MyTrip extends React.Component {
       city:"",      // måste ha pga databasen, kanske ändra sen
       location: this.props.location,
       author: this.props.author,
-      restaurants: this.props.restaurants
-      //activities: this.props.activities
+      restaurants: this.props.restaurants,
+      activities: this.props.activities
     };
   }
 
@@ -24,6 +25,18 @@ class MyTrip extends React.Component {
       return "";
     }
     return value;
+  }
+
+  removeRestaurantFromList = (restaurant) => {
+    this.props.removeRestaurant(restaurant);
+  }
+
+  removeActivityFromList = (activity) => {
+    this.props.removeActivity(activity);
+  }
+
+  removeAccommodationFromList = (accommodation) => {
+    this.props.removeAccommodation(accommodation);
   }
 
   handleClick = () => {
@@ -36,18 +49,33 @@ class MyTrip extends React.Component {
         if( typeof(rest[key]) === "undefined" ){
           rest[key] = "";
         }
-     
+
        });
     })
-    
-  
+
+    this.props.activities.map( act => {
+      Object.keys(act).map(function(key, index) {
+        console.log(key)
+        console.log(act[key])
+        if( typeof(act[key]) === "undefined" ){
+          act[key] = "";
+        }
+
+       });
+    })
+
+
     // create a new trip with the values in the props
     let tripToCreate = {
       country: this.props.country,
       city: this.props.city,
+      locationID: this.props.locationID,
       location: this.props.location,
+      locationPhoto: this.props.locationPhoto,
       author: this.props.author,
-      restaurants: this.props.restaurants
+      restaurants: this.props.restaurants,
+      activities: this.props.activities,
+      accommodations: this.props.accommodations
     }
 
 
@@ -57,49 +85,48 @@ class MyTrip extends React.Component {
     //this.props.createTrip(this.state, this.props.userID);
   };
 
-  
+
   render() {
-    if(!this.props.location){ 
+    if(!this.props.location){
       return null   // show nothing if we do not have any trip
     }else{
-      let rest = this.props.restaurants?this.props.restaurants.map((r) => 
+      let rest = this.props.restaurants?this.props.restaurants.map((r) =>
       <div key={r.location_id}>
         - {r.name}
+        <button className="element_delete_btn" onClick={() => this.removeRestaurantFromList(r)}>x</button>
       </div>
       ):null
-      return (<div style={myTripContainer}> 
-        <Button variant="outlined" onClick={this.handleClick}>
-          <Link to="/planner" style={lnkStyle} activeStyle={lnkStyle} >Add trip</Link>
-        </Button>
+
+      let act = this.props.activities?this.props.activities.map((a) =>
+      <div key={a.location_id}>
+        - {a.name}
+        <button className="element_delete_btn" onClick={() => this.removeActivityFromList(a)}>x</button>
+      </div>
+      ):null
+
+      let acc = this.props.accommodations?this.props.accommodations.map((a) =>
+      <div key={a.location_id}>
+        - {a.name}
+        <button className="element_delete_btn" onClick={() => this.removeAccommodationFromList(a)}>x</button>
+      </div>
+      ):null
+
+      return (<div className="myTrip_container"> 
+        <button className="small_btn" variant="outlined" onClick={this.handleClick}>
+          <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>  
+        </button>
         <br/>
         <div><b>My trip to {this.props.location}</b></div>
         <div>Restaurants: </div>
         <div> {rest} </div>
-                
+        <div>Activities: </div>
+        <div>{act} </div>
+        <div>Accommodations: </div>
+        <div>{acc} </div>
+
         </div>);
   }
   }
-}
-
-const lnkStyle = {
-  color: 'black',
-  textDecoration: 'none',
-  position:'left'
-}
-
-const myTripContainer= {
-  //width: 300,
-  display: "flex",
-  flexDirection: "column",
-  borderRadius: 8,
-  border: "" + 2 + "px solid " + "#239160",
-  boxShadow: "1px 1px 5px #888888",
-  overflow: "hidden",
-  backgroundColor: "#FFFFFF",
-}
-
-const addTripButton = {
-
 }
 
 
@@ -108,17 +135,24 @@ const mapStateToProps = (state) => {
   return {
     country: "",
     city: "",
+    locationID: state.location.id,
     location: state.location.name,
+    locationPhoto: state.location.locationPhoto,
     author: state.firebase.auth.uid,  // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
-  
+    activities: state.trip.activities,
+    accommodations: state.trip.accommodations
+
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    createTrip: (trip, userID) => dispatch(createTrip(trip, userID)) //createTrip is an action-creator
+    createTrip: (trip, userID) => dispatch(createTrip(trip, userID)), //createTrip is an action-creator
+    removeRestaurant: restaurant => dispatch(removeRestaurant(restaurant)),
+    removeActivity: activity => dispatch(removeActivity(activity)),
+    removeAccommodation: accommodation => dispatch(removeAccommodation(accommodation))
   };
 };
 

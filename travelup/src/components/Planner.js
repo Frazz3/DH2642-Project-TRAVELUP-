@@ -69,7 +69,7 @@ class Planner extends React.Component {
           <input type="" id="destination" onChange={this.handleChange}/>
         </div>
         <div className="input-field">
-          <button type="submit">Search</button>
+          <button className="small_btn" type="submit" >Search</button>
         </div>
         <br />
       </form>

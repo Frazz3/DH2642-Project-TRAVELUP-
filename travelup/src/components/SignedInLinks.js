@@ -3,11 +3,23 @@ import { Link } from "react-router-dom"
 import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 import { connect } from "react-redux";
 import { signOut } from '../actions/authActions'
+import { resetTrip } from '../actions/tripActions'
+import { resetLocation } from '../actions/plannerActions'
 
 const lnkStyle = {
   color: 'white',
   textDecoration: 'none',
   position:'left'
+}
+
+// When we sign out we need to reset everything we have started on
+const signOutFunc = (props) => {
+  if(window.confirm("If you sign out now your changes will be discarded. Do you still wan't to sign out?")){
+    props.resetTrip();
+    props.resetLocation();
+    props.signOut();
+  } // else, do nothing
+  
 }
 
 const SignedInLinks = (props) => {
@@ -33,6 +45,8 @@ const SignedInLinks = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     signOut: () => dispatch(signOut()),
+    resetTrip: () => dispatch(resetTrip()),
+    resetLocation: () => dispatch(resetLocation()),
 
   }
 }

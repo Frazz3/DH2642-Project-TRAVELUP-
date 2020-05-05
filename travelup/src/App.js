@@ -9,6 +9,7 @@ import Start from "./components/Start.js";
 import Planner from "./components/Planner";
 import BrowseFood from "./components/BrowseFood.js";
 import BrowseActivities from "./components/BrowseActivities.js";
+import BrowseAcc from "./components/BrowseAcc.js";
 import MyTrip from './components/MyTrip'
 import AllTrips from './components/AllTrips'
 import SearchSelections from './components/SearchSelections'
