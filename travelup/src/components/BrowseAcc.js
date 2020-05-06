@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchAcc } from "../actions/accActions"
-import { addAcc } from "../actions/tripActions"
+import { addAccommodation } from "../actions/tripActions"
 
 const ameneties = [{label: "Free Internet", code: "free_internet"},{label:"Free Parking", code:"free_parking"},{label:"Restaurant", code:"restaurant"},{label:"Free Breakfast",code:"free_breakfast"},{label:"Wheelchair access", code:"wheelchair_access"},{label:"Spa",code:"spa"},{label:"Bar/Lounge", code:"bar_lounge"},{label:"Fitness Center", code:"fitness_center"},{label:"Room Service",code:"room_service"},{label:"Swimming Pool",code:"swimming_pool"},{label:"Airport Transportation",code:"airport_transportation"},{label:"All",code:"all"}]
 
@@ -66,12 +66,13 @@ class BrowseAcc extends React.Component {
   
   addAccommodation = (acc) => {
     if (window.confirm(acc.ranking +"\n\nWould you want to add " +acc.name+ " to your trip?")){
-      let act = {id:acc.location_id, name:acc.name, price:acc.price, description:acc.description, location_id:acc.location_id}
+      let accommodation = {id:acc.location_id, name:acc.name, price:acc.price, location_id:acc.location_id, photo:acc.photo.images.small.url}
   
       // don't want to add duplicates (not sure where to put this, here or in the reducer?)
       let duplicate = false;
       let x;
       for( x of this.props.tripAccommodations){
+        console.log(x.id)
         // we have already added that activity
         if(x.id === acc.location_id){
           console.log("ALREADY ADDED")
@@ -81,7 +82,7 @@ class BrowseAcc extends React.Component {
       }
       //only add if it's not already added
       if(!duplicate){
-        this.props.addAccommodation(acc);
+        this.props.addAccommodation(accommodation);
       }
   
     }else{
@@ -118,11 +119,11 @@ render() {
     )
   }
   const accItems = this.props.accommodations.map(acc => {
-  //const restaurantItems = restaurants_list.map(restaurant => {
+
    return ((acc.name && acc.photo )?  // kan behöva fler att filtrera på
     (
       <span key={acc.location_id}>
-        <button className={acc.location_id} onClick={()=> this.addAccommodation(acc)} style={restaurantButtonStyle}>
+        <button className="result_btn" onClick={()=> this.addAccommodation(acc)} >
           <h4>{acc.name} </h4>
           <img src={acc.photo.images.small.url}/>
           <h5>Price Range: {acc.price} </h5>
@@ -143,68 +144,35 @@ render() {
   console.log('items', accItems)
   
   return (
-    <section style={containerSection}>
+    <div className="container">
+    <section className="containerSection">
       
-      <div className="filters" style={filterDiv}>
+      <div className="filter_div" >
         <div>
         <FormLabel component="legend">Amenities</FormLabel>
                 <div>{amenetiesCheckbox}</div>
         </div>
         
         <div>
-          <Button variant="outlined" onClick={this.handleClick}>
+          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
             Filter
-          </Button>
+          </button>
           
         </div>
       </div>
-      <div className="accommodations" style={restaurantDiv}>
-        <h1 style={styleText}>Accommodations</h1>
+      <div className="accommodationDiv" >
+        <h1 className="title_text" >Accommodations</h1>
         { (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
           <div>{this.spinner()}</div>
         ) : accItems}
       </div>
     </section>
+    </div>
     
   );
 }
 }
 
-const styleText = {
-  color: "#239160",
-  padding: "10px",
-  fontFamily: "Arial",
-  textAlign: "center"
-}
-
-const containerSection ={
-  width:"100%"
-}
-
-
-const filterDiv = {
-  width:"150px",
-  float:"left",
-  border: "" + 2 + "px solid " + "#239160",
-  boxShadow: "1px 1px 5px #888888",
-  display: "flex",
-  flexDirection: "column",
-  display: "flex",
-  borderRadius: 8,
-}
-
-const restaurantDiv = {
-  width:"100%",
-}
-
-const restaurantButtonStyle = {
-  width: "300px",
-  height: "300px",
-  backgroundColor: "white",
-  border: "none",
-  textAlign: "center",
-
-}
 
 BrowseAcc.propTypes = {
   fetchAcc: PropTypes.func.isRequired,
@@ -227,4 +195,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchAcc, addAcc})(BrowseAcc);
+export default connect(mapStateToProps, {fetchAcc, addAccommodation})(BrowseAcc);

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchRestaurants } from "../actions/foodActions"
 import { addRestaurant } from "../actions/tripActions"
+import Modal from './Modal'
 
 // om man vill göra snyggare lösning kan dessa användas. Görs ej i nuläget eftersom jag ej fick det att funka /Stina
 const prices_restaurants = [{"$": "10953"},{"$$-$$$": "10955"},{"$$$$": "10954"},{"all": "all"}]
@@ -33,7 +34,9 @@ class BrowseFood extends React.Component {
       lunch:false,
       dinner:false,
       allMealtype:false,
-
+      show:false,
+      dataModal:{},
+      modalType:""
     }
   }
   componentWillMount() {
@@ -80,8 +83,24 @@ class BrowseFood extends React.Component {
       }
     }
 
+
+
     // fetches restaurants with new filters
     this.props.fetchRestaurants(this.props.location_id, restaurant_mealtype, prices_restaurants);
+  }
+
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
   }
 
   
@@ -143,7 +162,7 @@ class BrowseFood extends React.Component {
      return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
       (
         <span key={restaurant.location_id}>
-          <button className= "result_btn" onClick={()=> this.addRestaurant(restaurant)} >
+          <button className= "result_btn" onClick={()=> {this.addRestaurant(restaurant); this.getModal(restaurant,"b")}} >
             <h4>{restaurant.name} </h4>
             <img src={restaurant.photo.images.small.url}/>
             <h5>Price Range: {restaurant.price} </h5>
@@ -200,6 +219,7 @@ class BrowseFood extends React.Component {
             <div>{this.spinner()}</div>
           ) : restaurantItems}
         </div>
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType}></Modal>
       </section>
       </div>
       

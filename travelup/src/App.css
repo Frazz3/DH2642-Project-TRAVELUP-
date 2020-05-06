@@ -280,6 +280,14 @@ const BUTTON_FONT_COLOR = "white"
     width: 100%;
 }
 
+.activityDiv {
+  width: 100%;
+}
+
+.accommodationDiv {
+  width: 100%;
+}
+
 .all_trips {
   width: 350px;
   height: 500px;
@@ -315,7 +323,7 @@ const BUTTON_FONT_COLOR = "white"
     width:100%;
 }
 
-.modal {
+.modall {
   width: 500px;
   height: 350px;
   box-shadow: 1px 1px 5px #888888;

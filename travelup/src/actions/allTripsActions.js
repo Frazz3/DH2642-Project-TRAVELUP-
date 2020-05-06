@@ -1,4 +1,4 @@
-import { GET_USER_TRIPS, GET_TRIPS_ERROR, REMOVE_TRIP, REMOVE_TRIP_ERROR, EDIT_LOCATION, ADD_RESTAURANTS, ADD_ACTIVITIES } from "./types";
+import { GET_USER_TRIPS, GET_TRIPS_ERROR, REMOVE_TRIP, REMOVE_TRIP_ERROR, EDIT_LOCATION, ADD_RESTAURANTS, ADD_ACTIVITIES, ADD_ACCOMMODATIONS } from "./types";
 
 // -- ACTIONS --
 export const getAllTrips = userID => {
@@ -68,7 +68,7 @@ export const deleteTrip = (tripID, userID) => {
         });
       })
       .then(() => {
-        dispatch({ type: REMOVE_TRIP})
+        dispatch({ type: REMOVE_TRIP, payload: tripID})
       })
       .catch( err => {
         dispatch({ type: REMOVE_TRIP_ERROR, err})
@@ -92,6 +92,7 @@ export const editTrip = (tripID, userID) => {
         dispatch({ type: EDIT_LOCATION, id: tripObject.locationID, name: tripObject.location, photo: tripObject.locationPhoto})
         dispatch({ type: ADD_RESTAURANTS, payload: tripObject.restaurants})
         dispatch({ type: ADD_ACTIVITIES, payload: tripObject.activities})
+        dispatch({ type: ADD_ACCOMMODATIONS, payload: tripObject.accommodations})
         
       })
       .catch( err => {
