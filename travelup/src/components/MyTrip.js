@@ -19,7 +19,8 @@ class MyTrip extends React.Component {
       restaurants: this.props.restaurants,
       activities: this.props.activities,
       show:false,
-      dataModal:{}
+      dataModal:{},
+      modalType:""
     };
   }
 
@@ -29,10 +30,12 @@ class MyTrip extends React.Component {
     })
   }
 
-  getModal = (data) => {
+  getModal = (data,type) => {
     this.setState({
       show:true,
-      dataModal:data
+      dataModal:data,
+      modalType:type
+
     })
   }
  
@@ -103,7 +106,7 @@ class MyTrip extends React.Component {
     }else{
       let rest = this.props.restaurants?this.props.restaurants.map((r) =>
       <div>
-        <div key={r.location_id} className="myTrip_text" onClick={() => this.getModal(r)}>
+        <div key={r.location_id} className="myTrip_text" onClick={() => this.getModal(r,"o")}>
         - {r.name}</div>
         <div className="myTrip_text">
           <button className="element_delete_btn" onClick={() => this.removeRestaurantFromList(r)}>x</button>
@@ -112,7 +115,7 @@ class MyTrip extends React.Component {
       ):null
 
       let act = this.props.activities?this.props.activities.map((a) =>
-      <div><div key={a.location_id} className="myTrip_text" onClick={() => this.getModal(a)}>
+      <div><div key={a.location_id} className="myTrip_text" onClick={() => this.getModal(a,"o")}>
         - {a.name}</div>
         <div className="myTrip_text"><button className="element_delete_btn" onClick={() => this.removeActivityFromList(a)}>x</button>
       </div></div>
@@ -128,7 +131,7 @@ class MyTrip extends React.Component {
         <div> {rest} </div>
         <div>Activities: </div>
         <div>{act} </div>
-        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal}></Modal>
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} type={this.state.modalType}></Modal>
         </div>);
   }
   }
