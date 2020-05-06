@@ -176,6 +176,15 @@ const BUTTON_FONT_COLOR = "white"
 }
 .element_delete_btn:hover {background-color: #f55656;}
 
+.arrow_btn {
+  color: #207951;
+  font-size: 40px;
+  border: none;
+  
+
+  
+}
+
 /* Texts */
 .title_text {
     color: #239160;

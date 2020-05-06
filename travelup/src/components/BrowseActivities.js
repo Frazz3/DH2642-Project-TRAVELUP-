@@ -26,6 +26,9 @@ componentWillMount() {
   this.props.fetchActivities(this.props.location_id);
 }
 
+returnToBrowse = () => {
+  this.props.history.push('/select');
+}
 
 handleChange = event => {
   this.setState({
@@ -160,7 +163,7 @@ createRadio = (label, stateName, code) => {
         </div>
         </div>
         <div className="activityDiv" >
-          <h1 className="title_text" >Activities</h1>
+          <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Activities</h1>
           { (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
           ) : activityItems}

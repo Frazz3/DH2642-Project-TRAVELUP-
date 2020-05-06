@@ -31,6 +31,10 @@ class BrowseAcc extends React.Component {
     //console.log(this.props.location_id)
     this.props.fetchAcc(this.props.location_id);
   }
+
+  returnToBrowse = () => {
+    this.props.history.push('/select');
+  }
   
   handleChange = event => {
     this.setState({
@@ -161,7 +165,7 @@ render() {
         </div>
       </div>
       <div className="accommodationDiv" >
-        <h1 className="title_text" >Accommodations</h1>
+        <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Accommodations</h1>
         { (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
           <div>{this.spinner()}</div>
         ) : accItems}

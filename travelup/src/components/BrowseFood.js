@@ -42,6 +42,10 @@ class BrowseFood extends React.Component {
     this.props.fetchRestaurants(this.props.location_id);
   }
 
+  returnToBrowse = () => {
+    this.props.history.push('/select');
+  }
+
   handleChange = event => {
     this.setState({ 
       [event.target.name]: event.target.checked });
@@ -194,8 +198,10 @@ class BrowseFood extends React.Component {
             </button> 
           </div>
         </div>
+        
         <div className="restaurantDiv" class="col col-xl-10 col-lg-10">
-          <h1 className="title_text" >Restaurants</h1>
+        
+          <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Restaurants</h1>
 
           { (this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
