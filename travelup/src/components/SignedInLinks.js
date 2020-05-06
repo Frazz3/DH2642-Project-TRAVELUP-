@@ -24,18 +24,18 @@ const signOutFunc = (props) => {
 
 const SignedInLinks = (props) => {
 
-  const browse = props.location_id ? <li class="nav-item"><a class="nav-link" href="/select">Browse</a></li> : <li class="nav-item" cursor="none" ><a class="nav-link disabled" >Browse</a></li>;
+  const browse = props.location_id ? <Link to="/select">  Browse  </Link> : <Link to="">  Browse  </Link>;
 
 
   return (
     <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item "><a class="nav-link" href="/planner">New Trip<span class="sr-only">(current)</span></a></li>
+        <Link to="/planner" >  New Trip  </Link>
         {browse}
-        <li class="nav-item"><a class="nav-link" href="/allTrips">All My Trips</a></li>
+        <Link to="/allTrips" >  All My Trips  </Link>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link" href="/logIn" onClick={props.signOut}>Sign Out</a></li>
+        <Link to="/logIn" onClick={props.signOut} >  Sign Out  </Link>
       </ul>
     </div>
 

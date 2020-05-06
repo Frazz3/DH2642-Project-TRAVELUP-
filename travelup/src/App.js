@@ -54,8 +54,8 @@ class App extends Component {
                       <Route path="/activities"
                         render={props => <BrowseActivities {...props} />}
                       />
-                      <Route path="/myTrip"
-                        render={props => <MyTrip {...props} />}
+                      <Route path="/accommodations"
+                        render={props => <BrowseAcc {...props} />}
                       />
                       <Route path="/allTrips"
                         render={props => <AllTrips {...props} />}

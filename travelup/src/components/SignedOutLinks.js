@@ -12,8 +12,8 @@ const SignedOutLinks = () => {
   return (
     <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" href="/logIn">Login</a></li>
-      <li class="nav-item"><a class="nav-link" href="/signUp">Sign Up</a></li>
+      <Link to="/logIn" >  Login </Link>
+      <Link to="/signUp" >  Sign Up  </Link>
     </ul>
   </div>
   )
