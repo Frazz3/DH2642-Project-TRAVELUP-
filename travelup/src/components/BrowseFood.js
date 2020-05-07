@@ -134,6 +134,14 @@ class BrowseFood extends React.Component {
     const {auth} = this.props;
     if (!auth.uid) return <Redirect to='/' />
 
+    
+    if(this.props.foodError){
+      return(
+        <div>Could not find any restaurants</div>
+      )
+    }
+    
+
     if(typeof this.props.restaurants === "undefined"){
       // tills vidare, vill kanske returnera mer
       return(
@@ -229,7 +237,8 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   restaurants: state.restaurants.items,
   location_id: state.location.id,
-  tripRestaurants: state.trip.restaurants
+  tripRestaurants: state.trip.restaurants,
+  foodError: state.restaurants.foodError
 })
 
 

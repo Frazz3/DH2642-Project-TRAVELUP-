@@ -114,6 +114,12 @@ render() {
   const {auth} = this.props;
   if (!auth.uid) return <Redirect to='/' />
 
+  if( this.props.accError ){
+    return(
+      <div>Could not find any accommodations</div>
+    )
+  }
+
   if(typeof this.props.accommodations === "undefined"){
     // tills vidare, vill kanske returnera mer
     return(
@@ -122,6 +128,7 @@ render() {
       </div>
     )
   }
+  
   const accItems = this.props.accommodations.map(acc => {
 
    return ((acc.name && acc.photo )?  // kan behöva fler att filtrera på
@@ -189,7 +196,8 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   accommodations: state.accommodations.items,
   location_id: state.location.id,
-  tripAccommodations: state.trip.accommodations
+  tripAccommodations: state.trip.accommodations,
+  accError: state.accommodations.accError
 })
 
 

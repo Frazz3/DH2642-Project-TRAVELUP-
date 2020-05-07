@@ -115,6 +115,12 @@ createRadio = (label, stateName, code) => {
     const {auth} = this.props;
     if (!auth.uid) return <Redirect to='/' />
 
+    if(this.props.activityError){
+      return(
+        <div>Could not find any activities</div>
+      )
+    }
+
     if(typeof this.props.activities === "undefined"){
       // tills vidare, vill kanske returnera mer
       return(
@@ -123,6 +129,7 @@ createRadio = (label, stateName, code) => {
         </div>
       )
     }
+
     const activityItems = this.props.activities.map(activity => {
     //const activityItems = activitys_list.map(activity => {
      return ((activity.name && activity.photo )?  // kan behöva fler att filtrera på
@@ -186,7 +193,8 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   activities: state.activities.items, //de som är fetchade
   location_id: state.location.id,
-  tripActivities: state.trip.activities //de vi lagt till i vår trip
+  tripActivities: state.trip.activities, //de vi lagt till i vår trip
+  activityError: state.activities.activityError
 })
 
 
