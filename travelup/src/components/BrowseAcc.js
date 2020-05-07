@@ -111,12 +111,16 @@ class BrowseAcc extends React.Component {
   }
 
 render() {
-  const {auth} = this.props;
+  const {auth, location_id} = this.props;
   if (!auth.uid) return <Redirect to='/' />
+  if (!location_id) return <Redirect to='/' />
 
   if( this.props.accError ){
     return(
-      <div>Could not find any accommodations</div>
+      <div>
+        <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button>
+        <span className="error_text">Could not find any accommodations</span>
+      </div>
     )
   }
 

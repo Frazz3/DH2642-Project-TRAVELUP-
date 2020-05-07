@@ -62,7 +62,9 @@ class SearchSelections extends React.Component {
                 <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
             </div>)
         }else{
-            return(this.props.locationError?<div>We could not find a location that matches {this.props.errorMessage}, try again please.</div>:(
+            return(this.props.locationError?(
+            <div className="error_text">We could not find a location that matches {this.props.errorMessage}, try again please.</div>
+            ):(
 
             <div className="container">
                 <div>

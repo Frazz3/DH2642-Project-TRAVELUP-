@@ -219,6 +219,14 @@ const BUTTON_FONT_COLOR = "white"
   font-size: 30px;
 }
 
+.error_text {
+  color: #239160;
+  padding: 10px;
+  font-family: Arial;
+  text-align: center;
+  font-size: 40px;
+}
+
 /* Images */
 .select_img{
     width: 225px;
