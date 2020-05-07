@@ -142,7 +142,8 @@ const mapStateToProps = (state) => {
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
     activities: state.trip.activities,
-    accommodations: state.trip.accommodations
+    accommodations: state.trip.accommodations,
+    locationError: state.location.locationError
 
   };
 };

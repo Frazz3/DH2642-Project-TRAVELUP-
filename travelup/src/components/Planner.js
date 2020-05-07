@@ -38,17 +38,15 @@ class Planner extends React.Component {
         this.props.resetTrip();
         //fetch new location
         this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
-        alert(this.props.location.id)
         this.props.history.push('/select');
 
       }else{
 
       }
     }else{
-    
+      this.props.resetLocation(); // Reset the location before searching for a new on.
       this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
       this.props.history.push('/select');
-      //setTimeout(() => {  this.props.history.push('/food'); }, 9000); //fullösning ändra till render promise
     }
     
 }
@@ -80,7 +78,7 @@ class Planner extends React.Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    location: state.location
+    location: state.location,
   }
 }
 

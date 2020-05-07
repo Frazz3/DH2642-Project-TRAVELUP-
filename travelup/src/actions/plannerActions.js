@@ -1,4 +1,4 @@
-import { FETCH_LOCATION, RESET_LOCATION } from "./types";
+import { FETCH_LOCATION, RESET_LOCATION, LOCATION_ERROR } from "./types";
 import {ENDPOINT, API_KEY} from "../apiConfig";
 
 export const fetchLocation = (destination) => dispatch => { 
@@ -17,7 +17,11 @@ export const fetchLocation = (destination) => dispatch => {
   payload: data.data[0].result_object.location_id,
   locationName: destination,
   locationPhoto: data.data[0].result_object.photo.images.original.url
-})});
+})})
+.catch(err=> {
+  console.log('error in location ', err)
+  dispatch({ type: LOCATION_ERROR, error: err, name: destination });
+})
 }
 
 export const resetLocation = () => {
