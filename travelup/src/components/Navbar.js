@@ -10,14 +10,12 @@ const Navbar = (props) => {
   console.log(auth);
   const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
   return (
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark teal darken-2">
+    <nav class="navbar navbar-expand-md navbar-dark teal darken-2">
       <a class="navbar-brand" href="/">TravelUp</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
-        aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      {links}
+        {links}
     </nav>
+
+
   )
 }
 
