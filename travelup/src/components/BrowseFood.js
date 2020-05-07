@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, FormGroup, FormControl, FormControlLabel, FormLabel, Button, } from '@material-ui/core';
+import { Checkbox, FormGroup, FormControlLabel, FormLabel, } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -12,7 +12,6 @@ const prices_restaurants = [{"$": "10953"},{"$$-$$$": "10955"},{"$$$$": "10954"}
 const restaurant_mealtype = [{"Breakfast": "10597"},{"Lunch": "10598"},{"Dinner": "10599"},{"Brunch": "10606"},{"all": "all"}]
 
 const restaurants_list = [{location_id: "1381784", name: "Don Camilo", description: "a restaurant", price: "free", address: "some street", photo: {images: {small: {url: "https://media-cdn.tripadvisor.com/media/photo-l/05/ea/91/ff/don-camilo.jpg"}}}}];
-const locationID = "187147";
 
 
 class BrowseFood extends React.Component {

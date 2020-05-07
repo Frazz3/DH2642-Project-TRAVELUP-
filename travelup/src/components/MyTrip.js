@@ -148,12 +148,12 @@ class MyTrip extends React.Component {
         <div>{act} </div>
         <div>Accommodations: </div>
         <div>{acc} </div>
-        <Link to="/allTrips" style={lnk_style} activeStyle={lnk_style} > 
+        <Link to="/allTrips"> 
           <button className="small_btn" variant="outlined" onClick={this.handleClick}>
             Add trip
           </button>
         </Link>  
-        <Link to="/planner" style={lnk_style}>
+        <Link to="/planner">
           <button className="small_btn" variant="outlined" onClick={this.discardTrip}>
             Discard trip 
           </button>
