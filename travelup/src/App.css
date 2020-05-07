@@ -143,6 +143,7 @@ const BUTTON_FONT_COLOR = "white"
     text-align: center;
     font-family: Arial;
     color: white;
+    margin: 2px;
 }
 
 .delete_btn{

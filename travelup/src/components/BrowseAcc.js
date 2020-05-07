@@ -115,14 +115,6 @@ render() {
   if (!auth.uid) return <Redirect to='/' />
   if (!location_id) return <Redirect to='/' />
 
-  if( this.props.accError ){
-    return(
-      <div>
-        <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button>
-        <span className="error_text">Could not find any accommodations</span>
-      </div>
-    )
-  }
 
   if(typeof this.props.accommodations === "undefined"){
     // tills vidare, vill kanske returnera mer
@@ -177,9 +169,14 @@ render() {
       </div>
       <div className="accommodationDiv" >
         <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Accommodations</h1>
-        { (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+        { this.props.accError?(
+          <div>
+            <span className="error_text">Could not find any accommodations</span>
+        </div>
+        ):(
+          (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
           <div>{this.spinner()}</div>
-        ) : accItems}
+        ) : accItems)}
       </div>
     </section>
     </div>

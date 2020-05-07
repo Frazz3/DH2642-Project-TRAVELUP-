@@ -14,6 +14,10 @@ class SearchSelections extends React.Component {
 
     }
 
+    returnToPlanner = () => {
+        this.props.history.push("/planner")
+    }
+
     createButton = (image, link) => {
         return (
             <button className="select_btn" disabled={image.disable} onClick ={() => this.props.history.push(link)}>
@@ -63,7 +67,10 @@ class SearchSelections extends React.Component {
             </div>)
         }else{
             return(this.props.locationError?(
-            <div className="error_text">We could not find a location that matches {this.props.errorMessage}, try again please.</div>
+            <div>
+                <div className="error_text">We could not find a location that matches {this.props.errorMessage}, try again please.</div>
+                <button className="arrow_btn" onClick={() => this.returnToPlanner()} >&#8592;</button> 
+            </div>
             ):(
 
             <div className="container">

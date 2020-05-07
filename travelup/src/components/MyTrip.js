@@ -118,17 +118,7 @@ class MyTrip extends React.Component {
       ):null
 
       return (<div className="myTrip_container"> 
-        <Link to="/planner" style={lnk_style} activeStyle={lnk_style} > 
-          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
-            Add trip
-          </button>
-        </Link>  
         
-        <Link to="/planner" style={lnk_style}>
-          <button className="small_btn" variant="outlined" onClick={this.discardTrip}>
-            Discard trip 
-          </button>
-        </Link>
         <br/>
         <div><b>My trip to {this.props.location}</b></div>
         <div>Restaurants: </div>
@@ -137,6 +127,16 @@ class MyTrip extends React.Component {
         <div>{act} </div>
         <div>Accommodations: </div>
         <div>{acc} </div>
+        <Link to="/allTrips" style={lnk_style} activeStyle={lnk_style} > 
+          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
+            Add trip
+          </button>
+        </Link>  
+        <Link to="/planner" style={lnk_style}>
+          <button className="small_btn" variant="outlined" onClick={this.discardTrip}>
+            Discard trip 
+          </button>
+        </Link>
 
         </div>);
   }

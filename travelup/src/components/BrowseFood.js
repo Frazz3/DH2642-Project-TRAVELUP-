@@ -133,18 +133,7 @@ class BrowseFood extends React.Component {
   render() {
     const {auth, location_id} = this.props;
     if (!auth.uid) return <Redirect to='/' />
-    if (!location_id) return <Redirect to='/' />
-
-    
-    if(this.props.foodError){
-      return(
-        <div>
-          <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button>
-          <span className="error_text">Could not find any restaurants</span>
-        </div>
-      )
-    }
-    
+    if (!location_id) return <Redirect to='/' />  
 
     if(typeof this.props.restaurants === "undefined"){
       // tills vidare, vill kanske returnera mer
@@ -215,9 +204,13 @@ class BrowseFood extends React.Component {
         
           <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Restaurants</h1>
 
-          { (this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+          { this.props.foodError?(
+            <div>
+            <span className="error_text">Could not find any restaurants</span>
+          </div>
+          ):((this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
-          ) : restaurantItems}
+          ) : restaurantItems)}
         </div>
       </div>
       </section>

@@ -116,15 +116,6 @@ createRadio = (label, stateName, code) => {
     if (!auth.uid) return <Redirect to='/' />
     if (!location_id) return <Redirect to='/' />
 
-    if(this.props.activityError){
-      return(
-        <div>
-          <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button>
-          <span className="error_text">Could not find any activities</span>
-        </div>
-      )
-    }
-
     if(typeof this.props.activities === "undefined"){
       // tills vidare, vill kanske returnera mer
       return(
@@ -175,9 +166,14 @@ createRadio = (label, stateName, code) => {
         </div>
         <div className="activityDiv" >
           <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Activities</h1>
-          { (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+          { this.props.activityError?(
+            <div>
+              <span className="error_text">Could not find any activities</span>
+            </div>
+            ):(
+              (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
-          ) : activityItems}
+          ) : activityItems)}
         </div>
       </section>
       </div>
