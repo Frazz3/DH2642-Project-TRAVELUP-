@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchAcc } from "../actions/accActions"
-import { addAcc } from "../actions/tripActions"
+import { addAccommodation } from "../actions/tripActions"
+import Modal from './Modal'
 
 const ameneties = [{label: "Free Internet", code: "free_internet"},{label:"Free Parking", code:"free_parking"},{label:"Restaurant", code:"restaurant"},{label:"Free Breakfast",code:"free_breakfast"},{label:"Wheelchair access", code:"wheelchair_access"},{label:"Spa",code:"spa"},{label:"Bar/Lounge", code:"bar_lounge"},{label:"Fitness Center", code:"fitness_center"},{label:"Room Service",code:"room_service"},{label:"Swimming Pool",code:"swimming_pool"},{label:"Airport Transportation",code:"airport_transportation"},{label:"All",code:"all"}]
 
@@ -23,13 +24,20 @@ class BrowseAcc extends React.Component {
         room_service:false,
         swimming_pool:false,
         airport_transportation:false,
-        all:false
+        all:false,
+        show:false,
+        dataModal:{},
+        modalType:""
     }
   }
   componentWillMount() {
     // fetches activityCategory from the location. No filtering.
     //console.log(this.props.location_id)
     this.props.fetchAcc(this.props.location_id);
+  }
+
+  returnToBrowse = () => {
+    this.props.history.push('/select');
   }
   
   handleChange = event => {
@@ -65,28 +73,46 @@ class BrowseAcc extends React.Component {
 
   
   addAccommodation = (acc) => {
-    if (window.confirm(acc.ranking +"\n\nWould you want to add " +acc.name+ " to your trip?")){
-      let act = {id:acc.location_id, name:acc.name, price:acc.price, description:acc.description, location_id:acc.location_id}
+
+      let accommodation = {id:acc.location_id, name:acc.name, price:acc.price, location_id:acc.location_id, photo:acc.photo.images.small.url}
   
       // don't want to add duplicates (not sure where to put this, here or in the reducer?)
       let duplicate = false;
       let x;
       for( x of this.props.tripAccommodations){
+        console.log(x.id)
         // we have already added that activity
         if(x.id === acc.location_id){
           console.log("ALREADY ADDED")
           duplicate = true;
-          alert("You have already added this activity to your trip, choose another one please");
+          this.getModal(acc,"c")
         }
       }
       //only add if it's not already added
       if(!duplicate){
-        this.props.addAccommodation(acc);
+        this.props.addAccommodation(accommodation);
+        this.setState({
+          show:false
+        })
       }
   
-    }else{
+    else{
       console.log('do not add');
     }
+  }
+
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+  
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
   }
 
   createCheckbox = (label, stateName) => {
@@ -106,8 +132,10 @@ class BrowseAcc extends React.Component {
   }
 
 render() {
-  const {auth} = this.props;
+  const {auth, location_id} = this.props;
   if (!auth.uid) return <Redirect to='/' />
+  if (!location_id) return <Redirect to='/' />
+
 
   if(typeof this.props.accommodations === "undefined"){
     // tills vidare, vill kanske returnera mer
@@ -117,12 +145,13 @@ render() {
       </div>
     )
   }
+  
   const accItems = this.props.accommodations.map(acc => {
-  //const restaurantItems = restaurants_list.map(restaurant => {
+
    return ((acc.name && acc.photo )?  // kan behöva fler att filtrera på
     (
       <span key={acc.location_id}>
-        <button className={acc.location_id} onClick={()=> this.addAccommodation(acc)} style={restaurantButtonStyle}>
+        <button className="result_btn" onClick={()=> this.getModal(acc,"b")} >
           <h4>{acc.name} </h4>
           <img src={acc.photo.images.small.url}/>
           <h5>Price Range: {acc.price} </h5>
@@ -143,68 +172,43 @@ render() {
   console.log('items', accItems)
   
   return (
-    <section style={containerSection}>
+    <div className="container">
+    <section className="containerSection">
+    <div class="row">
       
-      <div className="filters" style={filterDiv}>
+      <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12" >
         <div>
         <FormLabel component="legend">Amenities</FormLabel>
                 <div>{amenetiesCheckbox}</div>
         </div>
         
         <div>
-          <Button variant="outlined" onClick={this.handleClick}>
+          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
             Filter
-          </Button>
+          </button>
           
         </div>
       </div>
-      <div className="accommodations" style={restaurantDiv}>
-        <h1 style={styleText}>Accommodations</h1>
-        { (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+      <div className="accommodationDiv" class="col col-xl-10 col-lg-10">
+        <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Accommodations</h1>
+        { this.props.accError?(
+          <div>
+            <span className="error_text">Could not find any accommodations</span>
+        </div>
+        ):(
+          (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
           <div>{this.spinner()}</div>
-        ) : accItems}
+        ) : accItems)}
       </div>
+      <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addAccommodation(modRest)}}></Modal>
+    </div>
     </section>
+    </div>
     
   );
 }
 }
 
-const styleText = {
-  color: "#239160",
-  padding: "10px",
-  fontFamily: "Arial",
-  textAlign: "center"
-}
-
-const containerSection ={
-  width:"100%"
-}
-
-
-const filterDiv = {
-  width:"150px",
-  float:"left",
-  border: "" + 2 + "px solid " + "#239160",
-  boxShadow: "1px 1px 5px #888888",
-  display: "flex",
-  flexDirection: "column",
-  display: "flex",
-  borderRadius: 8,
-}
-
-const restaurantDiv = {
-  width:"100%",
-}
-
-const restaurantButtonStyle = {
-  width: "300px",
-  height: "300px",
-  backgroundColor: "white",
-  border: "none",
-  textAlign: "center",
-
-}
 
 BrowseAcc.propTypes = {
   fetchAcc: PropTypes.func.isRequired,
@@ -217,7 +221,8 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   accommodations: state.accommodations.items,
   location_id: state.location.id,
-  tripAccommodations: state.trip.accommodations
+  tripAccommodations: state.trip.accommodations,
+  accError: state.accommodations.accError
 })
 
 
@@ -227,4 +232,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchAcc, addAcc})(BrowseAcc);
+export default connect(mapStateToProps, {fetchAcc, addAccommodation})(BrowseAcc);

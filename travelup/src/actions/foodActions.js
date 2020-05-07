@@ -1,4 +1,4 @@
-import { FETCH_RESTAURANTS, RESET_RESTAURANTS } from "./types";
+import { FETCH_RESTAURANTS, RESET_RESTAURANTS, FETCH_RESTAURANTS_ERROR } from "./types";
 import {ENDPOINT, API_KEY} from "../apiConfig";
 
 export const fetchRestaurants = (location_id, restaurant_mealtype = "all", prices_restaurants = "all") => dispatch => {
@@ -12,8 +12,21 @@ export const fetchRestaurants = (location_id, restaurant_mealtype = "all", price
       }
     })
   .then(response => response.json())
-  .then(data => dispatch({
-    type: FETCH_RESTAURANTS,
-    payload: data.data
-  }));
+  .then(data => {
+    console.log('data.data ', data.data)
+    if(!data.data || (data.data.length === 0)){
+      dispatch({
+        type: FETCH_RESTAURANTS_ERROR
+      })
+    }else{
+      dispatch({
+      type: FETCH_RESTAURANTS,
+      payload: data.data
+  })}})
+  .catch(err => {
+    console.log('error in fetching restaurants ', err)
+    dispatch({
+      type: FETCH_RESTAURANTS_ERROR
+    })
+  })
 }

@@ -1,13 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  createTrip,
-  removeRestaurant,
-  removeActivity
-} from "../actions/tripActions";
-import Button from "@material-ui/core/Button";
-import { small_btn, lnk_style, myTrip_container } from "../assets/style"; // lyckas inte style Link med css
+import { createTrip, removeRestaurant, removeActivity, removeAccommodation, resetTrip } from "../actions/tripActions";
+import { resetLocation } from "../actions/plannerActions"
+import Button from '@material-ui/core/Button';
+import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
+import Modal from './Modal'
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -20,12 +18,29 @@ class MyTrip extends React.Component {
       location: this.props.location,
       author: this.props.author,
       restaurants: this.props.restaurants,
-      activities: this.props.activities
+      activities: this.props.activities,
+      show:false,
+      dataModal:{},
+      modalType:""
     };
   }
 
-  replaceUndefined = value => {
-    if (typeof value === "undefined") {
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
+  }
+ 
+  replaceUndefined = (value) => {
+    if( typeof(value) === "undefined" ){
       return "";
     }
     return value;
@@ -38,6 +53,15 @@ class MyTrip extends React.Component {
   removeActivityFromList = activity => {
     this.props.removeActivity(activity);
   };
+
+  removeAccommodationFromList = (accommodation) => {
+    this.props.removeAccommodation(accommodation);
+  }
+
+  discardTrip = () => {
+    this.props.resetLocation();
+    this.props.resetTrip();
+  }
 
   handleClick = () => {
     // need to make sure that no undefined fields are present (only works for restaurants right now)
@@ -70,8 +94,10 @@ class MyTrip extends React.Component {
       locationPhoto: this.props.locationPhoto,
       author: this.props.author,
       restaurants: this.props.restaurants,
-      activities: this.props.activities
-    };
+      activities: this.props.activities,
+      accommodations: this.props.accommodations
+    }
+
 
     // ska nollställa alla states med trips, vi börjar på nytt
 
@@ -80,59 +106,58 @@ class MyTrip extends React.Component {
   };
 
   render() {
-    if (!this.props.location) {
-      return null; // show nothing if we do not have any trip
-    } else {
-      let rest = this.props.restaurants
-        ? this.props.restaurants.map(r => (
-            <div key={r.location_id}>
-              - {r.name}
-              <button
-                className="element_delete_btn"
-                onClick={() => this.removeRestaurantFromList(r)}
-              >
-                x
-              </button>
-            </div>
-          ))
-        : null;
+    if(!this.props.location){
+      return null   // show nothing if we do not have any trip
+    }else{
+      let rest = this.props.restaurants?this.props.restaurants.map((r) =>
+      <div>
+        <div key={r.location_id} className="myTrip_text" onClick={() => this.getModal(r,"o")}>
+        - {r.name}</div>
+        <div className="myTrip_text">
+          <button className="element_delete_btn" onClick={() => this.removeRestaurantFromList(r)}>x</button>
+      </div>
+      </div>
+      ):null
 
-      let act = this.props.activities
-        ? this.props.activities.map(a => (
-            <div key={a.location_id}>
-              - {a.name}
-              <button
-                className="element_delete_btn"
-                onClick={() => this.removeActivityFromList(a)}
-              >
-                x
-              </button>
-            </div>
-          ))
-        : null;
+      let act = this.props.activities?this.props.activities.map((a) =>
+      <div><div key={a.location_id} className="myTrip_text" onClick={() => this.getModal(a,"o")}>
+        - {a.name}</div>
+        <div className="myTrip_text"><button className="element_delete_btn" onClick={() => this.removeActivityFromList(a)}>x</button>
+      </div></div>
+      ):null
 
-      return (
-        <div className="myTrip_container">
-          <button
-            className="small_btn"
-            variant="outlined"
-            onClick={this.handleClick}
-          >
-            <Link to="/planner" style={lnk_style} activeStyle={lnk_style}>
-              Add trip
-            </Link>
+      let acc = this.props.accommodations?this.props.accommodations.map((a) =>
+      <div><div key={a.location_id} className="myTrip_text" onClick={() => this.getModal(a,"n")}>
+        - {a.name}</div>
+        <div className="myTrip_text"><button className="element_delete_btn" onClick={() => this.removeAccommodationFromList(a)}>x</button>
+      </div></div>
+      ):null
+
+      return (<div className="myTrip_container"> 
+        
+        <br/>
+        <div><b>My trip to {this.props.location}</b></div>
+        <div>Restaurants: </div>
+        <div> {rest} </div>
+        <div>Activities: </div>
+        <div>{act} </div>
+        <div>Accommodations: </div>
+        <div>{acc} </div>
+        <Link to="/allTrips"> 
+          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
+            Add trip
           </button>
-          <br />
-          <div>
-            <b>My trip to {this.props.location}</b>
-          </div>
-          <div>Restaurants: </div>
-          <div> {rest} </div>
-          <div>Activities: </div>
-          <div>{act} </div>
-        </div>
-      );
-    }
+        </Link>  
+        <Link to="/planner">
+          <button className="small_btn" variant="outlined" onClick={this.discardTrip}>
+            Discard trip 
+          </button>
+        </Link>
+
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType}></Modal>
+
+        </div>);
+  }
   }
 }
 
@@ -147,7 +172,10 @@ const mapStateToProps = state => {
     author: state.firebase.auth.uid, // should probably change to name later
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
-    activities: state.trip.activities
+    activities: state.trip.activities,
+    accommodations: state.trip.accommodations,
+    locationError: state.location.locationError
+
   };
 };
 
@@ -155,7 +183,10 @@ const mapDispatchToProps = dispatch => {
   return {
     createTrip: (trip, userID) => dispatch(createTrip(trip, userID)), //createTrip is an action-creator
     removeRestaurant: restaurant => dispatch(removeRestaurant(restaurant)),
-    removeActivity: activity => dispatch(removeActivity(activity))
+    removeActivity: activity => dispatch(removeActivity(activity)),
+    removeAccommodation: accommodation => dispatch(removeAccommodation(accommodation)),
+    resetTrip: () => dispatch(resetTrip()),
+    resetLocation: () => dispatch(resetLocation())
   };
 };
 

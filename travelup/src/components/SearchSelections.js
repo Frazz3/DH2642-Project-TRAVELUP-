@@ -14,6 +14,10 @@ class SearchSelections extends React.Component {
 
     }
 
+    returnToPlanner = () => {
+        this.props.history.push("/planner")
+    }
+
     createButton = (image, link) => {
         return (
             <button className="select_btn" disabled={image.disable} onClick ={() => this.props.history.push(link)}>
@@ -55,14 +59,19 @@ class SearchSelections extends React.Component {
             }
         ]
 
-        if(!this.props.location){
+        if(!this.props.location && !this.props.locationError){
             console.log(this.props.location)
             return (
             <div className="container">
                 <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
             </div>)
         }else{
-            return(
+            return(this.props.locationError?(
+            <div>
+                <div className="error_text">We could not find a location that matches {this.props.errorMessage}, try again please.</div>
+                <button className="arrow_btn" onClick={() => this.returnToPlanner()} >&#8592;</button> 
+            </div>
+            ):(
 
             <div className="container">
                 <div>
@@ -76,6 +85,7 @@ class SearchSelections extends React.Component {
                 {this.createButton(images[2], "/activities")}
                 </div>
             </div>
+            )
 
 
             )
@@ -92,6 +102,8 @@ const mapStateToProps = (state) => {
     return {
       auth: state.firebase.auth,
       location: state.location.name,
+      locationError: state.location.locationError,
+      errorMessage: state.location.errorMessage
     }
   }
 

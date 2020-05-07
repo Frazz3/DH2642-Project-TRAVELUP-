@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { Redirect } from "react-router-dom";
 import { firestoreConnect } from "react-redux-firebase";
 import { getAllTrips, deleteTrip, editTrip } from "../actions/allTripsActions";
 import AllTrips from "../components/AllTrips";
@@ -10,7 +11,10 @@ class AllTripsContainer extends React.Component {
     super(props);
 
     this.state = {
-      allTrips: this.props.allTrips
+      allTrips: this.props.allTrips,
+      show: false,
+      dataModal: {},
+      modalType: ""
     };
   }
 
@@ -24,6 +28,20 @@ class AllTripsContainer extends React.Component {
 
   makeAllTrips = () => {
     this.props.getAllTrips(this.props.userID);
+  };
+
+  hideModal = () => {
+    this.setState({
+      show: false
+    });
+  };
+
+  getModal = (data, type) => {
+    this.setState({
+      show: true,
+      dataModal: data,
+      modalType: type
+    });
   };
 
   showRestaurant = rest => {
@@ -81,13 +99,19 @@ class AllTripsContainer extends React.Component {
   };
 
   render() {
+    const { auth } = this.props;
+    if (!auth.uid) return <Redirect to="/" />;
+
     return (
       <AllTrips
-        trips={this.props.allTrips}
+        trips={this.props.allTrips.reverse()}
         deleteTrip={this.deleteTheTrip}
         editTrip={this.editTheTrip}
-        showRestaurant={this.showRestaurant}
-        showActivity={this.showActivity}
+        getModal={this.getModal}
+        hideModal={this.hideModal}
+        show={this.state.show}
+        dataModal={this.state.dataModal}
+        modalType={this.state.modalType}
       />
     );
   }

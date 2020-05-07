@@ -1,20 +1,14 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { Typography, Button } from '@material-ui/core';
-
-
-const lnkStyle = {
-  color: 'white',
-  textDecoration: 'none',
-}
 
 const SignedOutLinks = () => {
   return (
-    <ul className="right">
-      <Button color="inherit"><Link to="/logIn" style={lnkStyle} activeStyle={lnkStyle}>Login</Link></Button>
-      <Button color="inherit"><Link to="/signUp" style={lnkStyle} activeStyle={lnkStyle}>Sign Up</Link></Button>
-    </ul>
-
+    <div class="navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <Link to="/logIn" ><button type="button" class="btn btn-outline-light btn-sm">Login</button></Link>
+        <Link to="/signUp" ><button type="button" class="btn btn-outline-light btn-sm">Sign Up</button></Link>
+      </ul>
+    </div>
   )
 }
 

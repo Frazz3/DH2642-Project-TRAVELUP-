@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchActivities } from "../actions/activityActions"
 import { addActivity } from "../actions/tripActions"
+import Modal from './Modal'
 
 const activity_subcategory = [{label:"Nightlife",code: "20",state:"nightlife"},{label:"Shopping",code: "26",state:"shopping"},{label:"Food & Drink",code: "36",state:"foodDrink"},{label:"Spas & Wellness",code: "40",state:"spasWellness"},{label:"Classes & Workshops",code: "41",state:"classesWorkshops"},{label:"Tours",code:"42",state:"tours"},{label:"Sights & Landmarks",code:"47",state:"sightsLandmarks"},{label:"Zoos & Aquariums",code:"48",state:"zoosAquariums"},{label:"Museums",code:"49",state:"museums"},{label:"Water & Amusement Parks",code:"52",state:"waterAmusementParks"},{label:"Casinos & Gambling",code:"53",state:"casinosGambling"},{label:"Boat Tours & Water Sports",code:"55",state:"boatToursWaterSports"},{label:"Fun & Games",code:"56",state:"funGames"},{label:"Nature & Parks",code:"57",state:"natureParks"},{label:"Concerts & Shows",code:"58",state:"concertsShows"},{label:"Transportation",code:"59",state:"transportation"},{label:"Traveler Resources",code:"60",state:"travelerResources"},{label:"Outdoor Activities",code:"61",state:"outdoorActivities"},{label:"Events",code:"62",state:"events"},{label:"All",code: "0",state:"allCategories"}]
 //const activity_rating = [{label : "Terrible", code: "1", state:"terrible"},{label: "Poor",code : "2",state:"poor"},{label:"Average",code: "3",state:"average"},{label:"Very good",code:"4",state:"veryGood"},{label:"Excellent",code:"5",state:"excellent"},{label:"All",code: "all",state:"allRatings"}]
@@ -13,7 +14,10 @@ class BrowseActivities extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category:"0"
+      category:"0",
+      show:false,
+      dataModal:{},
+      modalType:""
   }
   this.handleChange = this.handleChange.bind(this);
   this.handleClick = this.handleClick.bind(this);
@@ -26,6 +30,9 @@ componentWillMount() {
   this.props.fetchActivities(this.props.location_id);
 }
 
+returnToBrowse = () => {
+  this.props.history.push('/select');
+}
 
 handleChange = event => {
   this.setState({
@@ -69,8 +76,21 @@ handleClick = () => {
 
 }
 
+hideModal = () => {
+  this.setState({
+    show:false
+  })
+}
+
+getModal = (data,type) => {
+  this.setState({
+    show:true,
+    dataModal:data,
+    modalType:type
+  })
+}
+
 addActivity = (activity) => {
-  if (window.confirm(activity.description +"\n\nWould you want to add " +activity.name+ " to your trip?")){
     let act = {id:activity.location_id, name:activity.name, price:activity.price, description:activity.description, location_id:activity.location_id, photo:activity.photo.images.small.url, website:activity.website}
 
     // don't want to add duplicates (not sure where to put this, here or in the reducer?)
@@ -81,15 +101,18 @@ addActivity = (activity) => {
       if(x.id === activity.location_id){
         console.log("ALREADY ADDED")
         duplicate = true;
-        alert("You have already added this activity to your trip, choose another one please");
+        this.getModal(activity,"c")
       }
     }
     //only add if it's not already added
     if(!duplicate){
       this.props.addActivity(act);
+      this.setState({
+        show:false
+      })
     }
 
-  }else{
+  else{
     console.log('do not add');
   }
 }
@@ -109,8 +132,9 @@ createRadio = (label, stateName, code) => {
   }
 
   render() {
-    const {auth} = this.props;
+    const {auth, location_id} = this.props;
     if (!auth.uid) return <Redirect to='/' />
+    if (!location_id) return <Redirect to='/' />
 
     if(typeof this.props.activities === "undefined"){
       // tills vidare, vill kanske returnera mer
@@ -120,12 +144,13 @@ createRadio = (label, stateName, code) => {
         </div>
       )
     }
+
     const activityItems = this.props.activities.map(activity => {
     //const activityItems = activitys_list.map(activity => {
      return ((activity.name && activity.photo )?  // kan behöva fler att filtrera på
       (
         <span key={activity.location_id}>
-          <button className={activity.location_id} onClick={()=> this.addActivity(activity)} style={activityButtonStyle}>
+          <button className="result_btn" onClick={()=> {this.getModal(activity,"b")}}>
             <h4>{activity.name} </h4>
             <img src={activity.photo.images.small.url}/>
             //<h5>Price Range: {activity.price} </h5>
@@ -144,66 +169,41 @@ createRadio = (label, stateName, code) => {
     );
 
     return (
-      <section style={containerSection}>
+      <div className="container">
+      <section className="containerSection">
+      <div class="row">
 
-        <div className="filters" style={filterDiv}>
+        <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
           <div>
               <FormControl>
               <FormLabel component="legend">Category</FormLabel>
                 <div>{categoryRadio}</div>
   
-          <Button variant="outlined" onClick={this.handleClick}>
+          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
             Filter
-          </Button>
+          </button>
               </FormControl>
         </div>
         </div>
-        <div className="activities" style={activityDiv}>
-          <h1 style={styleText}>Activities</h1>
-          { (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+        <div className="activityDiv" class="col col-xl-10 col-lg-10">
+          <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Activities</h1>
+          { this.props.activityError?(
+            <div>
+              <span className="error_text">Could not find any activities</span>
+            </div>
+            ):(
+              (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
-          ) : activityItems}
+          ) : activityItems)}
         </div>
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addActivity(modRest)}}></Modal>
+      </div>
       </section>
-
+      </div>
     );
   }
 }
 
-const styleText = {
-  color: "#239160",
-  padding: "10px",
-  fontFamily: "Arial",
-  textAlign: "center"
-}
-
-const containerSection ={
-  width:"100%"
-}
-
-const activityDiv = {
-  width:"100%",
-}
-
-const filterDiv = {
-  width:"150px",
-  float:"left",
-  border: "" + 2 + "px solid " + "#239160",
-  boxShadow: "1px 1px 5px #888888",
-  display: "flex",
-  flexDirection: "column",
-  display: "flex",
-  borderRadius: 8,
-}
-
-const activityButtonStyle = {
-  width: "300px",
-  height: "300px",
-  backgroundColor: "white",
-  border: "none",
-  textAlign: "center",
-
-}
 
 BrowseActivities.propTypes = {
   fetchActivities: PropTypes.func.isRequired,
@@ -216,7 +216,8 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   activities: state.activities.items, //de som är fetchade
   location_id: state.location.id,
-  tripActivities: state.trip.activities //de vi lagt till i vår trip
+  tripActivities: state.trip.activities, //de vi lagt till i vår trip
+  activityError: state.activities.activityError
 })
 
 
