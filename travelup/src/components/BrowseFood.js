@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchRestaurants } from "../actions/foodActions"
 import { addRestaurant } from "../actions/tripActions"
+import Modal from './Modal'
 
 // om man vill göra snyggare lösning kan dessa användas. Görs ej i nuläget eftersom jag ej fick det att funka /Stina
 const prices_restaurants = [{"$": "10953"},{"$$-$$$": "10955"},{"$$$$": "10954"},{"all": "all"}]
@@ -33,7 +34,9 @@ class BrowseFood extends React.Component {
       lunch:false,
       dinner:false,
       allMealtype:false,
-
+      show:false,
+      dataModal:{},
+      modalType:""
     }
   }
   componentWillMount() {
@@ -80,10 +83,27 @@ class BrowseFood extends React.Component {
       }
     }
 
+
+
     // fetches restaurants with new filters
     this.props.fetchRestaurants(this.props.location_id, restaurant_mealtype, prices_restaurants);
   }
 
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
+  }
+
+ 
   
   createCheckbox = (label, stateName) => {
     return(
@@ -94,7 +114,6 @@ class BrowseFood extends React.Component {
   }
 
   addRestaurant = (restaurant) => {
-    if (window.confirm(restaurant.description +"\n\nWould you want to add " +restaurant.name+ " to your trip?")){
       let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id, cuisine:restaurant.cuisine, website:restaurant.website, photo:restaurant.photo.images.small.url}
 
       // don't want to add duplicates (not sure where to put this, here or in the reducer?)
@@ -105,15 +124,18 @@ class BrowseFood extends React.Component {
         if(x.id === restaurant.location_id){
           console.log("ALREADY ADDED")
           duplicate = true;
-          alert("You have already added this restaurant to your trip, choose another one please");
+          this.getModal(restaurant,"c")
         }
       }
       //only add if it's not already added
       if(!duplicate){
         this.props.addRestaurant(rest);
+        this.setState({
+          show:false
+        })
       }
       
-    }else{
+    else{
       console.log('do not add');
     }
   }
@@ -143,7 +165,7 @@ class BrowseFood extends React.Component {
      return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
       (
         <span key={restaurant.location_id}>
-          <button className= "result_btn" onClick={()=> this.addRestaurant(restaurant)} >
+          <button className= "result_btn" onClick={()=> {this.getModal(restaurant,"b")}}>
             <h4>{restaurant.name} </h4>
             <img src={restaurant.photo.images.small.url}/>
             <h5>Price Range: {restaurant.price} </h5>
@@ -174,6 +196,7 @@ class BrowseFood extends React.Component {
     );
     console.log('items', restaurantItems)
     
+
     return (
       <div className="container">
       <section className="containerSection" > {/* behövs detta?  */}
@@ -201,6 +224,7 @@ class BrowseFood extends React.Component {
             <div>{this.spinner()}</div>
           ) : restaurantItems}
         </div>
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addRestaurant(modRest)}}></Modal>
       </div>
       </section>
       </div>
@@ -208,8 +232,6 @@ class BrowseFood extends React.Component {
     );
   }
 }
-
-
 
 
 BrowseFood.propTypes = {

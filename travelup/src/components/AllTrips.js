@@ -5,13 +5,17 @@ import { firestoreConnect } from "react-redux-firebase";
 import { getAllTrips, deleteTrip, editTrip } from "../actions/allTripsActions";
 import { Redirect } from "react-router-dom";
 import { display } from "@material-ui/system";
+import Modal from './Modal'
 
 class AllTrips extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      allTrips: this.props.allTrips
+      allTrips: this.props.allTrips,
+      show:false,
+      dataModal:{},
+      modalType:""
     };
   }
 
@@ -21,6 +25,20 @@ class AllTrips extends React.Component {
       console.log("ID EXISTS");
       this.makeAllTrips();
     }
+  }
+
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -37,41 +55,25 @@ class AllTrips extends React.Component {
     this.props.getAllTrips(this.props.userID);
   };
 
-
-  // Create our own alert later, preferrably with a photo in it
-  showRestaurant = (rest) => {
-    let all_cuisine =  "";
-    if(rest.cuisine){
-      rest.cuisine.map( c => all_cuisine += c.name + ", ");
-    }
-    alert(rest.name + "\n" + rest.description + "\n" + "Price: " + rest.price + "\nWebsite: " + rest.website +"\nCuisine: " + all_cuisine)
-  }
-
-  showActivity = (act) => {
-    alert(act.name + "\n" + act.description + "\n" + "Price: " + act.price + "\nWebsite: " + act.website) 
-  }
-
-  showAccommodation = (acc) => {
-    alert(acc.name) 
-  }
-
   deleteTheTrip = (tripID) => {
-    if(window.confirm("Do you want to delete this trip?")){
       this.props.deleteTrip(tripID, this.props.userID);
+      this.setState({
+        show:false
+      })
       
       console.log("the trip is deleted, id: ", tripID);
-    }
   }
 
   editTheTrip = (tripID) => {
     if(this.props.locationID !== null){
-      alert("You have already started on a trip, you need to finish that one before you can edit this.");
+      this.getModal(tripID,"finnish")
     }else{
-      if(window.confirm("Do you really want to edit this trip?")){
         console.log("editing the trip");
         this.props.editTrip(tripID, this.props.userID);
+        this.setState({
+          show:false
+        })
         //this.props.deleteTrip(tripID, this.props.userID);
-      }
     }
 
   }
@@ -80,13 +82,15 @@ class AllTrips extends React.Component {
     const {auth} = this.props;
     if (!auth.uid) return <Redirect to='/' />
 
+    let data = this.state.dataModal;
+
     console.log("props in render: ", this.props.allTrips);
     const trips = this.props.allTrips.reverse();  // The newest trip comes first
     let i = 0;
     const userTripItems = trips.map(trip => (
       <div key={trip.id} className="all_trips">
-        <button className="delete_btn" onClick={() => this.deleteTheTrip(trip.id)}>X</button>
-        <button className="delete_btn" onClick={() => this.editTheTrip(trip.id)}>...</button>
+        <button className="delete_btn" onClick={()=> {this.getModal(trip.id,"delete")}}>X</button>
+        <button className="delete_btn" onClick={()=> {this.getModal(trip.id,"edit")}}>...</button>
         <h2 className="large_text">
           {++i}. {trip.location}
         </h2>
@@ -94,19 +98,20 @@ class AllTrips extends React.Component {
         <h5 className="medium_text">Restaurants</h5>
         {trip.restaurants?(
           trip.restaurants.map(rest => (
-          <h6 key={rest.id} className="small_text" onClick={ () => this.showRestaurant(rest) }> {rest.name} </h6>
+          <h6 key={rest.id} className="small_text" onClick={() => this.getModal(rest,"o")}> {rest.name} </h6>
         ))):null}
         <h5 className="medium_text">Activities</h5>
         {trip.activities?(
           trip.activities.map(act => (
-          <h6 key={act.id} className="small_text" onClick={ () => this.showActivity(act) }> {act.name} </h6>
+          <h6 key={act.id} className="small_text" onClick={() => this.getModal(act,"o")}> {act.name} </h6>
         ))):null}
         <h5 className="medium_text">Accommodation</h5>
         {trip.accommodations?(
           trip.accommodations.map(acc => (
-          <h6 key={acc.id} className="small_text" onClick={ () => this.showAccommodation(acc) }> {acc.name} </h6>
+          <h6 key={acc.id} className="small_text" onClick={() => this.getModal(acc,"n")}> {acc.name} </h6>
         ))):null}
         <h6>-------------</h6>
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} edit={() => this.editTheTrip(data)} delete={() => this.deleteTheTrip(data)}></Modal>
       </div>
     ));
 
