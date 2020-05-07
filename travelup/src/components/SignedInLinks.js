@@ -9,8 +9,8 @@ import { resetLocation } from '../actions/plannerActions'
 // When we sign out we need to reset everything we have started on
 const signOutFunc = (props) => {
   if(window.confirm("If you sign out now your changes will be discarded. Do you still wan't to sign out?")){
-    // props.resetLocation();
-    // props.resetTrip();
+    props.resetLocation();
+    props.resetTrip();
     props.signOut();
   } // else, do nothing
   
@@ -29,7 +29,7 @@ const SignedInLinks = (props) => {
         <Link to="/allTrips" ><button type="button" class="btn btn-outline-light btn-sm">All My Trips</button></Link>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <Link to="/logIn" onClick={signOutFunc}><button type="button" class="btn btn-outline-light btn-sm">Sign Out</button></Link>
+        <Link to="/logIn" onClick={() => signOutFunc(props)}><button type="button" class="btn btn-outline-light btn-sm">Sign Out</button></Link>
       </ul>
     </div>
 

@@ -47,7 +47,7 @@ export const createTrip = (trip, userID) => {
 
 export const resetTrip = () => {
   return ( (dispatch) => {
-    return dispatch({ type: RESET_TRIP });
+    dispatch({ type: RESET_TRIP });
   })
 }
 
