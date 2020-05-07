@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchAcc } from "../actions/accActions"
 import { addAccommodation } from "../actions/tripActions"
+import Modal from './Modal'
 
 const ameneties = [{label: "Free Internet", code: "free_internet"},{label:"Free Parking", code:"free_parking"},{label:"Restaurant", code:"restaurant"},{label:"Free Breakfast",code:"free_breakfast"},{label:"Wheelchair access", code:"wheelchair_access"},{label:"Spa",code:"spa"},{label:"Bar/Lounge", code:"bar_lounge"},{label:"Fitness Center", code:"fitness_center"},{label:"Room Service",code:"room_service"},{label:"Swimming Pool",code:"swimming_pool"},{label:"Airport Transportation",code:"airport_transportation"},{label:"All",code:"all"}]
 
@@ -23,7 +24,10 @@ class BrowseAcc extends React.Component {
         room_service:false,
         swimming_pool:false,
         airport_transportation:false,
-        all:false
+        all:false,
+        show:false,
+        dataModal:{},
+        modalType:""
     }
   }
   componentWillMount() {
@@ -65,7 +69,7 @@ class BrowseAcc extends React.Component {
 
   
   addAccommodation = (acc) => {
-    if (window.confirm(acc.ranking +"\n\nWould you want to add " +acc.name+ " to your trip?")){
+
       let accommodation = {id:acc.location_id, name:acc.name, price:acc.price, location_id:acc.location_id, photo:acc.photo.images.small.url}
   
       // don't want to add duplicates (not sure where to put this, here or in the reducer?)
@@ -77,17 +81,34 @@ class BrowseAcc extends React.Component {
         if(x.id === acc.location_id){
           console.log("ALREADY ADDED")
           duplicate = true;
-          alert("You have already added this activity to your trip, choose another one please");
+          this.getModal(acc,"c")
         }
       }
       //only add if it's not already added
       if(!duplicate){
         this.props.addAccommodation(accommodation);
+        this.setState({
+          show:false
+        })
       }
   
-    }else{
+    else{
       console.log('do not add');
     }
+  }
+
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+  
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
   }
 
   createCheckbox = (label, stateName) => {
@@ -123,7 +144,7 @@ render() {
    return ((acc.name && acc.photo )?  // kan behöva fler att filtrera på
     (
       <span key={acc.location_id}>
-        <button className="result_btn" onClick={()=> this.addAccommodation(acc)} >
+        <button className="result_btn" onClick={()=> this.getModal(acc,"b")} >
           <h4>{acc.name} </h4>
           <img src={acc.photo.images.small.url}/>
           <h5>Price Range: {acc.price} </h5>
@@ -166,6 +187,7 @@ render() {
           <div>{this.spinner()}</div>
         ) : accItems}
       </div>
+      <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addAccommodation(modRest)}}></Modal>
     </section>
     </div>
     

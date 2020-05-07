@@ -23,13 +23,19 @@ const signOutFunc = (props) => {
 }
 
 const SignedInLinks = (props) => {
+
+  const browse = props.location_id ? <Link to="/select">  Browse  </Link> : <Link to="">  Browse  </Link>;
+
+
   return (
-    <div style={{position: 'relative'}}>
-      <ul className='relative'>
-        <Button color="inherit"><Link to="/planner" style={lnkStyle} activeStyle={lnkStyle}>Planner</Link></Button>
-        <Button color="inherit"><Link to="/select" style={lnkStyle} activeStyle={lnkStyle}>Select</Link></Button>
-        <Button color="inherit"><Link to="/allTrips" style={lnkStyle} activeStyle={lnkStyle}>All Trips</Link></Button>
-        <Button color="inherit" style={{ position:'right' }} onClick={() => { signOutFunc(props); }}>Sign Out</Button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+      <ul class="navbar-nav mr-auto">
+        <Link to="/planner" >  New Trip  </Link>
+        {browse}
+        <Link to="/allTrips" >  All My Trips  </Link>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <Link to="/logIn" onClick={props.signOut} >  Sign Out  </Link>
       </ul>
     </div>
 
@@ -44,5 +50,11 @@ const mapDispatchToProps = (dispatch) => {
 
   }
 }
-export default connect(null, mapDispatchToProps)(SignedInLinks);
+
+const mapStateToProps = state => (
+{
+  location_id: state.location.id
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignedInLinks);
 
