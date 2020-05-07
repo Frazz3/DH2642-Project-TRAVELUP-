@@ -3,6 +3,8 @@ import "./App.css";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { Provider } from "react-redux";
 
+import AllTripsContainer from "./containers/AllTripsContainer";
+
 import LoginForm from "./components/LoginForm.js";
 import SignupForm from "./components/SignupForm.js";
 import Start from "./components/Start.js";
@@ -11,11 +13,8 @@ import BrowseFood from "./components/BrowseFood.js";
 import BrowseActivities from "./components/BrowseActivities.js";
 import BrowseAcc from "./components/BrowseAcc.js";
 import MyTrip from "./components/MyTrip";
-import AllTrips from "./components/AllTrips";
 import SearchSelections from "./components/SearchSelections";
 import Navbar from "./components/Navbar";
-
-import AllTripsContainer from "./containers/AllTripsContainer";
 
 import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
 
