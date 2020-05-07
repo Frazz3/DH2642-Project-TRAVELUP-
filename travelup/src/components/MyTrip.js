@@ -5,6 +5,7 @@ import { createTrip, removeRestaurant, removeActivity, removeAccommodation, rese
 import { resetLocation } from "../actions/plannerActions"
 import Button from '@material-ui/core/Button';
 import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
+import Modal from './Modal'
 
 class MyTrip extends React.Component {
   constructor(props) {
@@ -17,10 +18,27 @@ class MyTrip extends React.Component {
       location: this.props.location,
       author: this.props.author,
       restaurants: this.props.restaurants,
-      activities: this.props.activities
+      activities: this.props.activities,
+      show:false,
+      dataModal:{},
+      modalType:""
     };
   }
 
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
+  }
+ 
   replaceUndefined = (value) => {
     if( typeof(value) === "undefined" ){
       return "";
@@ -97,24 +115,27 @@ class MyTrip extends React.Component {
       return null   // show nothing if we do not have any trip
     }else{
       let rest = this.props.restaurants?this.props.restaurants.map((r) =>
-      <div key={r.location_id}>
-        - {r.name}
-        <button className="element_delete_btn" onClick={() => this.removeRestaurantFromList(r)}>x</button>
+      <div>
+        <div key={r.location_id} className="myTrip_text" onClick={() => this.getModal(r,"o")}>
+        - {r.name}</div>
+        <div className="myTrip_text">
+          <button className="element_delete_btn" onClick={() => this.removeRestaurantFromList(r)}>x</button>
+      </div>
       </div>
       ):null
 
       let act = this.props.activities?this.props.activities.map((a) =>
-      <div key={a.location_id}>
-        - {a.name}
-        <button className="element_delete_btn" onClick={() => this.removeActivityFromList(a)}>x</button>
-      </div>
+      <div><div key={a.location_id} className="myTrip_text" onClick={() => this.getModal(a,"o")}>
+        - {a.name}</div>
+        <div className="myTrip_text"><button className="element_delete_btn" onClick={() => this.removeActivityFromList(a)}>x</button>
+      </div></div>
       ):null
 
       let acc = this.props.accommodations?this.props.accommodations.map((a) =>
-      <div key={a.location_id}>
-        - {a.name}
-        <button className="element_delete_btn" onClick={() => this.removeAccommodationFromList(a)}>x</button>
-      </div>
+      <div><div key={a.location_id} className="myTrip_text" onClick={() => this.getModal(a,"n")}>
+        - {a.name}</div>
+        <div className="myTrip_text"><button className="element_delete_btn" onClick={() => this.removeAccommodationFromList(a)}>x</button>
+      </div></div>
       ):null
 
       return (<div className="myTrip_container"> 
@@ -137,6 +158,8 @@ class MyTrip extends React.Component {
             Discard trip 
           </button>
         </Link>
+
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType}></Modal>
 
         </div>);
   }

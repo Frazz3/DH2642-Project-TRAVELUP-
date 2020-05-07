@@ -6,13 +6,17 @@ import {ENDPOINT, API_KEY} from "../apiConfig.js";
 import { fetchLocation } from "../actions/plannerActions";
 import { resetTrip } from "../actions/tripActions";
 import { resetLocation} from "../actions/plannerActions"
+import Modal from './Modal'
 
 
 class Planner extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      destination: ''
+      destination: '',
+      show:false,
+      dataModal:{},
+      modalType:""
     } 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,27 +30,36 @@ class Planner extends React.Component {
       this.props.signOut();
   }
 
+  hideModal = () => {
+    this.setState({
+      show:false
+    })
+  }
+
+  getModal = (data,type) => {
+    this.setState({
+      show:true,
+      dataModal:data,
+      modalType:type
+    })
+  }
+
+  newLoc = () => {
+    //reset trip and location
+    this.props.resetLocation();
+    this.props.resetTrip();
+    this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
+    this.props.history.push('/select');
+  }
 
   handleSubmit(e) {
     console.log("serach location")
     e.preventDefault(); //prevent submitting the default values
     if(this.props.location.id !== null){
       console.log("IT IS NULL")
-      if(window.confirm("Do you really want to change you location? You current trip will be deleted in that case.")){
-        //reset trip and location
-        this.props.resetLocation();
-        this.props.resetTrip();
-        //fetch new location
-        this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
-        this.props.history.push('/select');
-
-      }else{
-
-      }
+      this.getModal(this.state.destination,"new")
     }else{
-      this.props.resetLocation(); // Reset the location before searching for a new on.
-      this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
-      this.props.history.push('/select');
+      this.newLoc();
     }
     
 }
@@ -69,6 +82,7 @@ class Planner extends React.Component {
         <div className="input-field">
           <button className="small_btn" type="submit" >Search</button>
         </div>
+        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} newLoc={this.newLoc}></Modal>
         <br />
       </form>
     </div>);
