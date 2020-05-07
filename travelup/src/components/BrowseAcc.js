@@ -174,8 +174,9 @@ render() {
   return (
     <div className="container">
     <section className="containerSection">
+    <div class="row">
       
-      <div className="filter_div" >
+      <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12" >
         <div>
         <FormLabel component="legend">Amenities</FormLabel>
                 <div>{amenetiesCheckbox}</div>
@@ -188,7 +189,7 @@ render() {
           
         </div>
       </div>
-      <div className="accommodationDiv" >
+      <div className="accommodationDiv" class="col col-xl-10 col-lg-10">
         <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Accommodations</h1>
         { this.props.accError?(
           <div>
@@ -200,6 +201,7 @@ render() {
         ) : accItems)}
       </div>
       <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addAccommodation(modRest)}}></Modal>
+    </div>
     </section>
     </div>
     

@@ -171,8 +171,9 @@ createRadio = (label, stateName, code) => {
     return (
       <div className="container">
       <section className="containerSection">
+      <div class="row">
 
-        <div className="filter_div" >
+        <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
           <div>
               <FormControl>
               <FormLabel component="legend">Category</FormLabel>
@@ -184,7 +185,7 @@ createRadio = (label, stateName, code) => {
               </FormControl>
         </div>
         </div>
-        <div className="activityDiv" >
+        <div className="activityDiv" class="col col-xl-10 col-lg-10">
           <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Activities</h1>
           { this.props.activityError?(
             <div>
@@ -196,6 +197,7 @@ createRadio = (label, stateName, code) => {
           ) : activityItems)}
         </div>
         <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addActivity(modRest)}}></Modal>
+      </div>
       </section>
       </div>
     );
