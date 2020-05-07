@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom"
 import { connect } from "react-redux";
-import { createTrip, removeRestaurant, removeActivity, removeAccommodation } from "../actions/tripActions";
+import { createTrip, removeRestaurant, removeActivity, removeAccommodation, resetTrip } from "../actions/tripActions";
+import { resetLocation } from "../actions/plannerActions"
 import Button from '@material-ui/core/Button';
 import { small_btn, lnk_style, myTrip_container } from '../assets/style' // lyckas inte style Link med css
 import Modal from './Modal'
@@ -55,6 +56,11 @@ class MyTrip extends React.Component {
 
   removeAccommodationFromList = (accommodation) => {
     this.props.removeAccommodation(accommodation);
+  }
+
+  discardTrip = () => {
+    this.props.resetLocation();
+    this.props.resetTrip();
   }
 
   handleClick = () => {
@@ -133,9 +139,7 @@ class MyTrip extends React.Component {
       ):null
 
       return (<div className="myTrip_container"> 
-        <button className="small_btn" variant="outlined" onClick={this.handleClick}>
-          <Link to="/planner" style={lnk_style} activeStyle={lnk_style} >Add trip</Link>  
-        </button>
+        
         <br/>
         <div><b>My trip to {this.props.location}</b></div>
         <div>Restaurants: </div>
@@ -144,6 +148,17 @@ class MyTrip extends React.Component {
         <div>{act} </div>
         <div>Accommodations: </div>
         <div>{acc} </div>
+        <Link to="/allTrips" style={lnk_style} activeStyle={lnk_style} > 
+          <button className="small_btn" variant="outlined" onClick={this.handleClick}>
+            Add trip
+          </button>
+        </Link>  
+        <Link to="/planner" style={lnk_style}>
+          <button className="small_btn" variant="outlined" onClick={this.discardTrip}>
+            Discard trip 
+          </button>
+        </Link>
+
         <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType}></Modal>
 
         </div>);
@@ -164,7 +179,8 @@ const mapStateToProps = (state) => {
     restaurants: state.trip.restaurants,
     userID: state.firebase.auth.uid,
     activities: state.trip.activities,
-    accommodations: state.trip.accommodations
+    accommodations: state.trip.accommodations,
+    locationError: state.location.locationError
 
   };
 };
@@ -174,7 +190,9 @@ const mapDispatchToProps = dispatch => {
     createTrip: (trip, userID) => dispatch(createTrip(trip, userID)), //createTrip is an action-creator
     removeRestaurant: restaurant => dispatch(removeRestaurant(restaurant)),
     removeActivity: activity => dispatch(removeActivity(activity)),
-    removeAccommodation: accommodation => dispatch(removeAccommodation(accommodation))
+    removeAccommodation: accommodation => dispatch(removeAccommodation(accommodation)),
+    resetTrip: () => dispatch(resetTrip()),
+    resetLocation: () => dispatch(resetLocation())
   };
 };
 

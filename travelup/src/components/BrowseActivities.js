@@ -30,6 +30,9 @@ componentWillMount() {
   this.props.fetchActivities(this.props.location_id);
 }
 
+returnToBrowse = () => {
+  this.props.history.push('/select');
+}
 
 handleChange = event => {
   this.setState({
@@ -129,8 +132,9 @@ createRadio = (label, stateName, code) => {
   }
 
   render() {
-    const {auth} = this.props;
+    const {auth, location_id} = this.props;
     if (!auth.uid) return <Redirect to='/' />
+    if (!location_id) return <Redirect to='/' />
 
     if(typeof this.props.activities === "undefined"){
       // tills vidare, vill kanske returnera mer
@@ -140,6 +144,7 @@ createRadio = (label, stateName, code) => {
         </div>
       )
     }
+
     const activityItems = this.props.activities.map(activity => {
     //const activityItems = activitys_list.map(activity => {
      return ((activity.name && activity.photo )?  // kan behöva fler att filtrera på
@@ -180,10 +185,15 @@ createRadio = (label, stateName, code) => {
         </div>
         </div>
         <div className="activityDiv" >
-          <h1 className="title_text" >Activities</h1>
-          { (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+          <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Activities</h1>
+          { this.props.activityError?(
+            <div>
+              <span className="error_text">Could not find any activities</span>
+            </div>
+            ):(
+              (this.props.activities.length === 0)? (       // vid varje ny fetch så blir activitys reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
             <div>{this.spinner()}</div>
-          ) : activityItems}
+          ) : activityItems)}
         </div>
         <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addActivity(modRest)}}></Modal>
       </section>
@@ -204,7 +214,8 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   activities: state.activities.items, //de som är fetchade
   location_id: state.location.id,
-  tripActivities: state.trip.activities //de vi lagt till i vår trip
+  tripActivities: state.trip.activities, //de vi lagt till i vår trip
+  activityError: state.activities.activityError
 })
 
 

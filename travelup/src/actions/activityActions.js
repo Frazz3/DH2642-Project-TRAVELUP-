@@ -1,4 +1,4 @@
-import { FETCH_ACTIVITIES, RESET_ACTIVITIES } from "./types";
+import { FETCH_ACTIVITIES, RESET_ACTIVITIES, FETCH_ACTIVITIES_ERROR } from "./types";
 import {ENDPOINT, API_KEY} from "../apiConfig";
 
 export const fetchActivities = (location_id, activity_subcategory = "0") => dispatch => {
@@ -13,8 +13,20 @@ export const fetchActivities = (location_id, activity_subcategory = "0") => disp
       }
     })
   .then(response => response.json())
-  .then(data => dispatch({
-    type: FETCH_ACTIVITIES,
-    payload: data.data
-  }));
+  .then(data => {
+    if(!data.data || (data.data.length === 0)){
+      dispatch({
+        type: FETCH_ACTIVITIES_ERROR
+      })
+    }else{
+      dispatch({
+      type: FETCH_ACTIVITIES,
+      payload: data.data
+  })}})
+  .catch(err => {
+    console.log('error in fetching activities ', err)
+    dispatch({
+      type: FETCH_ACTIVITIES_ERROR
+    })
+  });
 }

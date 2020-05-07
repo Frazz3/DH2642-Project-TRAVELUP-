@@ -143,6 +143,7 @@ const BUTTON_FONT_COLOR = "white"
     text-align: center;
     font-family: Arial;
     color: white;
+    margin: 2px;
 }
 
 .delete_btn{
@@ -176,6 +177,12 @@ const BUTTON_FONT_COLOR = "white"
 }
 .element_delete_btn:hover {background-color: #f55656;}
 
+.arrow_btn {
+  color: #207951;
+  font-size: 40px;
+  border: none;
+}
+  
 .modal_btn{
   width: 100px;
     height: 50px;
@@ -228,6 +235,14 @@ const BUTTON_FONT_COLOR = "white"
   font-family: Arial;
   text-align: center;
   font-size: 30px;
+}
+
+.error_text {
+  color: #239160;
+  padding: 10px;
+  font-family: Arial;
+  text-align: center;
+  font-size: 40px;
 }
 
 .modal_title {

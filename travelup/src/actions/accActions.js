@@ -1,4 +1,4 @@
-import { FETCH_ACCOMMODATIONS, RESET_ACCOMMODATIONS } from "./types";
+import { FETCH_ACCOMMODATIONS, RESET_ACCOMMODATIONS, FETCH_ACCOMMODATIONS_ERROR } from "./types";
 import {ENDPOINT, API_KEY} from "../apiConfig";
 
 export const fetchAcc = (location_id, ameneties="all") => dispatch => {
@@ -12,8 +12,21 @@ export const fetchAcc = (location_id, ameneties="all") => dispatch => {
       }
     })
   .then(response => response.json())
-  .then(data => dispatch({
-    type: FETCH_ACCOMMODATIONS,
-    payload: data.data
-  }));
+  .then(data => {
+    if(!data.data || (data.data.length === 0)){ // if there is no data in the fetch
+      dispatch({
+        type: FETCH_ACCOMMODATIONS_ERROR
+      })
+      console.log("no fetch in accommodation, but no error")
+    }else{
+      dispatch({
+      type: FETCH_ACCOMMODATIONS,
+      payload: data.data
+    })}})
+  .catch(err => {
+    console.log('error in fetching accommodation ', err)
+    dispatch({
+      type: FETCH_ACCOMMODATIONS_ERROR
+    })
+  });
 }

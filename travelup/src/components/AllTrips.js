@@ -70,10 +70,11 @@ class AllTrips extends React.Component {
     }else{
         console.log("editing the trip");
         this.props.editTrip(tripID, this.props.userID);
+
         this.setState({
           show:false
         })
-        //this.props.deleteTrip(tripID, this.props.userID);
+        this.props.history.push('/select');
     }
 
   }

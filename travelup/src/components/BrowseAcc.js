@@ -35,6 +35,10 @@ class BrowseAcc extends React.Component {
     //console.log(this.props.location_id)
     this.props.fetchAcc(this.props.location_id);
   }
+
+  returnToBrowse = () => {
+    this.props.history.push('/select');
+  }
   
   handleChange = event => {
     this.setState({
@@ -128,8 +132,10 @@ class BrowseAcc extends React.Component {
   }
 
 render() {
-  const {auth} = this.props;
+  const {auth, location_id} = this.props;
   if (!auth.uid) return <Redirect to='/' />
+  if (!location_id) return <Redirect to='/' />
+
 
   if(typeof this.props.accommodations === "undefined"){
     // tills vidare, vill kanske returnera mer
@@ -139,6 +145,7 @@ render() {
       </div>
     )
   }
+  
   const accItems = this.props.accommodations.map(acc => {
 
    return ((acc.name && acc.photo )?  // kan behöva fler att filtrera på
@@ -182,10 +189,15 @@ render() {
         </div>
       </div>
       <div className="accommodationDiv" >
-        <h1 className="title_text" >Accommodations</h1>
-        { (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+        <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Accommodations</h1>
+        { this.props.accError?(
+          <div>
+            <span className="error_text">Could not find any accommodations</span>
+        </div>
+        ):(
+          (this.props.accommodations.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
           <div>{this.spinner()}</div>
-        ) : accItems}
+        ) : accItems)}
       </div>
       <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addAccommodation(modRest)}}></Modal>
     </section>
@@ -207,7 +219,8 @@ const mapStateToProps = state => (
   auth: state.firebase.auth,
   accommodations: state.accommodations.items,
   location_id: state.location.id,
-  tripAccommodations: state.trip.accommodations
+  tripAccommodations: state.trip.accommodations,
+  accError: state.accommodations.accError
 })
 
 

@@ -59,10 +59,7 @@ class Planner extends React.Component {
       console.log("IT IS NULL")
       this.getModal(this.state.destination,"new")
     }else{
-    
-      this.props.fetchLocation(this.state.destination) // Vill inte pusha innan fetch är färdig...
-      this.props.history.push('/select');
-      //setTimeout(() => {  this.props.history.push('/food'); }, 9000); //fullösning ändra till render promise
+      this.newLoc();
     }
     
 }
@@ -95,7 +92,7 @@ class Planner extends React.Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    location: state.location
+    location: state.location,
   }
 }
 
