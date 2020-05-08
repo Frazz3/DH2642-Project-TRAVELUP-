@@ -75,37 +75,58 @@ A navigation bar at the top of the application. Depending of the state of the ap
 ├─ <b>src</b>
 |  |
 ├──┼─ <b>actions</b> - <i>folder for redux-actions</i>
+├──┼──┼─ accActions.js – <i>action to make a fetch from the API to get accommodations</i>
+├──┼──┼─ activityActions.js – <i>action to make a fetch from the API to get activities</i>
 ├──┼──┼─ allTripsActions.js – <i>actions to get all trips of a user from Cloud Firestore</i>
 ├──┼──┼─ authActions.js – <i>actions to sign up, sign in and sign out for a user</i>
 ├──┼──┼─ foodActions.js – <i>action to make a fetch from the API to get restaurants</i>
-├──┼──┼─ plannerActions.js - <i>action to make a fetch from the API to get location id from the wanted location</i>
-├──┼──┼─ tripActions.js – <i>actions to add restaurants to the trip and action to add the entire trip the database. When the entire trip is added, the current trip is reset</i>
+├──┼──┼─ plannerActions.js - <i>actions to make a fetch from the API to get location id from the wanted location or reset the location</i>
+├──┼──┼─ tripActions.js – <i>actions to add and remove restaurants, activities and accommodations to/from the trip and a action to add the entire trip to the database. There is also an action to reset the trip</i>
 ├──┼──┴─ types.js – <i>declaration of types of actions</i>
 |  |
-├──┼─ <b>components</b> - <i>folder for all the components of the project</i>
-├──┼──┼─ AllTrips.js – <i>show all trips the user has created</i>
-├──┼──┼─ BrowseActivities.js – <i>not implemented yet</i>
-├──┼──┼─ BrowseFood.js – <i>shows all the restaurants from the fetch. Enables filtering of restaurants as well</i>
-├──┼──┼─ LoginForm.js – <i>a form that enables login to the application</i>
-├──┼──┼─ MyTrip.js – <i>displays the current trip. Enables the creation of the trip if a button is clicked</i>
-├──┼──┼─ Navbar.js – <i>navigation bar</i>
-├──┼──┼─ Planner.js – <i>user can choose a location</i>
-├──┼──┼─ SearchSelection.js – <i>enables selection of restaurants, accommodation (not implemented yet) and activities (not implemented yet)</i>
-├──┼──┼─ SignedInLinks.js – <i>links to be displayed when user is sign in</i>
-├──┼──┼─ SignedOutLinks.js – <i>links to be displayed when user is signed out</i>
-├──┼──┼─ SignupForm.js – <i>a form that enables sign up to the application</i>
-├──┼──┴─ Start.js – <i>start page of the application. Enables log in or sign up. Users is redirected immediately if already signed in.</i>
+├──┼─ <b>assets</b>
+├──┼──┴─ style.js - <i>styling for components that cannot be styled in the css</i>
+|  |
+├──┼─ <b>components</b> - <i>folder for all the visual components of the project, views</i>
+├──┼──┼─ AllTrips.js – <i>shows all trips the user has created</i>
+├──┼──┼─ BrowseAcc.js – <i>shows all accomodations from API fetch, together with filter options</i>
+├──┼──┼─ BrowseActivities.js – <i>shows all activities from API fetch, together with filter options</i>
+├──┼──┼─ BrowseFood.js – <i>shows all restaurants from API fetch, together with filter options</i>
+├──┼──┼─ LoginForm.js – <i>shows the log-in form</i>
+├──┼──┼─ Modal.js – <i>several modals that can be used to display information about a restaurant etc. or pop-up messages for the user</i>
+├──┼──┼─ MyTrip.js – <i>displays the current trip. Enables the creation of the trip if the "add trip"-button is clicked and resets the trip is the "discard"-button is clicked</i>
+├──┼──┼─ Navbar.js – <i>shows the navigation bar</i>
+├──┼──┼─ Planner.js – <i>shows the field to search for a new location</i>
+├──┼──┼─ SearchSelection.js – <i>shows the browse possibilities</i>
+├──┼──┼─ SignedInLinks.js – <i>shows the links to be displayed when user is sign in</i>
+├──┼──┼─ SignedOutLinks.js – <i>shows the links to be displayed when user is signed out</i>
+├──┼──┼─ SignupForm.js – <i>shows a form that enables sign up to the application</i>
+├──┼──┴─ Start.js – <i>shows the start page of the application</i>
 |  |
 ├──┼─ <b>config</b> - <i>folder for configuration</i>
 ├──┼──┴─ fbConfig.js – <i>configuration for firebase</i>
 |  |
+├──┼─ <b>containers</b> - <i>folder for all containers</i>
+├──┼──┼─ AllTripsContainer.js - <i>Enables a user to see all its trip. Those are fetched from firebase. The user can also delete a trip or edit it.</i>
+├──┼──┼─ BrowseAccContainer.js - <i>Enables a user to browse accommodations from the API</i>
+├──┼──┼─ BrowseActivitiesContainer.js - <i>Enables a user to browse activities from the API</i>
+├──┼──┼─ BrowseFoodContainer.js - <i>Enables a user to browse restaurants from the API</i>
+├──┼──┼─ LoginFormContainer.js - <i>Enables a user to log in to the application and by that get persionalized information on the site</i>
+├──┼──┼─ MyTripContainer.js - <i>Enables a user to add things to a trip and save it in a database</i>
+├──┼──┼─ PlannerContainer.js - <i>Enables the user to search for locations from the API</i>
+├──┼──┼─ SearchSelectionContainer.js - <i>Enables the user to browse on different thing to add to its trip (restaurants, accommodations and activities)</i>
+├──┼──┼─ SignupFormContainer.js - <i>Enables the user to create an account to the application</i>
+├──┼──┴─ StartContainer.js - <i>The start page of the application where a user can log in or sign up. If user is signed in it redirects to planner.</i>
+|  |
 ├──┼─ <b>reducers</b> - <i>folder for reducers </i>
-├──┼──┼─ allTripsReducer.js – <i>reducer for display of all trips of a user</i>
+├──┼──┼─ accReducer.js – <i>reducer for fetching accommodations</i>
+├──┼──┼─ activityReducer.js – <i>reducer for fetching activities</i>
+├──┼──┼─ allTripsReducer.js – <i>reducer for display of all trips of a user, done by fetching from the database</i>
 ├──┼──┼─ authReducer.js – <i>reducer for log in, log out and sign up</i>
 ├──┼──┼─ foodReducer.js – <i>reducer for fetching restaurants</i>
 ├──┼──┼─ index.js – <i>combine all reducers of the application</i>
 ├──┼──┼─ plannerReducer.js – <i>reducer to fetch and reset a location</i>
-├──┼──┴─ tripReducer.js – <i>reducer to create and reset a trip</i>
+├──┼──┴─ tripReducer.js – <i>reducer to create, edit and reset a trip</i>
 |  |
 ├──┼─App.css – <i>style for the application</i>
 ├──┼─App.js – <i>the main page of the application. Here is where the routing occurs</i>
