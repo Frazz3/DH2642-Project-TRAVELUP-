@@ -16,7 +16,8 @@ const BrowseAcc = ({
   hideModal,
   show,
   dataModal,
-  modalType
+  modalType,
+  amenitiesCheckbox
 }) => (
     <div className="container">
       <section className="containerSection">
@@ -25,7 +26,7 @@ const BrowseAcc = ({
           <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12" >
             <div>
               <FormLabel component="legend">Amenities</FormLabel>
-              <div>{amenitiesCheckbox(amenities, handleChange)}</div>
+              <div>{amenitiesCheckbox}</div>
             </div>
 
             <div>
@@ -59,7 +60,7 @@ const accItems = (accommodations, getModal) => {
     return ((acc.name && acc.photo) ?  // kan behöva fler att filtrera på
       (
         <span key={acc.location_id}>
-          <button className="result_btn" onClick={() => getModal(acc, "b")} >
+          <button className="result_btn" onClick={() => {getModal(acc, "b")}} >
             <h4>{acc.name} </h4>
             <img src={acc.photo.images.small.url} />
             <h5>Price Range: {acc.price} </h5>
@@ -80,24 +81,6 @@ const spinner = () => {
     </div>
   )
 }
-
-const createCheckbox = (label, stateName, handleChange) => {
-  return (
-    <FormControlLabel key={stateName}
-      // control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
-      control={<Checkbox checked={stateName} onChange={handleChange} name={stateName} />}
-
-      label={label} />
-  )
-}
-
-const amenitiesCheckbox = (amenities, handleChange) => {
-  return (
-    <FormGroup row>
-      {amenities.map(obj => { return createCheckbox(obj.label, obj.code, handleChange) })}
-    </FormGroup>
-  )
-};
 
 
 BrowseAcc.propTypes = {

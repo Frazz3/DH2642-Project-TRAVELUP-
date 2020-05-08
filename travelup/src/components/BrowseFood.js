@@ -14,7 +14,9 @@ const BrowseFood = ({
   hideModal,
   show,
   dataModal,
-  modalType
+  modalType,
+  mealTypesCheckbox,
+  priceCheckbox
 }) => (
     <div className="container">
       <section className="containerSection" > {/* behövs detta?  */}
@@ -23,10 +25,10 @@ const BrowseFood = ({
           <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
             <div>
               <FormLabel component="legend">Price</FormLabel>
-              <div>{priceCheckbox(handleChange)}</div>
+              <div>{priceCheckbox}</div>
               <br />
               <FormLabel component="legend">Meal type</FormLabel>
-              <div>{mealTypesCheckbox(handleChange)}</div>
+              <div>{mealTypesCheckbox}</div>
             </div>
 
             <div>
@@ -72,37 +74,6 @@ const restaurantItems = (restaurants, getModal) => {
   });
   return items;
 }
-
-const createCheckbox = (label, stateName, handleChange) => {
-  return (
-    <FormControlLabel key={stateName}
-      control={<Checkbox checked={stateName} onChange={handleChange} name={stateName} />}
-      label={label} />
-  )
-}
-
-const mealTypesCheckbox = (handleChange) => {
-  return (
-    <FormGroup row>
-      {createCheckbox("Breakfast", "breakfast", handleChange)}
-      {createCheckbox("Brunch", "brunch", handleChange)}
-      {createCheckbox("Lunch", "lunch", handleChange)}
-      {createCheckbox("Dinner", "dinner", handleChange)}
-      {createCheckbox("All", "allMealtype", handleChange)}
-    </FormGroup>
-  )
-};
-
-const priceCheckbox = (handleChange) => {
-  return (
-    <FormGroup row>
-      {createCheckbox("$", "cheap", handleChange)}
-      {createCheckbox("$$-$$$", "medium", handleChange)}
-      {createCheckbox("$$$$", "expensive", handleChange)}
-      {createCheckbox("All", "allPrice", handleChange)}
-    </FormGroup>
-  )
-};
 
 const spinner = () => {
   return (

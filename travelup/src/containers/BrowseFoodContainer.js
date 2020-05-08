@@ -99,6 +99,39 @@ class BrowseFoodContainer extends React.Component {
         })
     }
 
+    createCheckbox = (label, stateName, handleChange) => {
+        return (
+          <FormControlLabel key={stateName}
+            control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
+            label={label} />
+        )
+      }
+      
+      mealTypesCheckbox = (handleChange) => {
+        return (
+          <FormGroup row>
+            {this.createCheckbox("Breakfast", "breakfast", handleChange)}
+            {this.createCheckbox("Brunch", "brunch", handleChange)}
+            {this.createCheckbox("Lunch", "lunch", handleChange)}
+            {this.createCheckbox("Dinner", "dinner", handleChange)}
+            {this.createCheckbox("All", "allMealtype", handleChange)}
+          </FormGroup>
+        )
+      };
+      
+      priceCheckbox = (handleChange) => {
+        return (
+          <FormGroup row>
+            {this.createCheckbox("$", "cheap", handleChange)}
+            {this.createCheckbox("$$-$$$", "medium", handleChange)}
+            {this.createCheckbox("$$$$", "expensive", handleChange)}
+            {this.createCheckbox("All", "allPrice", handleChange)}
+          </FormGroup>
+        )
+      };
+
+    
+
     addRestaurantToTrip = (restaurant) => {
         let rest = { id: restaurant.location_id, name: restaurant.name, price: restaurant.price, description: restaurant.description, location_id: restaurant.location_id, cuisine: restaurant.cuisine, website: restaurant.website, photo: restaurant.photo.images.small.url }
 
@@ -161,10 +194,14 @@ class BrowseFoodContainer extends React.Component {
                 show={this.state.show}
                 dataModal={this.state.dataModal}
                 modalType={this.state.modalType}
+                mealTypesCheckbox={this.mealTypesCheckbox(this.handleChange)}
+                priceCheckbox={this.priceCheckbox(this.handleChange)}
             />
         );
     }
 }
+
+
 
 BrowseFood.propTypes = {
     fetchRestaurants: PropTypes.func.isRequired,

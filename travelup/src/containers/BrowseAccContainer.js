@@ -118,6 +118,24 @@ class BrowseAccContainer extends React.Component {
         })
     }
 
+    createCheckbox = (label, stateName, handleChange) => {
+        return (
+          <FormControlLabel key={stateName}
+            // control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
+            control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
+      
+            label={label} />
+        )
+      }
+      
+      amenitiesCheckbox = (amenities, handleChange) => {
+        return (
+          <FormGroup row>
+            {amenities.map(obj => { return this.createCheckbox(obj.label, obj.code, handleChange) })}
+          </FormGroup>
+        )
+      };
+
 
 
     spinner = () => {
@@ -159,6 +177,7 @@ class BrowseAccContainer extends React.Component {
                 show={this.state.show}
                 dataModal={this.state.dataModal}
                 modalType={this.modalType}
+                amenitiesCheckbox={this.amenitiesCheckbox(amenities, this.handleChange)}
             />
         )
     }
