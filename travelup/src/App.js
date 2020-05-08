@@ -31,9 +31,9 @@ class App extends Component {
           <Navbar/>
 
             <div className="App">
-                <div class="container-fluid">
+                <div class="container-fluid bg-light teal lighten-4">
                   <div class="row">
-                    <div className="mainCont" class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                    <div className="mainCont" class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 bg-light teal lighten-4">
                       <Switch>
                       <Route path="/logIn"
                         render={props => <LoginForm {...props} className="auth"/>}
@@ -65,7 +65,7 @@ class App extends Component {
                       />
                       </Switch>
                     </div>
-                    <div className="myTrip" class="col col-xl-3 col-lg-3">
+                    <div className="myTrip" class="col col-xl-3 col-lg-3 bg-light teal lighten-4">
                       <MyTrip/>
                     </div>
                   </div>

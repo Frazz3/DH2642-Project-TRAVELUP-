@@ -10,7 +10,7 @@ const Navbar = (props) => {
   console.log(auth);
   const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
   return (
-    <nav class="navbar navbar-expand-md navbar-dark teal darken-2">
+    <nav class="navbar navbar-expand-md navbar-dark teal darken-1">
       <a class="navbar-brand" href="/">TravelUp</a>
         {links}
     </nav>
