@@ -14,93 +14,102 @@
 // Kom ihåg att varje action har en .type och en .payload. Vad payloaden/datat är beror på typen. I fallet SET_LOCATION är vår payload en plats,
 // därför kallar vi den payloaden för location. I fallet ADD_ACTIVITY är payloaden ett activity-objekt, varför vi kallar payloaden för activity.
 
-
-import { CREATE_TRIP, CREATE_TRIP_ERROR, ADD_RESTAURANT, RESET_TRIP, ADD_ACTIVITY, ADD_ACCOMMODATION, ADD_RESTAURANTS, ADD_ACTIVITIES, REMOVE_RESTAURANT, REMOVE_ACTIVITY, REMOVE_ACCOMMODATION, ADD_ACCOMMODATIONS } from "../actions/types";
-
+import {
+  CREATE_TRIP,
+  CREATE_TRIP_ERROR,
+  ADD_RESTAURANT,
+  RESET_TRIP,
+  ADD_ACTIVITY,
+  ADD_ACCOMMODATION,
+  ADD_RESTAURANTS,
+  ADD_ACTIVITIES,
+  REMOVE_RESTAURANT,
+  REMOVE_ACTIVITY,
+  REMOVE_ACCOMMODATION,
+  ADD_ACCOMMODATIONS
+} from "../actions/types";
 
 const initState = {
-  country:"",   // måste ha pga databasen, kanske ändra sen
-  city:"",      // måste ha pga databasen, kanske ändra sen
+  country: "", // måste ha pga databasen, kanske ändra sen
+  city: "", // måste ha pga databasen, kanske ändra sen
   location: "",
   author: "",
   restaurants: [],
   activities: [],
   accommodations: []
-}
-
-
+};
 
 const tripReducer = (state = initState, action) => {
   switch (action.type) {
     case CREATE_TRIP:
       // Här ska vi göra en entry i databasen.
-      console.log("created trip", action.trip);
       return state;
     case CREATE_TRIP_ERROR:
-      console.log("create trip error", action.err);
       return state;
     case ADD_RESTAURANT:
-      console.log('added restaurant')
       return {
-          ...state,
-          restaurants: [...state.restaurants, action.restaurant]
-        }
+        ...state,
+        restaurants: [...state.restaurants, action.restaurant]
+      };
     case REMOVE_RESTAURANT:
-      console.log('restaurant removed')
-      let restList = state.restaurants.filter(r => r.id !== action.restaurant.id)
+      console.log("restaurant removed");
+      let restList = state.restaurants.filter(
+        r => r.id !== action.restaurant.id
+      );
       return {
         ...state,
         restaurants: restList
-      }
+      };
     case ADD_ACTIVITY:
-      console.log('added activity')
       return {
-          ...state,
-          activities: [...state.activities, action.activity]
-      }
+        ...state,
+        activities: [...state.activities, action.activity]
+      };
     case REMOVE_ACTIVITY:
-      console.log('activity removed');
-      let actList = state.activities.filter(a => a.id !== action.activity.id)
+      console.log("activity removed");
+      let actList = state.activities.filter(a => a.id !== action.activity.id);
       return {
         ...state,
         activities: actList
-      }
+      };
     case ADD_ACCOMMODATION:
-      console.log('added accommodation')
+      console.log("added accommodation");
       return {
-          ...state,
-          accommodations: [...state.accommodations, action.accommodation]
-      }
+        ...state,
+        accommodations: [...state.accommodations, action.accommodation]
+      };
     case REMOVE_ACCOMMODATION:
-      console.log('accommodation removed')
-      let accList = state.accommodations.filter(a => a.id !== action.accommodation.id)
+      console.log("accommodation removed");
+      let accList = state.accommodations.filter(
+        a => a.id !== action.accommodation.id
+      );
       return {
         ...state,
         accommodations: accList
-      }
-    case RESET_TRIP:  // reset the trip
+      };
+    case RESET_TRIP: // reset the trip
       console.log("reset trip");
-      return initState
-    
+      return initState;
+
     case ADD_RESTAURANTS:
-      console.log('restaurants added');
+      console.log("restaurants added");
       return {
         ...state,
         restaurants: action.payload
-      }
+      };
 
     case ADD_ACTIVITIES:
-      console.log('activities added');
+      console.log("activities added");
       return {
         ...state,
         activities: action.payload
-      }
+      };
     case ADD_ACCOMMODATIONS:
-      console.log('accommodations added');
+      console.log("accommodations added");
       return {
         ...state,
         accommodations: action.payload
-      }
+      };
 
     default:
       return state;

@@ -1,8 +1,6 @@
-//import SidebarPresentation from "./presentations/sidebarPresentation";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/index";
-import { Provider } from "react-redux";
 
 import {
   reduxFirestore,
@@ -21,7 +19,8 @@ const store = createStore(
     applyMiddleware(
       thunk.withExtraArgument({ getFirebase, getFirestore }) // för att koppla till firebase och firestore
     ),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+      window.__REDUX_DEVTOOLS_EXTENSION__(),
     reduxFirestore(firebase, fbConfig)
   )
 );

@@ -1,269 +1,91 @@
 import React from "react";
 import { Checkbox, FormGroup, FormControlLabel, FormLabel, } from '@material-ui/core';
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { fetchRestaurants } from "../actions/foodActions"
-import { addRestaurant } from "../actions/tripActions"
 import Modal from './Modal'
 
-// om man vill göra snyggare lösning kan dessa användas. Görs ej i nuläget eftersom jag ej fick det att funka /Stina
-const prices_restaurants = [{"$": "10953"},{"$$-$$$": "10955"},{"$$$$": "10954"},{"all": "all"}]
-const restaurant_mealtype = [{"Breakfast": "10597"},{"Lunch": "10598"},{"Dinner": "10599"},{"Brunch": "10606"},{"all": "all"}]
+const BrowseFood = ({
+  restaurants,
+  addRestaurant,
+  handleClick,
+  handleChange,
+  returnToBrowse,
+  foodError,
+  getModal,
+  hideModal,
+  show,
+  dataModal,
+  modalType,
+  mealTypesCheckbox,
+  priceCheckbox
+}) => (
+    <div className="container">
+      <section className="containerSection" > {/* behövs detta?  */}
+        <div class="row">
 
-const restaurants_list = [{location_id: "1381784", name: "Don Camilo", description: "a restaurant", price: "free", address: "some street", photo: {images: {small: {url: "https://media-cdn.tripadvisor.com/media/photo-l/05/ea/91/ff/don-camilo.jpg"}}}}];
+          <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+            <div>
+              <FormLabel component="legend">Price</FormLabel>
+              <div>{priceCheckbox}</div>
+              <br />
+              <FormLabel component="legend">Meal type</FormLabel>
+              <div>{mealTypesCheckbox}</div>
+            </div>
 
+            <div>
+              <button className="small_btn" variant="outlined" onClick={handleClick}>
+                Filter
+              </button>
+            </div>
+          </div>
 
-class BrowseFood extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      /*
-      priceFilter: "all",
-      mealtypeFilter: "all"
-      */
+          <div className="restaurantDiv" class="col col-xl-10 col-lg-10">
 
-      cheap:false,
-      medium:false,
-      expensive:false,
-      allPrice:false,
+            <h1 className="title_text" > <button className="arrow_btn" onClick={() => returnToBrowse()} >&#8592;</button> Restaurants</h1>
 
-      breakfast:false,
-      brunch:false,
-      lunch:false,
-      dinner:false,
-      allMealtype:false,
-      show:false,
-      dataModal:{},
-      modalType:""
-    }
-  }
-  componentWillMount() {
-    // fetches restaurants from the location. No filtering.
-    //console.log(this.props.location_id)
-    this.props.fetchRestaurants(this.props.location_id);
-  }
-
-  returnToBrowse = () => {
-    this.props.history.push('/select');
-  }
-
-  handleChange = event => {
-    this.setState({ 
-      [event.target.name]: event.target.checked });
-  };
-
-  handleClick = () => {
-    this.setState({
-      loading:true
-    })
-
-    let restaurant_mealtype = "";
-    if (this.state.allMealtype === true){
-      restaurant_mealtype = "all";
-    }else{
-      if(this.state.breakfast === true){
-        restaurant_mealtype += "10597,"
-      }if(this.state.brunch === true){
-        restaurant_mealtype += "10606,"
-      }if(this.state.lunch === true){
-        restaurant_mealtype += "10598,"
-      }if(this.state.dinner === true){
-        restaurant_mealtype += "10599,"
-      }
-    }
-
-    let prices_restaurants = "";
-    if (this.state.allPrice === true){
-      prices_restaurants = "all";
-    }else{
-      if(this.state.cheap === true){
-        prices_restaurants += "10953,"
-      }if(this.state.medium === true){
-        prices_restaurants += "10955,"
-      }if(this.state.expensive === true){
-        prices_restaurants += "10954,"
-      }
-    }
-
-
-
-    // fetches restaurants with new filters
-    this.props.fetchRestaurants(this.props.location_id, restaurant_mealtype, prices_restaurants);
-  }
-
-  hideModal = () => {
-    this.setState({
-      show:false
-    })
-  }
-
-  getModal = (data,type) => {
-    this.setState({
-      show:true,
-      dataModal:data,
-      modalType:type
-    })
-  }
-
- 
-  
-  createCheckbox = (label, stateName) => {
-    return(
-      <FormControlLabel key={stateName}
-          control={<Checkbox checked={this.state.stateName} onChange={this.handleChange} name={stateName}/>} 
-          label={label}/>
-    )
-  }
-
-  addRestaurant = (restaurant) => {
-      let rest = {id:restaurant.location_id, name:restaurant.name, price:restaurant.price, description:restaurant.description, location_id:restaurant.location_id, cuisine:restaurant.cuisine, website:restaurant.website, photo:restaurant.photo.images.small.url}
-
-      // don't want to add duplicates (not sure where to put this, here or in the reducer?)
-      let duplicate = false;
-      let x;
-      for( x of this.props.tripRestaurants){
-        // we have already added that restaurant
-        if(x.id === restaurant.location_id){
-          console.log("ALREADY ADDED")
-          duplicate = true;
-          this.getModal(restaurant,"c")
-        }
-      }
-      //only add if it's not already added
-      if(!duplicate){
-        this.props.addRestaurant(rest);
-        this.setState({
-          show:false
-        })
-      }
-      
-    else{
-      console.log('do not add');
-    }
-  }
-
-  spinner = () => {
-    return (
-      <div className="spinner" key="spinner">
-        <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-      </div>
-    )
-  }
-  
-  render() {
-    const {auth, location_id} = this.props;
-    if (!auth.uid) return <Redirect to='/' />
-    if (!location_id) return <Redirect to='/' />  
-
-    if(typeof this.props.restaurants === "undefined"){
-      // tills vidare, vill kanske returnera mer
-      return(
-        <div>
-          {this.spinner()}
+            {foodError ? (
+              <div>
+                <span className="error_text">Could not find any restaurants</span>
+              </div>
+            ) : ((restaurants.length === 0) ? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
+              <div>{spinner()}</div>
+            ) : restaurantItems(restaurants, getModal))}
+          </div>
+          <Modal show={show} onClose={hideModal} data={dataModal} case={modalType} onAdd={() => { let modRest = dataModal; addRestaurant(modRest) }}></Modal>
         </div>
-      )
-    }
-    const restaurantItems = this.props.restaurants.map(restaurant => {
+      </section>
+    </div>
+  )
+
+const restaurantItems = (restaurants, getModal) => {
+  let items = restaurants.map(restaurant => {
     //const restaurantItems = restaurants_list.map(restaurant => {
-     return ((restaurant.name && restaurant.photo )?  // kan behöva fler att filtrera på
+    return ((restaurant.name && restaurant.photo) ?  // kan behöva fler att filtrera på
       (
         <span key={restaurant.location_id}>
-          <button className= "result_btn" onClick={()=> {this.getModal(restaurant,"b")}}>
+          <button className="result_btn" onClick={() => { getModal(restaurant, "b") }}>
             <h4>{restaurant.name} </h4>
-            <img src={restaurant.photo.images.small.url}/>
+            <img src={restaurant.photo.images.small.url} />
             <h5>Price Range: {restaurant.price} </h5>
             <p>Address: {restaurant.address} </p>
           </button>
         </span>
-      
-    ):null)});
 
-
-    const priceCheckbox = (
-      <FormGroup row>
-        {this.createCheckbox("$", "cheap")}
-        {this.createCheckbox("$$-$$$", "medium")}
-        {this.createCheckbox("$$$$", "expensive")}
-        {this.createCheckbox("All", "allPrice")}
-      </FormGroup>
-    );
-
-    const mealTypesCheckbox = (
-      <FormGroup row>
-        {this.createCheckbox("Breakfast", "breakfast")}
-        {this.createCheckbox("Brunch", "brunch")}
-        {this.createCheckbox("Lunch", "lunch")}
-        {this.createCheckbox("Dinner", "dinner")}
-        {this.createCheckbox("All", "allMealtype")}
-      </FormGroup>
-    );
-    console.log('items', restaurantItems)
-    
-
-    return (
-      <div className="container">
-      <section className="containerSection" > {/* behövs detta?  */}
-      <div class="row">
-        
-        <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
-          <div>
-              <FormLabel component="legend">Price</FormLabel>
-                <div>{priceCheckbox}</div>
-              <br/>
-              <FormLabel component="legend">Meal type</FormLabel>
-                <div>{mealTypesCheckbox}</div>
-          </div>
-          
-          <div>
-            <button className="small_btn" variant="outlined"  onClick={this.handleClick}>
-              Filter
-            </button> 
-          </div>
-        </div>
-        
-        <div className="restaurantDiv" class="col col-xl-10 col-lg-10">
-        
-          <h1 className="title_text" > <button className="arrow_btn" onClick={() => this.returnToBrowse()} >&#8592;</button> Restaurants</h1>
-
-          { this.props.foodError?(
-            <div>
-            <span className="error_text">Could not find any restaurants</span>
-          </div>
-          ):((this.props.restaurants.length === 0)? (       // vid varje ny fetch så blir restaurants reset till [], och då kör spinner (borde gå att lösa snyggare dock...)
-            <div>{this.spinner()}</div>
-          ) : restaurantItems)}
-        </div>
-        <Modal show={this.state.show} onClose={this.hideModal} data={this.state.dataModal} case={this.state.modalType} onAdd={()=> {let modRest = this.state.dataModal; this.addRestaurant(modRest)}}></Modal>
-      </div>
-      </section>
-      </div>
-      
-    );
-  }
+      ) : null)
+  });
+  return items;
 }
 
+const spinner = () => {
+  return (
+    <div className="spinner" key="spinner">
+      <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
+    </div>
+  )
+}
 
 BrowseFood.propTypes = {
-  fetchRestaurants: PropTypes.func.isRequired,
   restaurants: PropTypes.array.isRequired,
-  addRestaurant: PropTypes.func.isRequired
+  addRestauranti: PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => (
-  {
-  auth: state.firebase.auth,
-  restaurants: state.restaurants.items,
-  location_id: state.location.id,
-  tripRestaurants: state.trip.restaurants,
-  foodError: state.restaurants.foodError
-})
-
-
-const mapDispatchToProps = (dispatch) => {
-  return{
-    //createTrip: (trip, userID) => dispatch(createTrip(trip, userID))  //createTrip is an action-creator
-  }
-}
-
-export default connect(mapStateToProps, {fetchRestaurants, addRestaurant})(BrowseFood);
+export default BrowseFood;

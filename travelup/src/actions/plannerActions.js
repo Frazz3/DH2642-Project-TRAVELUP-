@@ -11,11 +11,11 @@ export const fetchLocation = (destination) => dispatch => {
   })
 .then(response => response.json())
 .then(data => {
-  console.log(data)
+  console.log("data from fetach ", data)
   dispatch({ 
   type: FETCH_LOCATION,
   payload: data.data[0].result_object.location_id,
-  locationName: destination,
+  locationName: data.data[0].result_object.name,
   locationPhoto: data.data[0].result_object.photo.images.original.url
 })})
 .catch(err=> {
