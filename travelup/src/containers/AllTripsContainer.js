@@ -50,24 +50,26 @@ class AllTripsContainer extends React.Component {
   };
 
   deleteTheTrip = tripID => {
-    if (window.confirm("Do you want to delete this trip?")) {
-      this.props.deleteTrip(tripID, this.props.userID);
-
+    this.props.deleteTrip(tripID, this.props.userID);
+      this.setState({
+        show:false
+      })
+      
       console.log("the trip is deleted, id: ", tripID);
-    }
-  };
+  }
 
   editTheTrip = tripID => {
     if (this.props.locationID !== null) {
-      alert(
-        "You have already started on a trip, you need to finish that one before you can edit this."
-      );
+      this.getModal(tripID,"finnish")
     } else {
-      if (window.confirm("Do you really want to edit this trip?")) {
-        console.log("editing the trip");
-        this.props.editTrip(tripID, this.props.userID);
-        //this.props.deleteTrip(tripID, this.props.userID);
-      }
+      console.log("editing the trip");
+      this.props.editTrip(tripID, this.props.userID);
+      this.setState({
+        show:false
+      })
+      this.props.history.push('/select');
+      //this.props.deleteTrip(tripID, this.props.userID);
+    
     }
   };
 

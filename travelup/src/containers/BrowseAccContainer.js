@@ -158,7 +158,7 @@ class BrowseAccContainer extends React.Component {
                 hideModal={this.hideModal}
                 show={this.state.show}
                 dataModal={this.state.dataModal}
-                modalType={this.modalType}
+                modalType={this.state.modalType}
             />
         )
     }
