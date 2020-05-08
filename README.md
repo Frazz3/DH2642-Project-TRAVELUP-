@@ -10,6 +10,8 @@
 * Stina Långström (stinalan@kth.se)
 
 ### Deployed app
+(You need to have **Redux DevTools** installed in your browser in order to run this)
+
 [TravelUp](https://travelup-2fcd0.web.app/)
 
 ## Description of the project
@@ -53,10 +55,11 @@ A navigation bar at the top of the application. Depending of the state of the ap
 
 ## How to set up
 1. Clone this repository
-2. Make sure you have npm (Node Package Manager) installed on your computer
-3. Navigate to the travelup-folder
-3. Run ```npm i``` from the terminal to install all neccessary packages
-4. Run ```npm start``` from the terminal to start the application
+2. Make sure you have Redux DevTools installed in your browser
+3. Make sure you have npm (Node Package Manager) installed on your computer
+4. Navigate to the travelup-folder
+5. Run ```npm i``` from the terminal to install all neccessary packages
+6. Run ```npm start``` from the terminal to start the application
 
 ## Project file structure
 <pre>
