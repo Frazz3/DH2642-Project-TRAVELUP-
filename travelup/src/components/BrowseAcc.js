@@ -60,7 +60,7 @@ const accItems = (accommodations, getModal) => {
     return ((acc.name && acc.photo) ?  // kan behöva fler att filtrera på
       (
         <span key={acc.location_id}>
-          <button className="result_btn" onClick={() => {getModal(acc, "b")}} >
+          <button className="result_btn" onClick={() => { getModal(acc, "b") }} >
             <h4>{acc.name} </h4>
             <img src={acc.photo.images.small.url} />
             <h5>Price Range: {acc.price} </h5>
