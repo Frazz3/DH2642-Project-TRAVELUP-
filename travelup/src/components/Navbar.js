@@ -7,7 +7,6 @@ import { lnk_style } from '../assets/style'
 
 const Navbar = (props) => {
   const {auth} = props;
-  console.log(auth);
   const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
   return (
     <nav class="navbar navbar-expand-md navbar-dark teal darken-2">
@@ -20,7 +19,6 @@ const Navbar = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
   }

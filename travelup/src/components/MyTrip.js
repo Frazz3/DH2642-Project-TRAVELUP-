@@ -59,7 +59,7 @@ const MyTrip = ({
             {
               accommodations ? accommodations.map((acc) => {
                 return (
-                  <div><div key={acc.location_id} className="myTrip_text" onClick={() => getModal(acc, "n")}>
+                  <div><div key={acc.location_id} className="myTrip_text" onClick={() => getModal(acc, "o")}>
                     - {acc.name}</div>
                     <div className="myTrip_text"><button className="element_delete_btn" onClick={() => removeAccommodationFromList(acc)}>x</button>
                     </div></div>
