@@ -1,7 +1,6 @@
 import React from "react";
-import { Checkbox, FormGroup, FormControl, FormControlLabel, InputLabel, FormLabel, Button, Select, MenuItem } from '@material-ui/core';
+import { FormLabel } from '@material-ui/core';
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
 import spinner from "../util";
 import Modal from './Modal';
 
@@ -61,7 +60,7 @@ const accItems = (accommodations, getModal) => {
         <span key={acc.location_id}>
           <button className="result_btn" onClick={() => { getModal(acc, "b") }} >
             <h4>{acc.name} </h4>
-            <img src={acc.photo.images.small.url} />
+            <img src={acc.photo.images.small.url} alt=""/>
             <h5>Price Range: {acc.price} </h5>
             {/* <p>Neighborhood: {acc.neighborhood_info.name} </p> */}
             <p>Type: {acc.subcategory_type_label}</p>

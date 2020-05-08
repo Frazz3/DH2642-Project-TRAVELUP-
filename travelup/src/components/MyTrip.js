@@ -29,8 +29,8 @@ const MyTrip = ({
             {
               restaurants ? restaurants.map(rest => {
                 return (
-                  <div>
-                    <div key={rest.location_id} className="myTrip_text" onClick={() => getModal(rest, "o")}>
+                  <div key={rest.location_id}>
+                    <div  className="myTrip_text" onClick={() => getModal(rest, "o")}>
                       - {rest.name}</div>
                     <div className="myTrip_text">
                       <button className="element_delete_btn" onClick={() => removeRestaurantFromList(rest)}>-</button>
@@ -45,10 +45,12 @@ const MyTrip = ({
             {
               activities ? activities.map((act) => {
                 return (
-                  <div><div key={act.location_id} className="myTrip_text" onClick={() => getModal(act, "o")}>
+                  <div key={act.location_id}>
+                    <div className="myTrip_text" onClick={() => getModal(act, "o")}>
                     - {act.name}</div>
                     <div className="myTrip_text"><button className="element_delete_btn" onClick={() => removeActivityFromList(act)}>-</button>
-                    </div></div>
+                    </div>
+                  </div>
                 )
               }) : null
             }
@@ -58,10 +60,12 @@ const MyTrip = ({
             {
               accommodations ? accommodations.map((acc) => {
                 return (
-                  <div><div key={acc.location_id} className="myTrip_text" onClick={() => getModal(acc, "o")}>
+                  <div key={acc.location_id}>
+                    <div className="myTrip_text" onClick={() => getModal(acc, "o")}>
                     - {acc.name}</div>
                     <div className="myTrip_text"><button className="element_delete_btn" onClick={() => removeAccommodationFromList(acc)}>-</button>
-                    </div></div>
+                    </div>
+                  </div>
                 )
               }) : null
             }

@@ -38,7 +38,7 @@ const AllTrips = ({
             <h2 className="large_text">
               {trip.location}
             </h2>
-            <img className="all_trips_img" src={trip.locationPhoto} />
+            <img className="all_trips_img" src={trip.locationPhoto} alt="" />
             <h5 className="medium_text">Restaurants</h5>
             {trip.restaurants
               ? trip.restaurants.map(rest => (
@@ -71,7 +71,7 @@ const AllTrips = ({
                 <h6
                   key={acc.id}
                   className="small_text"
-                  onClick={() => getModal(acc, "n")}
+                  onClick={() => getModal(acc, "o")}
                 >
                   {" "}
                   {acc.name}{" "}

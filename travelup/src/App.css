@@ -197,6 +197,15 @@ const BUTTON_FONT_COLOR = "white"
     margin: 5px;
 }
 
+.logo{
+  color:white;
+  font-weight: bold;
+  font-size: 20px;
+}
+.logo:hover{
+  color:white
+}
+
 /* Texts */
 .title_text {
     color: #00897b;

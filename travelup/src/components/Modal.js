@@ -14,10 +14,12 @@ export default class Modal extends React.Component {
     let buttons;
     let website = "";
     let onClickFunc;
+    let price="";
 
     if (this.props.case === "o" || this.props.case === "b") {
       message = this.props.data.description;
       title = this.props.data.name;
+      price = this.props.data.price;
       if (this.props.data.website) {
         website = "Click here to find out more"
       }
@@ -65,9 +67,9 @@ export default class Modal extends React.Component {
     modalDiv = (
       <div>
         <div className="modal_title">{title}</div>
-        <img src={photo} />
+        <img src={photo} alt=""/>
         <div className="modal_text">{message}</div>
-        <div className="price_text">{this.props.data.price}</div>
+        <div className="price_text">{price}</div>
         <p><a href={this.props.data.website}>{website}</a></p>
         {buttons}
       </div>

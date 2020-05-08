@@ -10,7 +10,7 @@ const allTripsReducer = (state = [], action) => {
       let tripList = state.filter(trip => trip.id !== action.payload)
       return tripList;
     case ADD_TRIP:
-      return [state, action.payload];
+      return [...state, action.payload];
     case REMOVE_TRIP_ERROR:
       return state;
     default:

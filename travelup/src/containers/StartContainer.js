@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import Start from "../components/Start";
 
 class StartContainer extends React.Component {

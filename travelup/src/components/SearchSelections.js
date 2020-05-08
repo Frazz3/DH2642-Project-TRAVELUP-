@@ -10,7 +10,7 @@ const SearchSelections = ({
             {
                 (!location && !locationError) ?
                     (<div className="container">
-                        <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
+                        <img src="http://www.csc.kth.se/~cristi/loading.gif" alt=""></img>
                     </div>)
                     :
                     ((locationError) ?
@@ -41,7 +41,7 @@ const createButton = (image, link, goToLink) => {
         <button className="select_btn" disabled={image.disable} onClick={() => goToLink(link)}>
             {image.title}
             <br />
-            <img className="select_img" src={image.url} />
+            <img className="select_img" src={image.url} alt=""/>
         </button>
     )
 }

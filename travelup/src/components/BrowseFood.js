@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, FormGroup, FormControlLabel, FormLabel, } from '@material-ui/core';
+import { FormLabel, } from '@material-ui/core';
 import PropTypes from "prop-types";
 import spinner from "../util";
 import Modal from './Modal'
@@ -63,7 +63,7 @@ const restaurantItems = (restaurants, getModal) => {
         <span key={restaurant.location_id}>
           <button className="result_btn" onClick={() => { getModal(restaurant, "b") }}>
             <h4>{restaurant.name} </h4>
-            <img src={restaurant.photo.images.small.url} />
+            <img src={restaurant.photo.images.small.url} alt=""/>
             <h5>Price Range: {restaurant.price} </h5>
             <p>Address: {restaurant.address} </p>
           </button>
@@ -76,7 +76,7 @@ const restaurantItems = (restaurants, getModal) => {
 
 BrowseFood.propTypes = {
   restaurants: PropTypes.array.isRequired,
-  addRestauranti: PropTypes.func.isRequired
+  addRestaurant: PropTypes.func.isRequired
 }
 
 export default BrowseFood;

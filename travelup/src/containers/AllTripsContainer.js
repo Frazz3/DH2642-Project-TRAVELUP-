@@ -72,9 +72,10 @@ class AllTripsContainer extends React.Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/" />;
+    //let allTripsReverse = this.props.allTrips.reverse();
     return (
       <AllTrips
-        trips={this.props.allTrips.reverse()}
+        trips={this.props.allTrips}
         deleteTrip={this.deleteTheTrip}
         editTrip={this.editTheTrip}
         getModal={this.getModal}

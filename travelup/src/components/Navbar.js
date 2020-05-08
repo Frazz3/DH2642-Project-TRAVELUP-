@@ -1,6 +1,7 @@
 import React from "react"
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
+import { Link } from "react-router-dom"
 import 'typeface-roboto';
 import { connect } from "react-redux";
 
@@ -9,7 +10,7 @@ const Navbar = (props) => {
   const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
   return (
     <nav class="navbar navbar-expand-md navbar-dark teal darken-1">
-      <a class="navbar-brand" href="/">TravelUp</a>
+      <Link className="logo" to="/">TravelUp</Link>
       {links}
     </nav>
   )

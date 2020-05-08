@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, FormGroup, FormControl, FormControlLabel, FormLabel, Button, Radio, RadioGroup } from '@material-ui/core';
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@material-ui/core';
 import PropTypes from "prop-types";
 import spinner from "../util";
 import Modal from './Modal';
@@ -59,8 +59,8 @@ const activityItems = (activities, getModal) => {
       <span key={activity.location_id}>
         <button className="result_btn" onClick={()=> {getModal(activity,"b")}}>
           <h4>{activity.name} </h4>
-          <img src={activity.photo.images.small.url}/>
-          //<h5>Price Range: {activity.price} </h5>
+          <img src={activity.photo.images.small.url} alt=""/>
+          <h5>Price Range: {activity.price} </h5>
           <p>Address: {activity.address} </p>
         </button>
       </span>
@@ -71,7 +71,7 @@ const activityItems = (activities, getModal) => {
 
 const createRadio = (label, stateName, code, category) => {
     return(
-      <FormControlLabel value={code} control={<Radio checked={category === code}/>} label={label} />
+      <FormControlLabel key={label} value={code} control={<Radio checked={category === code}/>} label={label} />
     )
   }
 

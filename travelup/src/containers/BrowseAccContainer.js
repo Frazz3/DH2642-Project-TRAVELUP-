@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, FormGroup, FormControl, FormControlLabel, InputLabel, FormLabel, Button, Select, MenuItem } from '@material-ui/core';
+import { Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -158,10 +158,12 @@ class BrowseAccContainer extends React.Component {
     }
 }
 
+
 BrowseAccContainer.propTypes = {
     fetchAcc: PropTypes.func.isRequired,
     addAccommodationToTrip: PropTypes.func.isRequired
 }
+
 
 const mapStateToProps = state => (
     {

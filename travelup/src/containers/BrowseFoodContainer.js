@@ -1,5 +1,5 @@
 import React from "react";
-import { Checkbox, FormGroup, FormControlLabel, FormLabel, } from '@material-ui/core';
+import { Checkbox, FormGroup, FormControlLabel } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
