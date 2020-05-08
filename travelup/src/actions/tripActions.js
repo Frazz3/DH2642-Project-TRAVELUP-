@@ -6,6 +6,7 @@
 import {
   CREATE_TRIP,
   CREATE_TRIP_ERROR,
+  ADD_TRIP,
   RESET_LOCATION,
   RESET_RESTAURANTS,
   RESET_TRIP,
@@ -18,8 +19,6 @@ import {
 } from "../actions/types";
 
 export const createTrip = (trip, userID) => {
-  console.log("Created trip: ", trip);
-  console.log("User: ", userID);
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
@@ -31,7 +30,7 @@ export const createTrip = (trip, userID) => {
         createdAt: new Date() //ifall vi vill ha när trip:en skapades
       })
       .then(response => {
-        //lägg in trip i användaren som skapat den
+        //lägg in trip under användaren som skapat den
 
         return firestore
           .collection("users")
@@ -42,6 +41,7 @@ export const createTrip = (trip, userID) => {
       })
       .then(() => {
         dispatch({ type: CREATE_TRIP, trip: trip });
+        dispatch({ type: ADD_TRIP, payload: trip })
 
         // reset after the trip is created
         dispatch({ type: RESET_LOCATION });
@@ -71,7 +71,6 @@ export const removeRestaurant = restaurant => {
   };
 };
 
-//Vet inte hur denna ska se ut?
 export const addActivity = activity => {
   return dispatch => {
     dispatch({ type: ADD_ACTIVITY, activity: activity });

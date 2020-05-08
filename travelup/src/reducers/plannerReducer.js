@@ -1,9 +1,9 @@
 import { FETCH_LOCATION, RESET_LOCATION, EDIT_LOCATION, LOCATION_ERROR } from "../actions/types";
 
-const intitialState = { 
-  id: null, // Inte hundra på detta, vi ska endast hämta en sträng med siffror
+const intitialState = {
+  id: null,
   name: null,
-  
+
 }
 
 export default function plannerReducer(state = intitialState, action) {
@@ -16,9 +16,8 @@ export default function plannerReducer(state = intitialState, action) {
         locationPhoto: action.locationPhoto,
         locationError: false
       };
-    
-    case RESET_LOCATION:  // reset the location
-      console.log("reset the location");
+
+    case RESET_LOCATION:
       return {
         id: null,
         name: null,
@@ -27,7 +26,6 @@ export default function plannerReducer(state = intitialState, action) {
       }
 
     case EDIT_LOCATION:
-      console.log("edit location")
       return {
         id: action.id,
         name: action.name,
@@ -35,7 +33,7 @@ export default function plannerReducer(state = intitialState, action) {
         locationError: false
       }
     case LOCATION_ERROR:
-      return{
+      return {
         ...state,
         locationError: true,
         errorMessage: action.name,

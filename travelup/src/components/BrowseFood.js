@@ -1,13 +1,13 @@
 import React from "react";
 import { Checkbox, FormGroup, FormControlLabel, FormLabel, } from '@material-ui/core';
 import PropTypes from "prop-types";
+import spinner from "../util";
 import Modal from './Modal'
 
 const BrowseFood = ({
   restaurants,
   addRestaurant,
   handleClick,
-  handleChange,
   returnToBrowse,
   foodError,
   getModal,
@@ -19,7 +19,7 @@ const BrowseFood = ({
   priceCheckbox
 }) => (
     <div className="container">
-      <section className="containerSection" > {/* behövs detta?  */}
+      <section className="containerSection" >
         <div class="row">
 
           <div className="filter_div" class="col col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
@@ -58,7 +58,6 @@ const BrowseFood = ({
 
 const restaurantItems = (restaurants, getModal) => {
   let items = restaurants.map(restaurant => {
-    //const restaurantItems = restaurants_list.map(restaurant => {
     return ((restaurant.name && restaurant.photo) ?  // kan behöva fler att filtrera på
       (
         <span key={restaurant.location_id}>
@@ -73,14 +72,6 @@ const restaurantItems = (restaurants, getModal) => {
       ) : null)
   });
   return items;
-}
-
-const spinner = () => {
-  return (
-    <div className="spinner" key="spinner">
-      <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-    </div>
-  )
 }
 
 BrowseFood.propTypes = {

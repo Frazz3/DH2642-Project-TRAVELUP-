@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchAcc } from "../actions/accActions"
 import { addAccommodation } from "../actions/tripActions"
+import spinner from "../util";
 import BrowseAcc from "../components/BrowseAcc"
 
 const amenities = [{ label: "Free Internet", code: "free_internet" }, { label: "Free Parking", code: "free_parking" }, { label: "Restaurant", code: "restaurant" }, { label: "Free Breakfast", code: "free_breakfast" }, { label: "Wheelchair access", code: "wheelchair_access" }, { label: "Spa", code: "spa" }, { label: "Bar/Lounge", code: "bar_lounge" }, { label: "Fitness Center", code: "fitness_center" }, { label: "Room Service", code: "room_service" }, { label: "Swimming Pool", code: "swimming_pool" }, { label: "Airport Transportation", code: "airport_transportation" }, { label: "All", code: "all" }]
@@ -32,7 +33,6 @@ class BrowseAccContainer extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
-
 
     componentWillMount() {
         // fetches activityCategory from the location. No filtering.
@@ -112,43 +112,30 @@ class BrowseAccContainer extends React.Component {
 
     createCheckbox = (label, stateName, handleChange) => {
         return (
-          <FormControlLabel key={stateName}
-            // control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
-            control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
-      
-            label={label} />
-        )
-      }
-      
-      amenitiesCheckbox = (amenities, handleChange) => {
-        return (
-          <FormGroup row>
-            {amenities.map(obj => { return this.createCheckbox(obj.label, obj.code, handleChange) })}
-          </FormGroup>
-        )
-      };
-
-
-
-    spinner = () => {
-        return (
-            <div className="spinner" key="spinner">
-                <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-            </div>
+            <FormControlLabel key={stateName}
+                control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
+                label={label} />
         )
     }
+
+    amenitiesCheckbox = (amenities, handleChange) => {
+        return (
+            <FormGroup row>
+                {amenities.map(obj => { return this.createCheckbox(obj.label, obj.code, handleChange) })}
+            </FormGroup>
+        )
+    };
 
     render() {
         const { auth, location_id } = this.props;
         if (!auth.uid) return <Redirect to='/' />
         if (!location_id) return <Redirect to='/' />
 
-
         if (typeof this.props.accommodations === "undefined") {
             // tills vidare, vill kanske returnera mer
             return (
                 <div>
-                    {this.spinner()}
+                    {spinner()}
                 </div>
             )
         }
@@ -156,11 +143,9 @@ class BrowseAccContainer extends React.Component {
         return (
             <BrowseAcc
                 accommodations={this.props.accommodations}
-                amenities={amenities}
                 addAccommodation={this.addAccommodationToTrip}
                 accError={this.props.accError}
                 handleClick={this.handleClick}
-                handleChange={this.handleChange}
                 returnToBrowse={this.returnToBrowse}
                 getModal={this.getModal}
                 hideModal={this.hideModal}
@@ -187,13 +172,11 @@ const mapStateToProps = state => (
         accError: state.accommodations.accError
     })
 
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchAcc: (location_id, ameneties) => dispatch(fetchAcc(location_id, ameneties)),
+        fetchAcc: (location_id, amenities) => dispatch(fetchAcc(location_id, amenities)),
         addAccommodation: (accommodation) => dispatch(addAccommodation(accommodation))
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrowseAccContainer);
-// export default connect(mapStateToProps, { fetchAcc, addAccommodation })(BrowseAccContainer);

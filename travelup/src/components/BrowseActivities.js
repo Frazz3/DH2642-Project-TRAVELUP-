@@ -1,11 +1,8 @@
 import React from "react";
 import { Checkbox, FormGroup, FormControl, FormControlLabel, FormLabel, Button, Radio, RadioGroup } from '@material-ui/core';
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { fetchActivities } from "../actions/activityActions"
-import { addActivity } from "../actions/tripActions"
-import Modal from './Modal'
+import spinner from "../util";
+import Modal from './Modal';
 
 const BrowseActivities = ({
   activities,
@@ -57,7 +54,6 @@ const BrowseActivities = ({
 
 const activityItems = (activities, getModal) => {
  let items = activities.map(activity => {
-  //const activityItems = activitys_list.map(activity => {
    return ((activity.name && activity.photo )?  // kan behöva fler att filtrera på
     (
       <span key={activity.location_id}>
@@ -71,14 +67,6 @@ const activityItems = (activities, getModal) => {
 
   ):null)});
   return items;
-}
-
-const spinner = () => {
-  return (
-    <div className="spinner" key="spinner">
-      <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-    </div>
-  )
 }
 
 const createRadio = (label, stateName, code, category) => {

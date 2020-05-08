@@ -52,7 +52,6 @@ const tripReducer = (state = initState, action) => {
         restaurants: [...state.restaurants, action.restaurant]
       };
     case REMOVE_RESTAURANT:
-      console.log("restaurant removed");
       let restList = state.restaurants.filter(
         r => r.id !== action.restaurant.id
       );
@@ -66,20 +65,17 @@ const tripReducer = (state = initState, action) => {
         activities: [...state.activities, action.activity]
       };
     case REMOVE_ACTIVITY:
-      console.log("activity removed");
       let actList = state.activities.filter(a => a.id !== action.activity.id);
       return {
         ...state,
         activities: actList
       };
     case ADD_ACCOMMODATION:
-      console.log("added accommodation");
       return {
         ...state,
         accommodations: [...state.accommodations, action.accommodation]
       };
     case REMOVE_ACCOMMODATION:
-      console.log("accommodation removed");
       let accList = state.accommodations.filter(
         a => a.id !== action.accommodation.id
       );
@@ -88,24 +84,20 @@ const tripReducer = (state = initState, action) => {
         accommodations: accList
       };
     case RESET_TRIP: // reset the trip
-      console.log("reset trip");
       return initState;
 
     case ADD_RESTAURANTS:
-      console.log("restaurants added");
       return {
         ...state,
         restaurants: action.payload
       };
 
     case ADD_ACTIVITIES:
-      console.log("activities added");
       return {
         ...state,
         activities: action.payload
       };
     case ADD_ACCOMMODATIONS:
-      console.log("accommodations added");
       return {
         ...state,
         accommodations: action.payload

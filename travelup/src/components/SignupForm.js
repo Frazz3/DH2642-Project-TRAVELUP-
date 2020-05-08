@@ -31,7 +31,6 @@ const SignupForm = ({
           {authError ? <p>{authError}</p> : null}
         </div>
       </form>
-
     </div>
   );
 

@@ -3,8 +3,9 @@ import { Checkbox, FormGroup, FormControlLabel, FormLabel, } from '@material-ui/
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { fetchRestaurants } from "../actions/foodActions"
-import { addRestaurant } from "../actions/tripActions"
+import { fetchRestaurants } from "../actions/foodActions";
+import { addRestaurant } from "../actions/tripActions";
+import spinner from "../util";
 import BrowseFood from "../components/BrowseFood"
 
 class BrowseFoodContainer extends React.Component {
@@ -101,36 +102,34 @@ class BrowseFoodContainer extends React.Component {
 
     createCheckbox = (label, stateName, handleChange) => {
         return (
-          <FormControlLabel key={stateName}
-            control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
-            label={label} />
+            <FormControlLabel key={stateName}
+                control={<Checkbox checked={this.state.stateName} onChange={handleChange} name={stateName} />}
+                label={label} />
         )
-      }
-      
-      mealTypesCheckbox = (handleChange) => {
-        return (
-          <FormGroup row>
-            {this.createCheckbox("Breakfast", "breakfast", handleChange)}
-            {this.createCheckbox("Brunch", "brunch", handleChange)}
-            {this.createCheckbox("Lunch", "lunch", handleChange)}
-            {this.createCheckbox("Dinner", "dinner", handleChange)}
-            {this.createCheckbox("All", "allMealtype", handleChange)}
-          </FormGroup>
-        )
-      };
-      
-      priceCheckbox = (handleChange) => {
-        return (
-          <FormGroup row>
-            {this.createCheckbox("$", "cheap", handleChange)}
-            {this.createCheckbox("$$-$$$", "medium", handleChange)}
-            {this.createCheckbox("$$$$", "expensive", handleChange)}
-            {this.createCheckbox("All", "allPrice", handleChange)}
-          </FormGroup>
-        )
-      };
+    }
 
-    
+    mealTypesCheckbox = (handleChange) => {
+        return (
+            <FormGroup row>
+                {this.createCheckbox("Breakfast", "breakfast", handleChange)}
+                {this.createCheckbox("Brunch", "brunch", handleChange)}
+                {this.createCheckbox("Lunch", "lunch", handleChange)}
+                {this.createCheckbox("Dinner", "dinner", handleChange)}
+                {this.createCheckbox("All", "allMealtype", handleChange)}
+            </FormGroup>
+        )
+    };
+
+    priceCheckbox = (handleChange) => {
+        return (
+            <FormGroup row>
+                {this.createCheckbox("$", "cheap", handleChange)}
+                {this.createCheckbox("$$-$$$", "medium", handleChange)}
+                {this.createCheckbox("$$$$", "expensive", handleChange)}
+                {this.createCheckbox("All", "allPrice", handleChange)}
+            </FormGroup>
+        )
+    };
 
     addRestaurantToTrip = (restaurant) => {
         let rest = { id: restaurant.location_id, name: restaurant.name, price: restaurant.price, description: restaurant.description, location_id: restaurant.location_id, cuisine: restaurant.cuisine, website: restaurant.website, photo: restaurant.photo.images.small.url }
@@ -141,7 +140,6 @@ class BrowseFoodContainer extends React.Component {
         for (x of this.props.tripRestaurants) {
             // we have already added that restaurant
             if (x.id === restaurant.location_id) {
-                console.log("ALREADY ADDED")
                 duplicate = true;
                 this.getModal(restaurant, "c")
             }
@@ -153,18 +151,6 @@ class BrowseFoodContainer extends React.Component {
                 show: false
             })
         }
-
-        else {
-            console.log('do not add');
-        }
-    }
-
-    spinner = () => {
-        return (
-            <div className="spinner" key="spinner">
-                <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-            </div>
-        )
     }
 
     render() {
@@ -176,7 +162,7 @@ class BrowseFoodContainer extends React.Component {
             // tills vidare, vill kanske returnera mer
             return (
                 <div>
-                    {this.spinner()}
+                    {spinner()}
                 </div>
             )
         }
@@ -186,7 +172,6 @@ class BrowseFoodContainer extends React.Component {
                 restaurants={this.props.restaurants}
                 addRestaurant={this.addRestaurantToTrip}
                 handleClick={this.handleClick}
-                handleChange={this.handleChange}
                 returnToBrowse={this.returnToBrowse}
                 foodError={this.props.foodError}
                 getModal={this.getModal}

@@ -25,7 +25,6 @@ const LoginForm = ({
             {authError ? <p>{authError}</p> : null}
           </div>
         </form>
-
       </div>
     </React.Fragment>
   )

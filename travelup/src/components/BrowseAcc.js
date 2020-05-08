@@ -2,15 +2,14 @@ import React from "react";
 import { Checkbox, FormGroup, FormControl, FormControlLabel, InputLabel, FormLabel, Button, Select, MenuItem } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-import Modal from './Modal'
+import spinner from "../util";
+import Modal from './Modal';
 
 const BrowseAcc = ({
   accommodations,
-  amenities,
   addAccommodation,
   accError,
   handleClick,
-  handleChange,
   returnToBrowse,
   getModal,
   hideModal,
@@ -73,15 +72,6 @@ const accItems = (accommodations, getModal) => {
   });
   return items;
 }
-
-const spinner = () => {
-  return (
-    <div className="spinner" key="spinner">
-      <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-    </div>
-  )
-}
-
 
 BrowseAcc.propTypes = {
   accommodations: PropTypes.array.isRequired,

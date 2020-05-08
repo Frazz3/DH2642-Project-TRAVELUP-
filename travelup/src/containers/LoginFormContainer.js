@@ -13,10 +13,6 @@ class LoginFormContainer extends React.Component {
         }
     }
 
-    // handleClick = () => {
-    //   this.props.signOut();
-    // }
-
     handleChange = (e) => {
         this.setState({
             [e.target.id]: e.target.value
@@ -28,10 +24,6 @@ class LoginFormContainer extends React.Component {
 
         this.props.signIn(this.state); //this.state is the credentials (email and password) from the state of the class
     }
-
-    // handleClick = () => {
-    //   this.props.signOut();
-    // }
 
     render() {
         const { authError, auth } = this.props;
@@ -49,7 +41,6 @@ class LoginFormContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
     return {
         authError: state.auth.authError,
         auth: state.firebase.auth

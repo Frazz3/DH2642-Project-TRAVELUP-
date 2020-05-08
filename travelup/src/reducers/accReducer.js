@@ -7,23 +7,21 @@ const intitialState = {
 export default function accReducer(state = intitialState, action) {
   switch (action.type) {
     case FETCH_ACCOMMODATIONS:
-      console.log("fetching accommodations in reducer")
       return {
         ...state,
         items: action.payload,
         accError: false
       };
     case RESET_ACCOMMODATIONS:
-      console.log("reset accommodations before new fetch")
-      return{
+      return {
         items: [],
         accError: false
       }
     case FETCH_ACCOMMODATIONS_ERROR:
-      return{
+      return {
         ...state,
         accError: true
-      } 
+      }
 
     default:
       return state;

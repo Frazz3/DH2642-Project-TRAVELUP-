@@ -1,10 +1,10 @@
 import React from "react";
-import { Checkbox, FormGroup, FormControl, FormControlLabel, FormLabel, Button, Radio, RadioGroup } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { fetchActivities } from "../actions/activityActions";
 import { addActivity } from "../actions/tripActions";
+import spinner from "../util";
 import BrowseActivities from "../components/BrowseActivities";
 
 const activity_subcategories = [{ label: "Nightlife", code: "20", state: "nightlife" }, { label: "Shopping", code: "26", state: "shopping" }, { label: "Food & Drink", code: "36", state: "foodDrink" }, { label: "Spas & Wellness", code: "40", state: "spasWellness" }, { label: "Classes & Workshops", code: "41", state: "classesWorkshops" }, { label: "Tours", code: "42", state: "tours" }, { label: "Sights & Landmarks", code: "47", state: "sightsLandmarks" }, { label: "Zoos & Aquariums", code: "48", state: "zoosAquariums" }, { label: "Museums", code: "49", state: "museums" }, { label: "Water & Amusement Parks", code: "52", state: "waterAmusementParks" }, { label: "Casinos & Gambling", code: "53", state: "casinosGambling" }, { label: "Boat Tours & Water Sports", code: "55", state: "boatToursWaterSports" }, { label: "Fun & Games", code: "56", state: "funGames" }, { label: "Nature & Parks", code: "57", state: "natureParks" }, { label: "Concerts & Shows", code: "58", state: "concertsShows" }, { label: "Transportation", code: "59", state: "transportation" }, { label: "Traveler Resources", code: "60", state: "travelerResources" }, { label: "Outdoor Activities", code: "61", state: "outdoorActivities" }, { label: "Events", code: "62", state: "events" }, { label: "All", code: "0", state: "allCategories" }]
@@ -23,10 +23,8 @@ class BrowseActivitiesContainer extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-
     componentWillMount() {
         // fetches activityCategory from the location. No filtering.
-        //console.log(this.props.location_id)
         this.props.fetchActivities(this.props.location_id);
     }
 
@@ -100,7 +98,6 @@ class BrowseActivitiesContainer extends React.Component {
         for (x of this.props.tripActivities) {
             // we have already added that activity
             if (x.id === activity.location_id) {
-                console.log("ALREADY ADDED")
                 duplicate = true;
                 this.getModal(activity, "c")
             }
@@ -112,18 +109,6 @@ class BrowseActivitiesContainer extends React.Component {
                 show: false
             })
         }
-
-        else {
-            console.log('do not add');
-        }
-    }
-
-    spinner = () => {
-        return (
-            <div className="spinner" key="spinner">
-                <img src="http://www.csc.kth.se/~cristi/loading.gif"></img>
-            </div>
-        )
     }
 
     render() {
@@ -135,11 +120,10 @@ class BrowseActivitiesContainer extends React.Component {
             // tills vidare, vill kanske returnera mer
             return (
                 <div>
-                    {this.spinner()}
+                    {spinner()}
                 </div>
             )
         }
-
 
         return (
             <BrowseActivities
@@ -186,4 +170,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BrowseActivitiesContainer);
-// export default connect(mapStateToProps, { fetchActivities, addActivity })(BrowseActivitiesContainer);

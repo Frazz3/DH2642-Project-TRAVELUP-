@@ -18,7 +18,6 @@ const AllTrips = ({
       </div>
       {trips.map(trip => {
         return (
-
           <div key={trip.id} className="all_trips">
             <button
               className="delete_btn"

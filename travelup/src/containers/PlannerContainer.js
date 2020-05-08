@@ -1,11 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import { fetchLocation } from "../actions/plannerActions";
 import { resetTrip } from "../actions/tripActions";
 import { resetLocation } from "../actions/plannerActions"
-import { firestoreConnect } from "react-redux-firebase";
 import Planner from "../components/Planner";
 
 class PlannerContainer extends React.Component {
@@ -20,7 +18,6 @@ class PlannerContainer extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
 
     handleChange = (e) => {
         this.setState({ [e.target.id]: e.target.value })
@@ -37,7 +34,6 @@ class PlannerContainer extends React.Component {
         } else {
             this.newLocation();
         }
-
     }
 
     hideModal = () => {
@@ -53,7 +49,6 @@ class PlannerContainer extends React.Component {
             modalType: type
         })
     }
-
 
     newLocation = () => {
         //reset trip and location
@@ -82,7 +77,6 @@ class PlannerContainer extends React.Component {
     }
 }
 
-
 const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
@@ -90,13 +84,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-//behövde sign-out här för att kunna se så att redirecten funkar som den ska, ska senare tas bort
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchLocation: (destination) => dispatch(fetchLocation(destination)),
         resetTrip: () => dispatch(resetTrip()),
         resetLocation: () => dispatch(resetLocation())
-
     }
 }
 
