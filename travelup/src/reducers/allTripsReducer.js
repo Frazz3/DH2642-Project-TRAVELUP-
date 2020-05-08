@@ -20,10 +20,6 @@ import { GET_USER_TRIPS, GET_TRIPS_ERROR, REMOVE_TRIP, REMOVE_TRIP_ERROR } from 
 // };
 
 const allTripsReducer = (state = [], action) => {
-  console.log("STATE: ", state.allTrips);
-  console.log("TYPE: ", action.type);
-  console.log("PAYLOAD: ", action.payload);
-
   switch (action.type) {
     case GET_USER_TRIPS:
       return action.payload;

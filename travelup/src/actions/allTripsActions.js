@@ -18,7 +18,6 @@ export const firebaseGetUserTrips = (userID, getFirestore) => {
   // INPUT: DB userID
   // OUTPUT: Promise containing user's trips in DB
   const firestore = getFirestore();
-  console.log("Getting trips from DB with uID: ", userID);
 
   let userTrips = firestore
     .collection("users") // Ta fram användaren baserat på userID
@@ -29,7 +28,7 @@ export const firebaseGetUserTrips = (userID, getFirestore) => {
       let tripIDs = response.data().trips; // Array med användarens alla trip-IDn
       tripIDs.map(tripID => {
         if (tripID === "") {
-          console.log("Wrong format.");
+          console.log("Wrong tripID format.");
         } else {
           tripPromises.push(
             firestore
