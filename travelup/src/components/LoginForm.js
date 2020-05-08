@@ -8,7 +8,7 @@ const LoginForm = ({
   (
     <React.Fragment>
       <div className="container">
-        <form onSubmit={handleSubmit} className="white">
+        <form onSubmit={handleSubmit} className="input_form">
           <h5 className="grey-test test-darken-3">Sign in</h5>
           <div className="input-field">
             <label htmlFor="email">Email</label>

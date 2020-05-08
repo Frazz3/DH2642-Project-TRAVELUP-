@@ -4,10 +4,11 @@
   flex-direction: row;
   height: 800px;
   overflow: scroll;
-  background-color: "red";
+  background-color: #e0f2f1; 
   width:100%;
   
 }
+/* #b2dfdb */
 
 
 
@@ -43,12 +44,9 @@
 }
 
 .container {
-
-  /* min-width: 500px; */
-  /* max-width: 1000px; */
-  /* float: left; */
   padding: 5px; 
   margin: 5px;
+  background-color: #b2dfdb00;
 }
 
 .div {
@@ -106,7 +104,7 @@ const BUTTON_FONT_COLOR = "white"
 /* Buttons */
 .select_btn{
     top: 30%;
-    background-color: #239160;
+    background-color: #00897b;
     color: white;
     font-size: 16px;
     padding: 10px 20px;
@@ -119,7 +117,7 @@ const BUTTON_FONT_COLOR = "white"
     width: 350px;
     min-height: 300px;
     max-height: 400px;
-    background-color: #b2dfdb;
+    background-color: transparent;
     border: none;
     text-align: center;
     cursor: pointer;
@@ -136,7 +134,7 @@ const BUTTON_FONT_COLOR = "white"
     border: solid;
     text-align: center;
     cursor: pointer;
-    /* border-radius: 25px; */
+    border-radius: 5px;
     border-color: #009688;
     box-shadow: 5px 5px 5px grey;
     font-size: 12px;
@@ -161,24 +159,20 @@ const BUTTON_FONT_COLOR = "white"
 .delete_btn:hover {background-color: #155136}
 
 .element_delete_btn{
-  width: 15px;
   height: 15px;
-  float: right;
-  border-radius: 50%;
-  padding: 2px;
-  background-color: white;
-  border-color: rgb(113, 110, 110);
-  color: rgb(113, 110, 110);
-  cursor: pointer;
-  font-family: Arial;
-  font-weight: bolder;
+  width: 15px;
+  margin: 0px auto;
+  padding: 0px;
   text-align: center;
-  margin: 2px;
+  display: inline-block;
+  line-height: 7px;
+  background-color: transparent;
+  border-radius: 4px;
 }
-.element_delete_btn:hover {background-color: #f55656;}
+.element_delete_btn:hover {background-color: #26a69a;}
 
 .arrow_btn {
-  color: #26a69a;
+  color: #00897b;
   background-color: #b2dfdb00;
   font-size: 40px;
   border: none;
@@ -188,12 +182,12 @@ const BUTTON_FONT_COLOR = "white"
 .modal_btn{
   width: 100px;
     height: 50px;
-    background-color: #52BE80;
+    background-color: #26a69a;
     border: solid;
     text-align: center;
     cursor: pointer;
-    border-radius: 25px;
-    border-color: #239160;
+    border-radius: 5px;
+    border-color: #009688;
     box-shadow: 5px 5px 5px grey;
     font-size: 12px;
     text-align: center;
@@ -205,7 +199,7 @@ const BUTTON_FONT_COLOR = "white"
 
 /* Texts */
 .title_text {
-    color: #239160;
+    color: #00897b;
     padding: 10px;
     font-family: Arial;
     text-align: center;
@@ -248,7 +242,7 @@ const BUTTON_FONT_COLOR = "white"
 }
 
 .modal_title {
-  color: #239160;
+  color: #00897b;
   font-family: Arial;
   text-align: center;
   font-size: 30px;
@@ -273,7 +267,28 @@ const BUTTON_FONT_COLOR = "white"
 }
 
 .myTrip_text{
-  display:inline-block;
+  display: inline-block;
+}
+
+.info_text_start{
+  width: 60%;
+  text-align: center;
+  font-family: Arial;
+  font-size: 15px;
+  margin: auto;
+}
+
+.info_text_planner{
+  padding: 20px;
+  text-align: center;
+  font-family: Arial;
+  font-size: 15px;
+  margin: auto;
+}
+
+.input_label{
+  font-family: Arial;
+  font-size: 15px;
 }
 
 /* Images */
@@ -292,15 +307,15 @@ const BUTTON_FONT_COLOR = "white"
     width: 150px;
     float: left;
     border: 2px solid #239160;
-    box-shadow: 1px 1px 5px #888888;
+    box-shadow: 1px 1px 5px #e20a0a;
     display: flex;
     flex-direction: column;
     display: "flex";
-    border-radius: 8px;
+    border-radius: 5px;
 }
 
 .restaurantDiv {
-    width: 100%;
+  width: 100%;
 }
 
 .activityDiv {
@@ -314,7 +329,7 @@ const BUTTON_FONT_COLOR = "white"
 .all_trips {
   width: 350px;
   height: 500px;
-  background-color: #239160;
+  background-color: #00897b;
   overflow: scroll; 
   margin: auto;
   padding: 2px;
@@ -335,11 +350,11 @@ const BUTTON_FONT_COLOR = "white"
     width: 300px;
     display: flex;
     flex-direction: column;
-    border-radius: 8px;
-    border: 2px solid #239160;
+    border-radius: 5px;
+    border: 2px solid #00897b;
     box-shadow: 1px 1px 5px #888888;
     overflow: hidden;
-    background-color: #FFFFFF;
+    background-color: transparent;
   }
 
 .containerSection {
@@ -350,7 +365,7 @@ const BUTTON_FONT_COLOR = "white"
   width: 500px;
   height: 350px;
   box-shadow: 1px 1px 5px #888888;
-  background-color: #FFF;
+  background-color: #e0f2f1;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -359,4 +374,9 @@ const BUTTON_FONT_COLOR = "white"
   padding: 15px;
   align-items: center;
   justify-content: center;
+}
+
+/* Forms */
+.input_form{
+  background-color: transparent;
 }

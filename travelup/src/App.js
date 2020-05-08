@@ -28,11 +28,11 @@ class App extends Component {
             <Navbar />
 
             <div className="App">
-              <div class="container-fluid">
-                <div class="row">
+              <div class="container-fluid bg-transperant">
+                <div class="row bg-transperant">
                   <div
                     className="mainCont"
-                    class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12"
+                    class="col col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 bg-transperant"
                   >
                     <Switch>
                       <Route
@@ -80,7 +80,7 @@ class App extends Component {
                       />
                     </Switch>
                   </div>
-                  <div className="myTrip" class="col col-xl-3 col-lg-3">
+                  <div className="myTrip" class="col col-xl-3 col-lg-3 bg-transperant">
                     <MyTripContainer />
                   </div>
                 </div>

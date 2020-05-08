@@ -6,7 +6,7 @@ const SignupForm = ({
   authError
 }) => (
     <div className="container">
-      <form onSubmit={handleSubmit} className="white">
+      <form onSubmit={handleSubmit} className="input_form">
         <h5 className="grey-test test-darken-3">Sign up</h5>
         <div className="input-field">
           <label htmlFor="email">Email</label>
@@ -18,11 +18,11 @@ const SignupForm = ({
         </div>
         <div className="input-field">
           <label htmlFor="fistName">First Name</label>
-          <input type="text" id="firstName" onChange={handleChange} />
+          <input type="text" id="firstName" onChange={handleChange} required/>
         </div>
         <div className="input-field">
           <label htmlFor="lastName">Last Name</label>
-          <input type="text" id="lastName" onChange={handleChange} />
+          <input type="text" id="lastName" onChange={handleChange} required/>
         </div>
         <div className="input-field">
           <button className="small_btn">Sign up</button>
