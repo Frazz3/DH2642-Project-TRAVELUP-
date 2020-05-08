@@ -19,8 +19,6 @@ import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
 
 import store, { rrfProps } from "./store";
 
-// start är main-page. Den första sidan man kommer till när appen startas
-// vi behöver ha en ReactReducFirebaseProvider runt vårt projekt för att koppla till firebase (som jag fattat det, ej säker) /Stina
 class App extends Component {
   render() {
     return (

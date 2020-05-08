@@ -11,11 +11,11 @@ class SearchSelectionsContainer extends React.Component {
         this.state = {
             location: this.props.location
         }
-
     }
 
-    returnToPlanner = () => {
-        this.props.history.push("/planner")
+    goToLink = (link) => {
+        // Input format: "/linkString"
+        this.props.history.push(link);
     }
 
     render() {
@@ -31,8 +31,8 @@ class SearchSelectionsContainer extends React.Component {
                 location={this.props.location}
                 locationError={this.props.locationError}
                 errorMessage={this.props.errorMessage}
-                returnToPlanner={this.returnToPlanner}
-                history={this.props.history}
+                goToLink={this.goToLink}
+            // history={this.props.history}
             />
         )
     }

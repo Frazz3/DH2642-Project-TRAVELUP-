@@ -4,8 +4,7 @@ const SearchSelections = ({
     location,
     locationError,
     errorMessage,
-    returnToPlanner,
-    history
+    goToLink
 }) => (
         <React.Fragment>
             {
@@ -17,7 +16,7 @@ const SearchSelections = ({
                     ((locationError) ?
                         (<div>
                             <div className="error_text">We could not find a location that matches {errorMessage}, try again please.</div>
-                            <button className="arrow_btn" onClick={() => returnToPlanner()} >&#8592;</button>
+                            <button className="arrow_btn" onClick={() => goToLink("/planner")} >&#8592;</button>
                         </div>)
                         :
                         (<div className="container">
@@ -25,11 +24,11 @@ const SearchSelections = ({
                                 <h1 className="title_text" >Let's plan your trip to {location}</h1>
                             </div>
                             <div>
-                                {createButton(images[0], "/food", history)}
+                                {createButton(images[0], "/food", goToLink)}
                                 <br /><br />
-                                {createButton(images[1], "/accommodations", history)}
+                                {createButton(images[1], "/accommodations", goToLink)}
                                 <br /><br />
-                                {createButton(images[2], "/activities", history)}
+                                {createButton(images[2], "/activities", goToLink)}
                             </div>
                         </div>
                         ))
@@ -37,18 +36,16 @@ const SearchSelections = ({
         </React.Fragment>
     )
 
-
-const createButton = (image, link, history) => {
+const createButton = (image, link, goToLink) => {
     console.log("HEJSAN");
     return (
-        <button className="select_btn" disabled={image.disable} onClick={() => history.push(link)}>
+        <button className="select_btn" disabled={image.disable} onClick={() => goToLink(link)}>
             {image.title}
             <br />
             <img className="select_img" src={image.url} />
         </button>
     )
 }
-
 
 // Images taken from  Unsplash
 // Restaurants: https://unsplash.com/@jaywennington
