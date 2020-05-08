@@ -84,12 +84,6 @@ export const removeActivity = activity => {
   };
 };
 
-export const removeActivity = activity => {
-  return dispatch => {
-    dispatch({ type: REMOVE_ACTIVITY, activity: activity });
-  };
-};
-
 export const addAccommodation = accommodation => {
   return dispatch => {
     dispatch({ type: ADD_ACCOMMODATION, accommodation: accommodation });

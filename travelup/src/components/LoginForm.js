@@ -1,76 +1,33 @@
 import React from "react";
-import { connect } from 'react-redux';
-import { signIn, signOut } from '../actions/authActions'
-import { Redirect } from "react-router-dom";
 
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: ''
-    }
-  }
+const LoginForm = ({
+  authError,
+  handleSubmit,
+  handleChange
+}) =>
+  (
+    <React.Fragment>
+      <div className="container">
+        <form onSubmit={handleSubmit} className="white">
+          <h5 className="grey-test test-darken-3">Sign in</h5>
+          <div className="input-field">
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" onChange={handleChange} />
+          </div>
+          <div className="input-field">
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" onChange={handleChange} />
+          </div>
+          <div className="input-field">
+            <button className="small_btn">Login</button>
+          </div>
+          <div>
+            {authError ? <p>{authError}</p> : null}
+          </div>
+        </form>
 
-  handleChange = (e)=>{
-    this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
-
-  handleSubmit = (e)=>{
-    e.preventDefault(); //prevent submitting the default values
-    
-    this.props.signIn(this.state); //this.state is the credentials (email and password) from the state of the class
-  }
-
-  // handleClick = () => {
-  //   this.props.signOut();
-  // }
-
-
-  render() {
-    const { authError, auth } = this.props;
-    
-    //want to redirect to the planner if we are logged in
-    if (auth.uid) return <Redirect to='/planner' />
-
-    return (
-    <div className = "container"> 
-    <form onSubmit={this.handleSubmit} className="white">
-      <h5 className="grey-test test-darken-3">Sign in</h5>
-      <div className="input-field">
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" onChange={this.handleChange}/>
       </div>
-      <div className="input-field">
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" onChange={this.handleChange}/>
-      </div>
-      <div className="input-field">
-        <button className="small_btn">Login</button>
-      </div>
-      <div>
-        { authError ? <p>{authError}</p> : null}
-      </div>
-    </form>
+    </React.Fragment>
+  )
 
-    </div>);
-  }
-}
-
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    authError: state.auth.authError,
-    auth: state.firebase.auth
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    signIn: (creds) => dispatch(signIn(creds)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default LoginForm;

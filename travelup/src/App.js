@@ -3,17 +3,16 @@ import "./App.css";
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import { Provider } from "react-redux";
 
+import LoginFormContainer from "./containers/LoginFormContainer";
+import SignupFormContainer from "./containers/SignupFormContainer";
+import StartContainer from "./containers/StartContainer";
+import PlannerContainer from "./containers/PlannerContainer";
+import BrowseFoodContainer from "./containers/BrowseFoodContainer";
+import BrowseActivitiesContainer from "./containers/BrowseActivitiesContainer";
+import BrowseAccContainer from "./containers/BrowseAccContainer";
 import AllTripsContainer from "./containers/AllTripsContainer";
-
-import LoginForm from "./components/LoginForm.js";
-import SignupForm from "./components/SignupForm.js";
-import Start from "./components/Start.js";
-import Planner from "./components/Planner";
-import BrowseFood from "./components/BrowseFood.js";
-import BrowseActivities from "./components/BrowseActivities.js";
-import BrowseAcc from "./components/BrowseAcc.js";
-import MyTrip from "./components/MyTrip";
-import SearchSelections from "./components/SearchSelections";
+import MyTripContainer from "./containers/MyTripContainer";
+import SearchSelectionsContainer from "./containers/SearchSelectionsContainer";
 import Navbar from "./components/Navbar";
 
 import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
@@ -41,35 +40,35 @@ class App extends Component {
                       <Route
                         path="/logIn"
                         render={props => (
-                          <LoginForm {...props} className="auth" />
+                          <LoginFormContainer {...props} className="auth" />
                         )}
                       />
                       <Route
                         path="/signUp"
                         render={props => (
-                          <SignupForm {...props} className="auth" />
+                          <SignupFormContainer {...props} className="auth" />
                         )}
                       />
                       <Route
                         path="/"
-                        render={props => <Start {...props} className="auth" />}
+                        render={props => <StartContainer {...props} className="auth" />}
                         exact
                       />
                       <Route
                         path="/planner"
-                        render={props => <Planner {...props} />}
+                        render={props => <PlannerContainer {...props} />}
                       />
                       <Route
                         path="/food"
-                        render={props => <BrowseFood {...props} />}
+                        render={props => <BrowseFoodContainer {...props} />}
                       />
                       <Route
                         path="/activities"
-                        render={props => <BrowseActivities {...props} />}
+                        render={props => <BrowseActivitiesContainer {...props} />}
                       />
                       <Route
                         path="/accommodations"
-                        render={props => <BrowseAcc {...props} />}
+                        render={props => <BrowseAccContainer {...props} />}
                       />
                       <Route
                         path="/allTrips"
@@ -78,13 +77,13 @@ class App extends Component {
                       <Route
                         path="/select"
                         render={props => (
-                          <SearchSelections {...props} myTrip={MyTrip} />
+                          <SearchSelectionsContainer {...props} myTrip={MyTripContainer} />
                         )}
                       />
                     </Switch>
                   </div>
                   <div className="myTrip" class="col col-xl-3 col-lg-3">
-                    <MyTrip />
+                    <MyTripContainer />
                   </div>
                 </div>
               </div>
