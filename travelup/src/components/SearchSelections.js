@@ -15,7 +15,7 @@ const SearchSelections = ({
                     :
                     ((locationError) ?
                         (<div>
-                            <div className="error_text">We could not find a location that matches {errorMessage}, try again please.</div>
+                            <div className="error_text">We could not find a location that matches {errorMessage}, please try again.</div>
                             <button className="arrow_btn" onClick={() => goToLink("/planner")} >&#8592;</button>
                         </div>)
                         :
@@ -37,7 +37,6 @@ const SearchSelections = ({
     )
 
 const createButton = (image, link, goToLink) => {
-    console.log("HEJSAN");
     return (
         <button className="select_btn" disabled={image.disable} onClick={() => goToLink(link)}>
             {image.title}

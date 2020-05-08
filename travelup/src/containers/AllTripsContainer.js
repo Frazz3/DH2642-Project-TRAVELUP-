@@ -51,23 +51,21 @@ class AllTripsContainer extends React.Component {
 
   deleteTheTrip = tripID => {
     this.props.deleteTrip(tripID, this.props.userID);
-      this.setState({
-        show:false
-      })
-    
+    this.setState({
+      show: false
+    })
   }
 
   editTheTrip = tripID => {
     if (this.props.locationID !== null) {
-      this.getModal(tripID,"finnish")
+      this.getModal(tripID, "finish")
     } else {
       this.props.editTrip(tripID, this.props.userID);
       this.setState({
-        show:false
+        show: false
       })
       this.props.history.push('/select');
       //this.props.deleteTrip(tripID, this.props.userID);
-    
     }
   };
 
@@ -90,7 +88,6 @@ class AllTripsContainer extends React.Component {
 }
 const mapStateToProps = state => {
   // returns a prop object
-  // stateMember: state.stateMember (as mapped in rootreducer).reducerProperty
   return {
     auth: state.firebase.auth,
     userID: state.firebase.auth.uid,

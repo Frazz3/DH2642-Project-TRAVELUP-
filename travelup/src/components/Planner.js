@@ -14,7 +14,7 @@ const Planner = ({
       <div className="container">
         <form onSubmit={handleSubmit}>
           <div className="input-field">
-            <label htmlFor="destination">Insert Destination:</label>
+            <label htmlFor="destination">Type your Destination: </label>
             <input type="" id="destination" onChange={handleChange} />
           </div>
           <div className="input-field">

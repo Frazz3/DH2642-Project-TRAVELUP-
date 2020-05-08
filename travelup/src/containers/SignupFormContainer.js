@@ -26,13 +26,11 @@ class SignupFormContainer extends React.Component {
         this.props.signUp(this.state);
     }
 
-
     render() {
 
         // om vi är inloggad ska vi inte kunna signa up
         const { auth } = this.props;
         if (auth.uid) return <Redirect to='/planner' />
-
 
         return (
             <SignupForm

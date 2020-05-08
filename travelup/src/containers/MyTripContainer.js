@@ -8,10 +8,9 @@ class MyTripContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        // osäker om jag kan connecta från mapStateToProps till denna med?
         this.state = {
-            country: "", // måste ha pga databasen, kanske ändra sen
-            city: "", // måste ha pga databasen, kanske ändra sen
+            country: "",
+            city: "",
             location: this.props.location,
             author: this.props.author,
             restaurants: this.props.restaurants,
@@ -91,11 +90,7 @@ class MyTripContainer extends React.Component {
             accommodations: this.props.accommodations
         }
 
-
-        // ska nollställa alla states med trips, vi börjar på nytt
-
         this.props.createTrip(tripToCreate, this.props.userID);
-        //this.props.createTrip(this.state, this.props.userID);
     };
 
     render() {
@@ -140,7 +135,6 @@ const mapStateToProps = state => {
 
     };
 };
-
 
 const mapDispatchToProps = dispatch => {
     return {

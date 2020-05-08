@@ -13,21 +13,18 @@ class StartContainer extends React.Component {
     }
 
     handleClickLogin = () => {
-        console.log('login')
         this.setState({
             action: 'login'
         })
     }
 
     handleClickSignUp = () => {
-        console.log('signup')
         this.setState({
             action: 'signup'
         })
     }
 
     render() {
-
         // om vi är inloggade ska vi inte kunna gå tillbaka till start-sidan
         const { auth } = this.props;
         if (auth.uid) return <Redirect to='/planner' />
