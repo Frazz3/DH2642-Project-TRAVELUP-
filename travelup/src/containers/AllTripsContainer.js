@@ -54,15 +54,13 @@ class AllTripsContainer extends React.Component {
       this.setState({
         show:false
       })
-      
-      console.log("the trip is deleted, id: ", tripID);
+    
   }
 
   editTheTrip = tripID => {
     if (this.props.locationID !== null) {
       this.getModal(tripID,"finnish")
     } else {
-      console.log("editing the trip");
       this.props.editTrip(tripID, this.props.userID);
       this.setState({
         show:false

@@ -36,7 +36,6 @@ class BrowseAccContainer extends React.Component {
 
     componentWillMount() {
         // fetches activityCategory from the location. No filtering.
-        //console.log(this.props.location_id)
         this.props.fetchAcc(this.props.location_id);
     }
 
@@ -76,17 +75,14 @@ class BrowseAccContainer extends React.Component {
     }
 
     addAccommodationToTrip = (acc) => {
-        console.log("ADDING ACC")
         let accommodation = { id: acc.location_id, name: acc.name, price: acc.price, location_id: acc.location_id, photo: acc.photo.images.small.url }
 
         // don't want to add duplicates (not sure where to put this, here or in the reducer?)
         let duplicate = false;
         let x;
         for (x of this.props.tripAccommodations) {
-            console.log(x.id)
             // we have already added that activity
             if (x.id === acc.location_id) {
-                console.log("ALREADY ADDED")
                 duplicate = true;
                 this.getModal(acc, "c")
             }
@@ -97,10 +93,6 @@ class BrowseAccContainer extends React.Component {
             this.setState({
                 show: false
             })
-        }
-
-        else {
-            console.log('do not add');
         }
     }
 
@@ -160,8 +152,6 @@ class BrowseAccContainer extends React.Component {
                 </div>
             )
         }
-
-        //   console.log('items', accItems)
 
         return (
             <BrowseAcc

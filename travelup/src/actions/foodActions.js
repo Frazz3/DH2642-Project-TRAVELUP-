@@ -13,7 +13,6 @@ export const fetchRestaurants = (location_id, restaurant_mealtype = "all", price
     })
   .then(response => response.json())
   .then(data => {
-    console.log('data.data ', data.data)
     if(!data.data || (data.data.length === 0)){
       dispatch({
         type: FETCH_RESTAURANTS_ERROR
@@ -24,7 +23,6 @@ export const fetchRestaurants = (location_id, restaurant_mealtype = "all", price
       payload: data.data
   })}})
   .catch(err => {
-    console.log('error in fetching restaurants ', err)
     dispatch({
       type: FETCH_RESTAURANTS_ERROR
     })

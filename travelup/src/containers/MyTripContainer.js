@@ -64,8 +64,6 @@ class MyTripContainer extends React.Component {
         // need to make sure that no undefined fields are present (only works for restaurants right now)
         this.props.restaurants.map(rest => {
             Object.keys(rest).map(function (key, index) {
-                console.log(key);
-                console.log(rest[key]);
                 if (typeof rest[key] === "undefined") {
                     rest[key] = "";
                 }
@@ -74,8 +72,6 @@ class MyTripContainer extends React.Component {
 
         this.props.activities.map(act => {
             Object.keys(act).map(function (key, index) {
-                console.log(key);
-                console.log(act[key]);
                 if (typeof act[key] === "undefined") {
                     act[key] = "";
                 }
@@ -129,7 +125,6 @@ class MyTripContainer extends React.Component {
 };
 
 const mapStateToProps = state => {
-    console.log("map state");
     return {
         country: "",
         city: "",
