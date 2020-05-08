@@ -39,35 +39,24 @@ The user can choose a location where a trip should be planned. Once the location
 
 **Create a trip**
 
-From the information of the API call, the user can choose restaurants to add to the trip. Once the user is pleased with the content of the trip, the user can create that trip. Then the trip is added to Cloud Firestore and associated with the user that created it.
+From the information of the API call, a user can choose restaurants, accommodations and activities to add to a trip. Once the user is pleased with the content of the trip, the user can create that trip. Then the trip is added to Cloud Firestore and associated with the user that created it.
 
 
 **Display all trips**
 
-All trips that the user has created is displayed. This is done by fetching all the trips from firestore that is connected to the specified user.
+All trips that the user has created is displayed. This is done by fetching all the trips from firestore that is connected to the specified user. The user can edit and delete created trips as well.
 
 
 **Navigation bar**
 
 A navigation bar at the top of the application. Depending of the state of the application (if a user if authenticated or not) there is a different content of the bar. This enables easy navigator for the user on the page.
 
-
-## Future work
-
-* Implement functionality to add activities and accommodation to your trip
-* Improvements of the UI (Use Material-UI)
-* Feedback when a trip is created
-* Automated log out after a specified time
-* Be able to delete trips
-* Be able to delete a specific restaurant/activity/accommodation in the "my trip" sidebar
-* Be able to rate a trip
-* Implement a "setting view" for the account
-* Implement a "previous trips view"
-* Show "popular trips" (for all users)
-* Button on each restaurant etc. to add it to my trip
-* Button to show details about the restaurant etc.
-* Search for a specific restaurant, accommodation or activity
-
+## How to set up
+1. Clone this repository
+2. Make sure you have npm (Node Package Manager) installed on your computer
+3. Navigate to the travelup-folder
+3. Run ```npm i``` from the terminal to install all neccessary packages
+4. Run ```npm start``` from the terminal to start the application
 
 ## Project file structure
 <pre>
