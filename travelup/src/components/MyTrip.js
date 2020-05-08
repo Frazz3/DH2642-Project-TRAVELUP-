@@ -33,7 +33,7 @@ const MyTrip = ({
                     <div key={rest.location_id} className="myTrip_text" onClick={() => getModal(rest, "o")}>
                       - {rest.name}</div>
                     <div className="myTrip_text">
-                      <button className="element_delete_btn" onClick={() => removeRestaurantFromList(rest)}>x</button>
+                      <button className="element_delete_btn" onClick={() => removeRestaurantFromList(rest)}>-</button>
                     </div>
                   </div>
                 )
@@ -47,7 +47,7 @@ const MyTrip = ({
                 return (
                   <div><div key={act.location_id} className="myTrip_text" onClick={() => getModal(act, "o")}>
                     - {act.name}</div>
-                    <div className="myTrip_text"><button className="element_delete_btn" onClick={() => removeActivityFromList(act)}>x</button>
+                    <div className="myTrip_text"><button className="element_delete_btn" onClick={() => removeActivityFromList(act)}>-</button>
                     </div></div>
                 )
               }) : null
@@ -60,7 +60,7 @@ const MyTrip = ({
                 return (
                   <div><div key={acc.location_id} className="myTrip_text" onClick={() => getModal(acc, "o")}>
                     - {acc.name}</div>
-                    <div className="myTrip_text"><button className="element_delete_btn" onClick={() => removeAccommodationFromList(acc)}>x</button>
+                    <div className="myTrip_text"><button className="element_delete_btn" onClick={() => removeAccommodationFromList(acc)}>-</button>
                     </div></div>
                 )
               }) : null
