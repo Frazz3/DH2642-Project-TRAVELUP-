@@ -10,9 +10,10 @@
 * Stina Långström (stinalan@kth.se)
 
 ### Deployed app
-(You need to have **Redux DevTools** installed in your browser in order to run this)
 
 [TravelUp](https://travelup-2fcd0.web.app/)
+
+(If you experience any problems, try to install **Redux DevTools** in your browser)
 
 ## Description of the project
 TRAVELUP is a web application with features such as planning an upcoming trip, review your custom trips and view previous trips you have done. The application uses the TripAdvisor API and is developed in React-Redux with connection to Firebase and cloud Firestore. The application requires the user to sign up for an account in order to be able to use it and to create new trips which could be add to your personal trip collection. All you have to do is to specify a city where you are going on a trip, choose whether you want browse through different restaurants, accommodations or activities and thereafter add the desired restaurant/hotel/activity to your custom-made trip. You are able to add as many restaurants/hotels/activities as you like and to filter them by price, ratings etc. in order to match your specific requirements and preferences. We are here to help you plan the best trip you can imagine!
@@ -55,11 +56,10 @@ A navigation bar at the top of the application. Depending of the state of the ap
 
 ## How to set up
 1. Clone this repository
-2. Make sure you have Redux DevTools installed in your browser
-3. Make sure you have npm (Node Package Manager) installed on your computer
-4. Navigate to the travelup-folder
-5. Run ```npm i``` from the terminal to install all neccessary packages
-6. Run ```npm start``` from the terminal to start the application
+2. Make sure you have npm (Node Package Manager) installed on your computer
+3. Navigate to the travelup-folder
+4. Run ```npm i``` from the terminal to install all neccessary packages
+5. Run ```npm start``` from the terminal to start the application
 
 ## Project file structure
 <pre>
